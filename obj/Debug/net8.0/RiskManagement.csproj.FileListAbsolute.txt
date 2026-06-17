@@ -18,9 +18,7 @@ C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\obj\Debug\ne
 C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\obj\Debug\net8.0\rjimswa.dswa.cache.json
 C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
 C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
-C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\obj\Debug\net8.0\scopedcss\bundle\RiskManagement.styles.css
-C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\obj\Debug\net8.0\scopedcss\projectbundle\RiskManagement.bundle.scp.css
 C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\obj\Debug\net8.0\staticwebassets.build.json.cache
 C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\obj\Debug\net8.0\staticwebassets.development.json
@@ -31,3 +29,5 @@ C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\obj\Debug\ne
 C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\obj\Debug\net8.0\RiskManagement.pdb
 C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\obj\Debug\net8.0\RiskManagement.genruntimeconfig.cache
 C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\obj\Debug\net8.0\ref\RiskManagement.dll
+C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\bin\Debug\net8.0\libman.json
+C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\obj\Debug\net8.0\RiskManagement.sourcelink.json
