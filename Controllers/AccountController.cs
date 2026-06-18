@@ -1,7 +1,9 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using RiskManagement.Mail.Models;
+using RiskManagement.Account.Models;
 using RiskManagement.Services;
+using RiskManagement.Data;
 
 namespace RiskManagement.Controllers
 {
@@ -12,11 +14,13 @@ namespace RiskManagement.Controllers
 
         private readonly IMailService _mailService;
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly AppDBContext _context;
 
-        public AccountController(IMailService mailService, IHttpClientFactory httpClientFactory)
+        public AccountController(IMailService mailService, IHttpClientFactory httpClientFactory, AppDBContext context)
         {
             _mailService = mailService;
             _httpClientFactory = httpClientFactory;
+            _context = context;
         }
 
         [HttpGet]
@@ -35,6 +39,32 @@ namespace RiskManagement.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost("adduser")]
+public async Task<IActionResult> AddUser([FromBody] CreateUserDto dto)
+{
+    var user = new User
+    {
+        FullName = dto.FullName,
+        Email = dto.Email,
+        Phone = dto.Phone,
+        Status = dto.Status,
+        Role = dto.Role,
+        CreatedOn = DateTime.UtcNow
+    };
+
+    await _context.Users.AddAsync(user);
+    await _context.SaveChangesAsync();
+
+    return Ok(new
+    {
+        message = "User added successfully",
+        data = user
+    });
+}
+
+
+
 
     }
 }
