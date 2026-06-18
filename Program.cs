@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 builder.Services.AddTransient<IMailService, MailService>();
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
