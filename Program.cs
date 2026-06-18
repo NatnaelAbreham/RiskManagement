@@ -1,7 +1,13 @@
+using RiskManagement.Services;
+using RiskManagement.Mail;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+builder.Services.AddTransient<IMailService, MailService>();
+
 
 var app = builder.Build();
 
