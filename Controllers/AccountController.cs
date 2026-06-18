@@ -8,7 +8,7 @@ using RiskManagement.Data;
 namespace RiskManagement.Controllers
 {
     [ApiController]
-    [Route("mail")]
+    [Route("[controller]")]
     public class AccountController : Controller
     {
 
@@ -41,27 +41,27 @@ namespace RiskManagement.Controllers
         }
 
         [HttpPost("adduser")]
-public async Task<IActionResult> AddUser([FromBody] CreateUserDto dto)
-{
-    var user = new User
-    {
-        FullName = dto.FullName,
-        Email = dto.Email,
-        Phone = dto.Phone,
-        Status = dto.Status,
-        Role = dto.Role,
-        CreatedOn = DateTime.UtcNow
-    };
+        public async Task<IActionResult> AddUser([FromBody] CreateUserDto dto)
+        {
+            var user = new User
+            {
+                FullName = dto.FullName,
+                Email = dto.Email,
+                Phone = dto.Phone,
+                Status = dto.Status,
+                Role = dto.Role,
+                CreatedOn = DateTime.UtcNow
+            };
 
-    await _context.Users.AddAsync(user);
-    await _context.SaveChangesAsync();
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
 
-    return Ok(new
-    {
-        message = "User added successfully",
-        data = user
-    });
-}
+            return Ok(new
+            {
+                message = "User added successfully",
+                data = user
+            });
+        }
 
 
 
