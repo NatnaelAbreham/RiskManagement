@@ -1,4 +1,4 @@
-namespace MailerApi.Models
+namespace RiskManagement.Mail.Models
 {
     public class MailRequest
     {
