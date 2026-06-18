@@ -1,5 +1,5 @@
 using RiskManagement.Services;
-using RiskManagement.Mail;
+using RiskManagement.Mail.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +7,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 builder.Services.AddTransient<IMailService, MailService>();
-
 
 var app = builder.Build();
 

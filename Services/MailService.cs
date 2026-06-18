@@ -1,73 +1,61 @@
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using Microsoft.Extensions.Options;
 using RiskManagement.Mail.Models;
 
 namespace RiskManagement.Services
 {
-     public interface IMailService
- {
-     Task<MailResponse> SendEmailAsync(MailRequest request);
- }
+    public interface IMailService
+    {
+        Task<MailResponse> ValidateOutlookCredentialsAsync(
+            string email,
+            string password);
+    }
 
- public class MailService : IMailService
- {
-     private readonly MailSettings _settings;
+    public class MailService : IMailService
+    {
+        private readonly MailSettings _settings;
 
-     public MailService(IOptions<MailSettings> settings)
-     {
-         _settings = settings.Value;
-     }
+        public MailService(IOptions<MailSettings> settings)
+        {
+            _settings = settings.Value;
+        }
 
-     public async Task<MailResponse> SendEmailAsync(MailRequest request)
-     {
-         try
-         {
-             var email = new MimeMessage();
-             email.From.Add(new MailboxAddress(_settings.SenderName, _settings.SenderEmail));
-             email.To.Add(MailboxAddress.Parse(request.ToEmail));
-             email.Subject = request.Subject;
-             email.Body = new BodyBuilder { HtmlBody = request.Body }.ToMessageBody();
+        public async Task<MailResponse> ValidateOutlookCredentialsAsync(
+            string email,
+            string password)
+        {
+            try
+            {
+                using var smtp = new SmtpClient();
 
-             using var smtp = new SmtpClient();
+                await smtp.ConnectAsync(
+                    _settings.EmailHost,
+                    _settings.EmailPort,
+                    _settings.EnableSsl
+                        ? SecureSocketOptions.StartTls
+                        : SecureSocketOptions.None);
 
-             await smtp.ConnectAsync(
-                 _settings.EmailHost,
-                 _settings.EmailPort,
-                 _settings.EnableSsl ? SecureSocketOptions.StartTls : SecureSocketOptions.None
-             );
+                await smtp.AuthenticateAsync(
+                    email,
+                    password);
 
-             smtp.AuthenticationMechanisms.Remove("XOAUTH2");
-             smtp.AuthenticationMechanisms.Remove("LOGIN");
-             smtp.AuthenticationMechanisms.Remove("PLAIN");
+                await smtp.DisconnectAsync(true);
 
-             if (_settings.SMTPUseDefaultCredentials)
-             {
-                 var ntlm = new SaslMechanismNtlm(System.Net.CredentialCache.DefaultNetworkCredentials);
-                 await smtp.AuthenticateAsync(ntlm);
-             }
-             else if (!string.IsNullOrEmpty(_settings.EmailUserName))
-             {
-                 var ntlm = new SaslMechanismNtlm(_settings.EmailUserName, _settings.EmailPassword);
-                 await smtp.AuthenticateAsync(ntlm);
-             }
-
-             await smtp.SendAsync(email);
-             await smtp.DisconnectAsync(true);
-
-             // You can log the last SMTP response
-             var lastResponse = smtp.Capabilities.ToString(); // optional, for debug
-             return new MailResponse
-             {
-                 Success = true,
-                 Message = "Email sent successfully. SMTP server response: OK"
-             };
-         }
-         catch (Exception ex)
-         {
-             return new MailResponse
-             {
-                 Success = false,
-                 Message = ex.Message
-             };
-         }
-     }
- }
+                return new MailResponse
+                {
+                    Success = true,
+                    Message = "Authentication successful."
+                };
+            }
+            catch (Exception ex)
+            {
+                return new MailResponse
+                {
+                    Success = false,
+                    Message = ex.Message
+                };
+            }
+        }
+    }
 }
