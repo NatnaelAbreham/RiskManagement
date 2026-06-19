@@ -4,6 +4,7 @@ using RiskManagement.Mail.Models;
 using RiskManagement.Account.Models;
 using RiskManagement.Services;
 using RiskManagement.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace RiskManagement.Controllers
 {
@@ -62,9 +63,54 @@ namespace RiskManagement.Controllers
                 data = user
             });
         }
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] OutlookLoginRequest request)
+        {
+            // 1. Whitelist check
+            var user = await _context.Users
+                .FirstOrDefaultAsync(x => x.Email == request.Email);
 
+            if (user == null)
+            {
+                return Unauthorized(new
+                {
+                    success = false,
+                    message = "Access denied, user do not have access on the platform."
+                });
+            }
 
+            // 2. Outlook validation
+            var result = await _mailService.ValidateOutlookCredentialsAsync(
+                request.Email,
+                request.Password);
 
+            if (!result.Success)
+            {
+                return Unauthorized(new
+                {
+                    success = false,
+                    message = "The user name or password you entered isn't correct. Try entering it again."
+                });
+            }
 
+            // 3. Success response
+            return Ok(new
+            {
+                success = true,
+                message = "Login successful",
+                user = new
+                {
+                    user.FullName,
+                    user.Email,
+                    user.Phone,
+                    user.Role,
+                    user.Status
+                }
+            });
+        }
+        private async Task<MailResponse> ValidateOutlookCredentials(string email, string password)
+        {
+            return await _mailService.ValidateOutlookCredentialsAsync(email, password);
+        }
     }
 }
