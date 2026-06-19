@@ -10,8 +10,18 @@ document.addEventListener("DOMContentLoaded", function () {
         const email = document.getElementById("username").value;
         const password = document.getElementById("password").value;
 
+        const loginBtn = document.getElementById("loginBtn");
+        const errorBox = document.getElementById("errormessage");
+
+        // Clear previous errors
+        errorBox.classList.add("d-none");
+
+        // Disable button
+        loginBtn.disabled = true;
+        loginBtn.innerHTML = "Logging in...";
+
         try {
-            const response = await fetch("/Account/login", {
+            const response = await fetch("/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -25,17 +35,21 @@ document.addEventListener("DOMContentLoaded", function () {
             const data = await response.json();
 
             if (data.success) {
+                loginBtn.innerHTML = "Success ✓";
                 window.location.href = "/Home/Index";
             } else {
-                const errorBox = document.getElementById("errormessage");
                 errorBox.classList.remove("d-none");
                 errorBox.innerText = data.message;
             }
 
         } catch (error) {
-            const errorBox = document.getElementById("errormessage");
             errorBox.classList.remove("d-none");
             errorBox.innerText = "Server error. Try again.";
+        }
+        finally {
+            // Re-enable button if login failed
+            loginBtn.disabled = false;
+            loginBtn.innerHTML = "Log In";
         }
     });
 

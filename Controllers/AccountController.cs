@@ -44,10 +44,24 @@ namespace RiskManagement.Controllers
         [HttpPost("adduser")]
         public async Task<IActionResult> AddUser([FromBody] CreateUserDto dto)
         {
+            var email = dto.Email.Trim().ToLower();
+
+            var existingUser = await _context.Users
+                .FirstOrDefaultAsync(x => x.Email.ToLower() == email);
+
+            if (existingUser != null)
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    message = "A user with this email already exists."
+                });
+            }
+
             var user = new User
             {
                 FullName = dto.FullName,
-                Email = dto.Email,
+                Email = email,
                 Phone = dto.Phone,
                 Status = dto.Status,
                 Role = dto.Role,
@@ -59,11 +73,12 @@ namespace RiskManagement.Controllers
 
             return Ok(new
             {
+                success = true,
                 message = "User added successfully",
                 data = user
             });
         }
-        /* [HttpPost("login")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] OutlookLoginRequest request)
         {
             // 0. Normalize email
@@ -111,7 +126,7 @@ namespace RiskManagement.Controllers
                 }
             });
         }
-  */       private async Task<MailResponse> ValidateOutlookCredentials(string email, string password)
+        private async Task<MailResponse> ValidateOutlookCredentials(string email, string password)
         {
             return await _mailService.ValidateOutlookCredentialsAsync(email, password);
         }

@@ -9,6 +9,7 @@
 @section Scripts {
     <script src="~/js/login.js"></script>
 }
+
 <body>
     <div class="container-fluid">
         <div class="row min-vh-100">
@@ -38,7 +39,7 @@
                 </div>
 
             </div>
-           
+
             <div class="col-md-3  p-0 border-start login-container">
                 <div class="login-card">
                     <img src="./images/mike.png" width="300px" height="150" />
@@ -53,10 +54,12 @@
                             <small id="passwordError" class="text-danger"></small>
                         </div>
 
-                        <button type="submit" class="btn btn-login">Log In</button>
+                        <button type="submit" id="loginBtn" class="btn btn-login">
+                            Log In
+                        </button>
                         <br /><br />
                         <div id="errormessage" class="alert alert-danger text-center d-none" role="alert"></div>
-             
+
                     </form>
                 </div>
             </div>
