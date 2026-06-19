@@ -33,6 +33,12 @@ namespace RiskManagement.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Login");
+        }
         [HttpPost("validate")]
         public async Task<IActionResult> Validate([FromBody] OutlookLoginRequest request)
         {
@@ -139,7 +145,7 @@ namespace RiskManagement.Controllers
                 new ClaimsPrincipal(claimsIdentity)
             );
 
-        
+
             string redirectUrl = roleName switch
             {
                 "Maker" => "/Maker/Dashboard",

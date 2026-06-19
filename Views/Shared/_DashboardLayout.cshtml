@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <!-- TOP NAVBAR -->
+    <nav class="navbar navbar-dark bg-dark px-3">
+        <span class="navbar-brand">Risk Management System</span>
+
+        <div class="text-white">
+            Welcome, @User.Identity.Name
+        </div>
+
+        <a href="/Account/Logout" class="btn btn-sm btn-danger">Logout</a>
+    </nav>
+
+    <div class="container mt-4">
+        @RenderBody()
+    </div>
+
+</body>
+</html>
