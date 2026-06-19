@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace RiskManagement.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("")]
     public class AccountController : Controller
     {
 
@@ -63,7 +63,7 @@ namespace RiskManagement.Controllers
                 data = user
             });
         }
-        [HttpPost("login")]
+        /* [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] OutlookLoginRequest request)
         {
             // 0. Normalize email
@@ -111,7 +111,7 @@ namespace RiskManagement.Controllers
                 }
             });
         }
-        private async Task<MailResponse> ValidateOutlookCredentials(string email, string password)
+  */       private async Task<MailResponse> ValidateOutlookCredentials(string email, string password)
         {
             return await _mailService.ValidateOutlookCredentialsAsync(email, password);
         }
