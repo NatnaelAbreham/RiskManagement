@@ -111,6 +111,12 @@ namespace RiskManagement.Controllers
                 });
             }
 
+var roleName = user.Role switch
+{
+    "124451" => "Maker",
+    "125451" => "Checker",
+    _ => "Unknown"
+};
             // 3. Success response
             return Ok(new
             {
@@ -121,7 +127,7 @@ namespace RiskManagement.Controllers
                     user.FullName,
                     user.Email,
                     user.Phone,
-                    user.Role,
+                    Role = roleName,
                     user.Status
                 }
             });
