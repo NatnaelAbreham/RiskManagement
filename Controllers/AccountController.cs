@@ -66,9 +66,12 @@ namespace RiskManagement.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] OutlookLoginRequest request)
         {
+            // 0. Normalize email
+            var email = NormalizeEmail(request.Email);
+
             // 1. Whitelist check
             var user = await _context.Users
-                .FirstOrDefaultAsync(x => x.Email == request.Email);
+                .FirstOrDefaultAsync(x => x.Email == email);
 
             if (user == null)
             {
@@ -81,7 +84,7 @@ namespace RiskManagement.Controllers
 
             // 2. Outlook validation
             var result = await _mailService.ValidateOutlookCredentialsAsync(
-                request.Email,
+                email,
                 request.Password);
 
             if (!result.Success)
@@ -111,6 +114,22 @@ namespace RiskManagement.Controllers
         private async Task<MailResponse> ValidateOutlookCredentials(string email, string password)
         {
             return await _mailService.ValidateOutlookCredentialsAsync(email, password);
+        }
+        private string NormalizeEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return email;
+
+            email = email.Trim().ToLower();
+
+            const string domain = "@tsedeybank.com.et";
+
+            if (!email.Contains("@"))
+            {
+                email = email + domain;
+            }
+
+            return email;
         }
     }
 }
