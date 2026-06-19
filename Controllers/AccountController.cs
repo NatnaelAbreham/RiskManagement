@@ -5,6 +5,9 @@ using RiskManagement.Account.Models;
 using RiskManagement.Services;
 using RiskManagement.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace RiskManagement.Controllers
 {
@@ -111,26 +114,46 @@ namespace RiskManagement.Controllers
                 });
             }
 
-var roleName = user.Role switch
+            var roleName = user.Role switch
+            {
+                "124451" => "Maker",
+                "125451" => "Checker",
+                _ => "Unknown"
+            };
+
+            // ✅ CREATE COOKIE AUTHENTICATION
+            var claims = new List<Claim>
 {
-    "124451" => "Maker",
-    "125451" => "Checker",
-    _ => "Unknown"
+    new Claim(ClaimTypes.Name, user.FullName),
+    new Claim(ClaimTypes.Email, user.Email),
+    new Claim(ClaimTypes.Role, roleName)
 };
-            // 3. Success response
+
+            var claimsIdentity = new ClaimsIdentity(
+                claims,
+                CookieAuthenticationDefaults.AuthenticationScheme
+            );
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity)
+            );
+
+        
+            string redirectUrl = roleName switch
+            {
+                "Maker" => "/Maker/Dashboard",
+                "Checker" => "/Checker/Dashboard",
+                _ => "/Account/Login"
+            };
+
             return Ok(new
             {
                 success = true,
                 message = "Login successful",
-                user = new
-                {
-                    user.FullName,
-                    user.Email,
-                    user.Phone,
-                    Role = roleName,
-                    user.Status
-                }
+                redirectUrl
             });
+            // 3. Success response
         }
         private async Task<MailResponse> ValidateOutlookCredentials(string email, string password)
         {
