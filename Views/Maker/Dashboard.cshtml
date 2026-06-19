@@ -1,0 +1,20 @@
+@{
+    ViewBag.Title = "Maker Dashboard";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="card shadow p-4">
+    <h2>Maker Dashboard</h2>
+
+    <hr />
+
+    <h5>User Information</h5>
+
+    <p><b>Name:</b> @User.Identity.Name</p>
+    <p><b>Email:</b> @User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value</p>
+    <p><b>Role:</b> @User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value</p>
+
+    <div class="alert alert-info mt-3">
+        You are logged in as <b>Maker</b>
+    </div>
+</div>
