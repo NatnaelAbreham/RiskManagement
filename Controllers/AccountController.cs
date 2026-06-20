@@ -33,7 +33,7 @@ namespace RiskManagement.Controllers
             return View();
         }
 
-        [HttpGet]
+        [HttpGet("logout")]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();

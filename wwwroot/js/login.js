@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (data.success) {
                 loginBtn.innerHTML = "Success ✓";
-                window.location.href = "/Home/Index";
+                window.location.href = data.redirectUrl;
             } else {
                 errorBox.classList.remove("d-none");
                 errorBox.innerText = data.message;
