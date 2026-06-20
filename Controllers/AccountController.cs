@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace RiskManagement.Controllers
 {
-    [ApiController]
+  /*   [ApiController] */
     [Route("")]
     public class AccountController : Controller
     {
@@ -37,7 +37,8 @@ namespace RiskManagement.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
-            return RedirectToAction("Login");
+
+            return RedirectToAction("");
         }
         [HttpPost("validate")]
         public async Task<IActionResult> Validate([FromBody] OutlookLoginRequest request)
@@ -132,7 +133,8 @@ namespace RiskManagement.Controllers
 {
     new Claim(ClaimTypes.Name, user.FullName),
     new Claim(ClaimTypes.Email, user.Email),
-    new Claim(ClaimTypes.Role, roleName)
+    new Claim(ClaimTypes.Role, roleName),
+    new Claim(ClaimTypes.MobilePhone, user.Phone ?? "")
 };
 
             var claimsIdentity = new ClaimsIdentity(

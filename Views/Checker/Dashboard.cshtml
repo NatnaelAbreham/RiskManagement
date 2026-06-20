@@ -13,6 +13,7 @@
     <p><b>Name:</b> @User.Identity.Name</p>
     <p><b>Email:</b> @User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value</p>
     <p><b>Role:</b> @User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value</p>
+    <p><b>Phone Number:</b> @User.FindFirst(System.Security.Claims.ClaimTypes.MobilePhone)?.Value</p>
 
     <div class="alert alert-success mt-3">
         You are logged in as <b>Checker</b>
