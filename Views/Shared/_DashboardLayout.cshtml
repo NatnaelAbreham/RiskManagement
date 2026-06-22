@@ -1,26 +1,185 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>@ViewBag.Title</title>
-    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-</head>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<body>
+@section Styles {
 
-    <!-- TOP NAVBAR -->
-    <nav class="navbar navbar-dark bg-dark px-3">
-        <span class="navbar-brand">Risk Management System</span>
+    <style>
 
-        <div class="text-white">
-            Welcome, @User.Identity.Name
+        body {
+            background: #f5f7fb;
+            overflow-x: hidden;
+        }
+
+        .sidebar {
+            width: 260px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: #1e293b;
+            color: white;
+            z-index: 1000;
+        }
+
+        .logo {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            padding: 0 25px;
+            font-size: 22px;
+            font-weight: 700;
+            border-bottom: 1px solid rgba(255,255,255,.1);
+        }
+
+        .sidebar-menu {
+            padding: 15px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            margin-bottom: 6px;
+            color: #cbd5e1;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: .3s;
+        }
+
+        .sidebar-menu a:hover {
+            background: rgba(255,255,255,.08);
+            color: white;
+        }
+
+        .main-content {
+            margin-left: 260px;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            height: 70px;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 25px;
+        }
+
+        .page-content {
+            padding: 25px;
+        }
+
+        .profile-btn {
+            border: none;
+            background: transparent;
+        }
+
+        .profile-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #2563eb;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+    </style>
+
+}
+
+<div class="sidebar">
+
+    <div class="logo">
+        RMS
+    </div>
+
+    <div class="sidebar-menu">
+
+        <a href="/Dashboard">
+            <i class="bi bi-speedometer2"></i>
+            Dashboard
+        </a>
+
+        <a href="#">
+            <i class="bi bi-shield-check"></i>
+            Risk Management
+        </a>
+
+        <a href="#">
+            <i class="bi bi-exclamation-triangle"></i>
+            Incidents
+        </a>
+
+        <a href="#">
+            <i class="bi bi-file-earmark-text"></i>
+            Reports
+        </a>
+
+        <a href="#">
+            <i class="bi bi-gear"></i>
+            Settings
+        </a>
+
+    </div>
+
+</div>
+
+<div class="main-content">
+
+    <div class="topbar">
+
+        <h5 class="mb-0">
+            @ViewBag.Title
+        </h5>
+
+        <div class="dropdown">
+
+            <button class="profile-btn"
+                    type="button"
+                    data-bs-toggle="dropdown">
+
+                <div class="profile-avatar">
+                    @(string.IsNullOrEmpty(User.Identity?.Name)
+                        ? "U"
+                        : User.Identity.Name.Substring(0,1).ToUpper())
+                </div>
+
+            </button>
+
+            <ul class="dropdown-menu dropdown-menu-end">
+
+                <li>
+                    <a class="dropdown-item" href="/Profile">
+                        <i class="bi bi-person"></i>
+                        My Profile
+                    </a>
+                </li>
+
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+
+                <li>
+                    <a class="dropdown-item text-danger" href="/Logout">
+                        <i class="bi bi-box-arrow-right"></i>
+                        Logout
+                    </a>
+                </li>
+
+            </ul>
+
         </div>
 
-        <a href="/Logout" class="btn btn-sm btn-danger">Logout</a>
-    </nav>
+    </div>
 
-    <div class="container mt-4">
+    <div class="page-content">
         @RenderBody()
     </div>
 
-</body>
-</html>
+</div>
