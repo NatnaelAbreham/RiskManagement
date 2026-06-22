@@ -1,7 +1,7 @@
 
 
         body {
-            background: #f5f7fb;
+            background: #e7f2fd;
             overflow-x: hidden;
         }
 
@@ -75,7 +75,7 @@
             width: 42px;
             height: 42px;
             border-radius: 50%;
-            background: #2563eb;
+            background: #08aaa2;
             color: white;
             display: flex;
             align-items: center;
