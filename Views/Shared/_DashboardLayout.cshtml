@@ -6,6 +6,9 @@
     <link href="~/css/dashboardlayout.css" rel="stylesheet" />
 }
 
+@section Styles {
+    @RenderSection("Styles", required: false)
+}
 
 <div class="sidebar">
 
@@ -15,21 +18,22 @@
 
     <div class="sidebar-menu">
 
-        <!-- COMMON (ALL ROLES) -->
-        <a href="/Dashboard">
-            <i class="bi bi-speedometer2"></i>
-            Dashboard
-        </a>
+        <!-- DASHBOARD -->
 
+       
         <!-- MAKER -->
         @if (User.IsInRole("Maker"))
         {
-            <a href="/Register">
+            <a asp-controller="Maker" asp-action="Index">
+                <i class="bi bi-speedometer2"></i>
+                Dashboard
+            </a>
+            <a asp-controller="Maker" asp-action="Register">
                 <i class="bi bi-pencil-square"></i>
                 Register
             </a>
 
-            <a href="/View">
+            <a asp-controller="Maker" asp-action="View">
                 <i class="bi bi-eye"></i>
                 View
             </a>
@@ -38,12 +42,12 @@
         <!-- CHECKER -->
         @if (User.IsInRole("Checker"))
         {
-            <a href="/Record">
+            <a asp-controller="Checker" asp-action="Record">
                 <i class="bi bi-journal-text"></i>
                 Record
             </a>
 
-            <a href="/Report">
+            <a asp-controller="Checker" asp-action="Report">
                 <i class="bi bi-file-earmark-bar-graph"></i>
                 Reports
             </a>
@@ -52,7 +56,7 @@
         <!-- ADMIN -->
         @if (User.IsInRole("Admin"))
         {
-            <a href="/Users">
+            <a asp-controller="Admin" asp-action="Users">
                 <i class="bi bi-people"></i>
                 Users
             </a>
@@ -72,14 +76,12 @@
 
         <div class="dropdown">
 
-            <button class="profile-btn"
-                    type="button"
-                    data-bs-toggle="dropdown">
+            <button class="profile-btn" type="button" data-bs-toggle="dropdown">
 
                 <div class="profile-avatar">
                     @(string.IsNullOrEmpty(User.Identity?.Name)
                         ? "U"
-                        : User.Identity.Name.Substring(0,1).ToUpper())
+                        : User.Identity.Name.Substring(0, 1).ToUpper())
                 </div>
 
             </button>
