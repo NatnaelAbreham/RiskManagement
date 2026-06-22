@@ -1,0 +1,78 @@
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    ViewBag.Title = @User.Identity.Name;
+}
+
+@section Styles {
+    <link href="~/css/register.css" rel="stylesheet" />
+}
+
+<div class="risk-container">
+
+    <div class="risk-card">
+
+        <div class="card-header-section">
+            <h2>Risk Registration</h2>
+            <p>
+                Register and document identified risks for assessment,
+                monitoring, and mitigation.
+            </p>
+        </div>
+
+        <form>
+
+            <div class="row g-4">
+
+                <!-- Risk Date -->
+                <div class="col-md-6">
+                    <label class="form-label required-field">
+                        Risk Date
+                    </label>
+
+                    <input type="date" class="form-control modern-input" required />
+                </div>
+
+                <!-- Risk Category -->
+                <div class="col-md-6">
+                    <label class="form-label required-field">
+                        Identified Risk
+                    </label>
+
+                    <select class="form-select modern-input" required>
+                        <option value="">Select Risk Category</option>
+                        <option>Domestic Banking</option>
+                        <option>Credit Operation</option>
+                        <option>International Banking</option>
+                    </select>
+                </div>
+
+                <!-- Risk Event -->
+                <div class="col-12">
+                    <label class="form-label required-field">
+                        Risk Event
+                    </label>
+
+                    <textarea class="form-control modern-input" rows="6"
+                              placeholder="Provide a clear and detailed description of the identified risk event..."
+                              required></textarea>
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+
+                <button type="reset" class="btn btn-light btn-lg">
+                    Clear
+                </button>
+
+                <button type="submit" class="btn btn-primary btn-lg">
+                    Register Risk
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
