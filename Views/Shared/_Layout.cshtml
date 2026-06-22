@@ -1,9 +1,10 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
     <title>@ViewBag.Title</title>
     <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css" />
     @RenderSection("Styles", required: false)
 </head>
 
@@ -13,10 +14,17 @@
         @RenderBody()
     </div>
 
+    <footer class="border-top bg-light text-center py-3 mt-auto">
+        <small class="text-muted">
+            © @DateTime.Now.Year Risk Management System. All rights reserved.
+        </small>
+    </footer>
+
     <script src="~/lib/jquery/jquery.min.js"></script>
     <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     @RenderSection("Scripts", required: false)
 
 </body>
+
 </html>
