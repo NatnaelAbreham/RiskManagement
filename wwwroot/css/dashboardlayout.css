@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -29,7 +30,7 @@ body {
     padding: 0 25px;
     font-size: 22px;
     font-weight: 700;
-    border-bottom: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid rgba(255, 255, 255, .1);
 }
 
 /* Sidebar Menu */
@@ -50,7 +51,18 @@ body {
 }
 
 .sidebar-menu a:hover {
-    background: rgba(255,255,255,.08);
+    background: rgba(255, 255, 255, .08);
+    color: white;
+}
+
+.sidebar-menu a.active {
+    background: linear-gradient(135deg, #08aaa2, #0cb49e);
+    color: white;
+    font-weight: 600;
+    border-left: 4px solid white;
+}
+
+.sidebar-menu a.active:hover {
     color: white;
 }
 
@@ -74,7 +86,8 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 0 25px;
-    z-index: 9999; /* IMPORTANT FIX */
+    z-index: 9999;
+    /* IMPORTANT FIX */
 }
 
 /* Page Content */

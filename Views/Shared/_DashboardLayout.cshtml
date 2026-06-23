@@ -1,12 +1,16 @@
+
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
 }
-
-
 
 @section Styles {
     @RenderSection("Styles", required: false)
 }
+
+
 
 <div class="sidebar">
 
@@ -16,22 +20,26 @@
 
     <div class="sidebar-menu">
 
-        <!-- DASHBOARD -->
-
-       
         <!-- MAKER -->
         @if (User.IsInRole("Maker"))
         {
-            <a asp-controller="Maker" asp-action="Index">
+            <a asp-controller="Maker"
+               asp-action="Index"
+               class="@(currentController == "Maker" && currentAction == "Index" ? "active" : "")">
                 <i class="bi bi-speedometer2"></i>
                 Dashboard
             </a>
-            <a asp-controller="Maker" asp-action="Register">
+
+            <a asp-controller="Maker"
+               asp-action="Register"
+               class="@(currentController == "Maker" && currentAction == "Register" ? "active" : "")">
                 <i class="bi bi-pencil-square"></i>
                 Register
             </a>
 
-            <a asp-controller="Maker" asp-action="View">
+            <a asp-controller="Maker"
+               asp-action="View"
+               class="@(currentController == "Maker" && currentAction == "View" ? "active" : "")">
                 <i class="bi bi-eye"></i>
                 View
             </a>
@@ -40,12 +48,16 @@
         <!-- CHECKER -->
         @if (User.IsInRole("Checker"))
         {
-            <a asp-controller="Checker" asp-action="Record">
+            <a asp-controller="Checker"
+               asp-action="Record"
+               class="@(currentController == "Checker" && currentAction == "Record" ? "active" : "")">
                 <i class="bi bi-journal-text"></i>
                 Record
             </a>
 
-            <a asp-controller="Checker" asp-action="Report">
+            <a asp-controller="Checker"
+               asp-action="Report"
+               class="@(currentController == "Checker" && currentAction == "Report" ? "active" : "")">
                 <i class="bi bi-file-earmark-bar-graph"></i>
                 Reports
             </a>
@@ -54,7 +66,9 @@
         <!-- ADMIN -->
         @if (User.IsInRole("Admin"))
         {
-            <a asp-controller="Admin" asp-action="Users">
+            <a asp-controller="Admin"
+               asp-action="Users"
+               class="@(currentController == "Admin" && currentAction == "Users" ? "active" : "")">
                 <i class="bi bi-people"></i>
                 Users
             </a>
@@ -68,7 +82,6 @@
 
     <div class="topbar">
 
-       
         <h5 class="mb-0">
             @ViewBag.Title
         </h5>
@@ -117,8 +130,9 @@
 
 </div>
 
-<footer class="border-top  text-center py-3 mt-auto">
+<footer class="border-top text-center py-3 mt-auto">
     <small class="text-muted">
         © @DateTime.Now.Year Risk Management System. All rights reserved.
     </small>
 </footer>
+
