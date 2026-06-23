@@ -1,25 +1,458 @@
-/* Required field indicator */
+/* ----------------------------------------------
+   Root Variables
+---------------------------------------------- */
+:root {
+    --primary: #0cb49e;
+    --primary-hover: #0a9d89;
+    --primary-light: rgba(12, 180, 158, 0.1);
+    --primary-dark: #087a6b;
+    --danger: #dc2626;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+    --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+    --shadow-xl: 0 20px 50px -8px rgba(0, 0, 0, 0.1);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ----------------------------------------------
+   Required Field
+---------------------------------------------- */
 .required-field::after {
     content: " *";
-    color: #dc2626;
-    font-weight: bold;
+    color: var(--danger);
+    font-weight: 700;
+    font-size: 1.1rem;
 }
 
-/* Input enhancement (optional but useful for better UI than default Bootstrap) */
+/* ----------------------------------------------
+   Main Form Section - Modern Card Style
+---------------------------------------------- */
+.form-section {
+    background: #ffffff;
+    border-radius: var(--radius);
+    padding: 2rem 2rem 1.75rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--gray-200);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition);
+    position: relative;
+}
+
+.form-section:hover {
+    border-color: var(--primary-light);
+    box-shadow: var(--shadow-md);
+}
+
+/* Section Number Badge */
+.form-section::before {
+    counter-increment: section-counter;
+    content: counter(section-counter);
+    position: absolute;
+    top: -12px;
+    left: 24px;
+    background: var(--primary);
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(12, 180, 158, 0.3);
+}
+
+.form-section:first-of-type::before {
+    counter-reset: section-counter 0;
+}
+
+/* ----------------------------------------------
+   Section Title - More Prominent
+---------------------------------------------- */
+.section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--gray-100);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    letter-spacing: -0.01em;
+}
+
+.section-title .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--primary-light);
+    color: var(--primary);
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.section-title .badge-count {
+    margin-left: auto;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--gray-500);
+    background: var(--gray-100);
+    padding: 0.2rem 0.75rem;
+    border-radius: 20px;
+}
+
+/* ----------------------------------------------
+   Form Labels - Clear & Bold
+---------------------------------------------- */
+.form-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: 0.5rem;
+    display: block;
+    letter-spacing: 0.01em;
+}
+
+.form-label .hint {
+    font-weight: 400;
+    color: var(--gray-400);
+    font-size: 0.75rem;
+    margin-left: 0.25rem;
+}
+
+/* ----------------------------------------------
+   Modern Inputs - Larger & More Comfortable
+---------------------------------------------- */
 .modern-input {
-    min-height: 54px;
-    border-radius: 12px;
-    font-size: 15px;
+    height: 50px;
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    border: 1.5px solid var(--gray-200);
+    background: var(--gray-50);
+    padding: 0 1.25rem;
+    transition: all var(--transition);
+    color: var(--gray-800);
+    width: 100%;
+    font-family: inherit;
 }
 
-/* Focus style aligned with your theme color */
+.modern-input:hover {
+    background: #ffffff;
+    border-color: var(--gray-300);
+}
+
 .modern-input:focus {
-    border-color: #0cb49e;
-    box-shadow: 0 0 0 0.2rem rgba(12, 180, 158, 0.2);
+    background: #ffffff;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px var(--primary-light);
+    outline: none;
 }
 
-/* Textarea height consistency */
+.modern-input::placeholder {
+    color: var(--gray-400);
+    font-size: 0.9rem;
+}
+
+/* Textarea - Larger & More Comfortable */
 textarea.modern-input {
-    min-height: 160px;
+    min-height: 130px;
     resize: vertical;
+    padding: 0.9rem 1.25rem;
+    line-height: 1.6;
+}
+
+/* Select */
+select.modern-input {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath fill='%236b7280' d='M7 10L1 4h12z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1.25rem center;
+    padding-right: 3.5rem;
+    cursor: pointer;
+}
+
+select.modern-input:focus {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath fill='%230cb49e' d='M7 10L1 4h12z'/%3E%3C/svg%3E");
+}
+
+/* Input Groups - For better visual grouping */
+.input-group-modern {
+    position: relative;
+}
+
+.input-group-modern .modern-input {
+    padding-left: 2.75rem;
+}
+
+.input-group-modern .input-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray-400);
+    font-size: 1rem;
+    pointer-events: none;
+}
+
+/* ----------------------------------------------
+   Grid Spacing - More Breathing Room
+---------------------------------------------- */
+.row.g-4 {
+    --bs-gutter-y: 1.5rem;
+    --bs-gutter-x: 1.5rem;
+}
+
+/* ----------------------------------------------
+   Page Header - More Impactful
+---------------------------------------------- */
+.page-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--gray-100);
+}
+
+.page-header h2 {
+    font-weight: 800;
+    font-size: 2rem;
+    color: var(--gray-900);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.page-header h2 .badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    background: var(--primary-light);
+    color: var(--primary);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    letter-spacing: 0.02em;
+}
+
+.page-header p {
+    color: var(--gray-500);
+    font-size: 1.05rem;
+    margin-bottom: 0;
+    max-width: 650px;
+    line-height: 1.6;
+}
+
+/* ----------------------------------------------
+   Progress Indicator
+---------------------------------------------- */
+.form-progress {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    padding: 0.5rem 0;
+}
+
+.form-progress .step {
+    flex: 1;
+    height: 4px;
+    background: var(--gray-200);
+    border-radius: 4px;
+    transition: background var(--transition);
+}
+
+.form-progress .step.active {
+    background: var(--primary);
+}
+
+.form-progress .step.completed {
+    background: var(--primary);
+    opacity: 0.5;
+}
+
+/* ----------------------------------------------
+   Action Bar - More Refined
+---------------------------------------------- */
+.action-bar {
+    position: sticky;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 1.25rem 2rem;
+    border-top: 1px solid var(--gray-200);
+    margin-top: 3rem;
+    border-radius: 0 0 var(--radius) var(--radius);
+    z-index: 10;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    align-items: center;
+}
+
+.action-bar .btn {
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.7rem 2.5rem;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition);
+    letter-spacing: 0.01em;
+}
+
+.action-bar .btn-success {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(12, 180, 158, 0.25);
+}
+
+.action-bar .btn-success:hover {
+    background: var(--primary-hover);
+    border-color: var(--primary-hover);
+    box-shadow: 0 4px 16px rgba(12, 180, 158, 0.35);
+    transform: translateY(-2px);
+}
+
+.action-bar .btn-success:active {
+    transform: translateY(0);
+}
+
+.action-bar .btn-outline-secondary {
+    color: var(--gray-600);
+    border-color: var(--gray-300);
+    background: transparent;
+}
+
+.action-bar .btn-outline-secondary:hover {
+    background: var(--gray-50);
+    border-color: var(--gray-400);
+    color: var(--gray-700);
+}
+
+/* ----------------------------------------------
+   Card Wrapper
+---------------------------------------------- */
+.card.border-0.shadow-sm {
+    border-radius: var(--radius) !important;
+    box-shadow: var(--shadow-sm) !important;
+    background: #ffffff;
+    padding: 2.5rem 2.5rem 0.5rem;
+    border: 1px solid var(--gray-200) !important;
+}
+
+/* ----------------------------------------------
+   Helper Classes
+---------------------------------------------- */
+.text-muted-light {
+    color: var(--gray-400);
+    font-size: 0.8rem;
+}
+
+/* Field description helper */
+.field-helper {
+    font-size: 0.75rem;
+    color: var(--gray-400);
+    margin-top: 0.25rem;
+    display: block;
+}
+
+/* ----------------------------------------------
+   Responsive
+---------------------------------------------- */
+@media (max-width: 992px) {
+    .card.border-0.shadow-sm {
+        padding: 1.5rem 1.5rem 0.5rem;
+    }
+
+    .form-section {
+        padding: 1.5rem 1.25rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .page-header p {
+        font-size: 0.95rem;
+    }
+
+    .form-section {
+        padding: 1.25rem 1rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .form-section::before {
+        width: 24px;
+        height: 24px;
+        font-size: 0.7rem;
+        top: -10px;
+        left: 16px;
+    }
+
+    .section-title {
+        font-size: 1rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .modern-input {
+        height: 44px;
+        font-size: 0.9rem;
+        padding: 0 1rem;
+    }
+
+    textarea.modern-input {
+        min-height: 100px;
+    }
+
+    .action-bar {
+        flex-direction: column-reverse;
+        gap: 0.75rem !important;
+        padding: 1rem;
+    }
+
+    .action-bar .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 0.6rem 1.5rem;
+    }
+
+    .form-progress {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .card.border-0.shadow-sm {
+        padding: 0.75rem 0.75rem 0.5rem;
+        border-radius: 0 !important;
+    }
+
+    .form-section {
+        padding: 1rem 0.75rem;
+        border-radius: var(--radius-sm);
+    }
+
+    .section-title .badge-count {
+        display: none;
+    }
+
+    .row.g-4 {
+        --bs-gutter-y: 1rem;
+        --bs-gutter-x: 1rem;
+    }
 }
