@@ -27,52 +27,104 @@ namespace RiskManagement.Data
                entity.Property(e => e.CreatedOn).IsRequired().HasDefaultValueSql("SYSUTCDATETIME()");
            });
             modelBuilder.Entity<RiskRegistration>(entity =>
-    {
-        entity.ToTable("RiskRegistration");
-        entity.HasKey(e => e.Id);
+           {
+               entity.ToTable("RiskRegistration");
 
-        // Risk Information
-        entity.Property(e => e.RiskDate).IsRequired();
-        entity.Property(e => e.IdentifiedRisk).IsRequired();
-        entity.Property(e => e.SourceOfRisk).IsRequired();
-        entity.Property(e => e.RiskCategory).IsRequired();
-        entity.Property(e => e.RiskEventDescription).IsRequired();
+               entity.HasKey(e => e.Id);
 
-        // Risk Assessment
-        entity.Property(e => e.Effect).IsRequired();
-        entity.Property(e => e.Probability)
-              .HasPrecision(18, 2)
-              .IsRequired();
+               // Id (Identity)
+               entity.Property(e => e.Id)
+                    .ValueGeneratedOnAdd();
 
-        entity.Property(e => e.ImpactLevel).IsRequired();
+               // Risk Information
+               entity.Property(e => e.RiskDate)
+                     .IsRequired()
+                     .HasColumnType("date");
 
-        entity.Property(e => e.RiskScore)
-              .HasPrecision(18, 2)
-              .IsRequired();
+               entity.Property(e => e.IdentifiedRisk)
+                     .IsRequired()
+                     .HasColumnType("nvarchar(1000)");
 
-        entity.Property(e => e.RiskRating).IsRequired();
-        entity.Property(e => e.ResidualRiskLevel).IsRequired();
+               entity.Property(e => e.SourceOfRisk)
+                     .IsRequired()
+                     .HasColumnType("nvarchar(max)");
 
-        // Mitigation & Controls
-        entity.Property(e => e.ExistingRiskMitigation).IsRequired();
-        entity.Property(e => e.MitigationRating).IsRequired();
-        entity.Property(e => e.Recommendation).IsRequired();
+               entity.Property(e => e.RiskCategory)
+                     .IsRequired()
+                     .HasColumnType("nvarchar(1000)");
 
-        // Ownership & Planning
-        entity.Property(e => e.MitigationPlannedDate).IsRequired();
-        entity.Property(e => e.RiskOwner).IsRequired();
+               entity.Property(e => e.RiskEventDescription)
+                     .IsRequired()
+                     .HasColumnType("nvarchar(max)");
 
-        entity.Property(e => e.Status)
-              .IsRequired()
-              .HasDefaultValue("Open");
+               // Risk Assessment
+               entity.Property(e => e.Effect)
+                     .IsRequired()
+                     .HasColumnType("nvarchar(1000)");
 
-        // Audit Fields
-        entity.Property(e => e.RegisteredBy).IsRequired();
-        entity.Property(e => e.RegisteredDate).IsRequired();
+               entity.Property(e => e.Probability)
+                     .IsRequired()
+                     .HasPrecision(18, 2);
 
-        entity.Property(e => e.ApprovedBy);
-        entity.Property(e => e.ApprovedDate);
-    });
+               entity.Property(e => e.ImpactLevel)
+                     .IsRequired()
+                     .HasColumnType("nvarchar(50)");
+
+               entity.Property(e => e.RiskScore)
+                     .IsRequired()
+                     .HasPrecision(18, 2);
+
+               entity.Property(e => e.RiskRating)
+                     .IsRequired()
+                     .HasColumnType("nvarchar(1000)");
+
+               entity.Property(e => e.ResidualRiskLevel)
+                     .IsRequired()
+                     .HasColumnType("nvarchar(1000)");
+
+               // Mitigation & Controls
+               entity.Property(e => e.ExistingRiskMitigation)
+                     .IsRequired()
+                     .HasColumnType("nvarchar(max)");
+
+               entity.Property(e => e.MitigationRating)
+                     .IsRequired()
+                     .HasColumnType("nvarchar(1000)");
+
+               entity.Property(e => e.Recommendation)
+                     .IsRequired()
+                     .HasColumnType("nvarchar(max)");
+
+               // Ownership & Planning
+               entity.Property(e => e.MitigationPlannedDate)
+                     .IsRequired()
+                     .HasColumnType("date");
+
+               entity.Property(e => e.RiskOwner)
+                     .IsRequired()
+                     .HasColumnType("nvarchar(150)");
+
+               // Status (with default constraint)
+               entity.Property(e => e.Status)
+                     .IsRequired()
+                     .HasColumnType("nvarchar(20)")
+                     .HasDefaultValue("Open");
+
+               // Audit Fields
+               entity.Property(e => e.RegisteredBy)
+                     .IsRequired()
+                     .HasColumnType("nvarchar(150)");
+
+               entity.Property(e => e.RegisteredDate)
+                     .IsRequired()
+                     .HasColumnType("datetime2");
+
+               entity.Property(e => e.ApprovedBy)
+                     .HasColumnType("nvarchar(150)");
+
+               entity.Property(e => e.ApprovedDate)
+                     .HasColumnType("datetime2");
+           });
         }
     }
 }
