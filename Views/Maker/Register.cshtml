@@ -6,9 +6,8 @@
 @section Styles {
     <link href="~/css/register.css" rel="stylesheet" />
     <!-- Font Awesome for icons (optional) -->
-   @*  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
- *@
- }
+   @*  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" /> *@
+}
 
 <div class="card border-0 shadow-sm p-4">
 
@@ -33,7 +32,7 @@
         <div class="step"></div>
     </div>
 
-    <form>
+    <form id="createRiskForm" action="@Url.Action("CreateRisk", "Risk")" method="post">
 
         <!-- ============================================================ -->
         <!-- SECTION 1: RISK INFORMATION                                   -->
@@ -49,59 +48,59 @@
             <div class="row g-4">
 
                 <div class="col-lg-3 col-md-6">
-                    <label class="form-label required-field">
+                    <label class="form-label required-field" for="RiskDate">
                         <i class="far fa-calendar-alt" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Risk Date
                     </label>
-                    <input type="date" class="form-control modern-input" required />
+                    <input type="date" class="form-control modern-input" id="RiskDate" name="RiskDate" required />
                 </div>
 
                 <div class="col-lg-3 col-md-6">
-                    <label class="form-label required-field">
+                    <label class="form-label required-field" for="IdentifiedRisk">
                         <i class="fas fa-tag" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Identified Risk
                     </label>
-                    <select class="form-select modern-input" required>
+                    <select class="form-select modern-input" id="IdentifiedRisk" name="IdentifiedRisk" required>
                         <option value="">Select Risk</option>
-                        <option>Domestic Banking</option>
-                        <option>Credit Operation</option>
-                        <option>International Banking</option>
-                        <option>Investment Portfolio</option>
-                        <option>Compliance & Regulatory</option>
+                        <option value="DomesticBanking">Domestic Banking</option>
+                        <option value="CreditOperation">Credit Operation</option>
+                        <option value="InternationalBanking">International Banking</option>
+                        <option value="InvestmentPortfolio">Investment Portfolio</option>
+                        <option value="ComplianceRegulatory">Compliance & Regulatory</option>
                     </select>
                 </div>
 
                 <div class="col-lg-3 col-md-6">
-                    <label class="form-label required-field">
+                    <label class="form-label required-field" for="SourceOfRisk">
                         <i class="fas fa-search" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Source of Risk
                     </label>
-                    <input type="text" class="form-control modern-input" placeholder="e.g. Client feedback, Audit, Process" required />
+                    <input type="text" class="form-control modern-input" id="SourceOfRisk" name="SourceOfRisk" placeholder="e.g. Client feedback, Audit, Process" required />
                 </div>
 
                 <div class="col-lg-3 col-md-6">
-                    <label class="form-label required-field">
+                    <label class="form-label required-field" for="RiskCategory">
                         <i class="fas fa-folder" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Risk Category
                     </label>
-                    <select class="form-select modern-input" required>
+                    <select class="form-select modern-input" id="RiskCategory" name="RiskCategory" required>
                         <option value="">Select Category</option>
-                        <option>Internal Fraud</option>
-                        <option>External Fraud</option>
-                        <option>Employment & Workplace Safety</option>
-                        <option>Property Damage</option>
-                        <option>System Failure & Business Disruption</option>
-                        <option>Process Management & Execution</option>
-                        <option>Customer & Product Risk</option>
+                        <option value="InternalFraud">Internal Fraud</option>
+                        <option value="ExternalFraud">External Fraud</option>
+                        <option value="EmploymentWorkplaceSafety">Employment & Workplace Safety</option>
+                        <option value="PropertyDamage">Property Damage</option>
+                        <option value="SystemFailureBusinessDisruption">System Failure & Business Disruption</option>
+                        <option value="ProcessManagementExecution">Process Management & Execution</option>
+                        <option value="CustomerProductRisk">Customer & Product Risk</option>
                     </select>
                 </div>
 
                 <div class="col-12">
-                    <label class="form-label required-field">
+                    <label class="form-label required-field" for="RiskDescription">
                         <i class="fas fa-exclamation-triangle" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Risk Event Description
                     </label>
-                    <textarea class="form-control modern-input" 
+                    <textarea class="form-control modern-input" id="RiskDescription" name="RiskDescription"
                               placeholder="Provide a comprehensive description of the identified risk event, including context, triggers, and potential consequences…" 
                               required></textarea>
                     <span class="field-helper">
@@ -127,69 +126,69 @@
             <div class="row g-4">
 
                 <div class="col-lg-3 col-md-6">
-                    <label class="form-label required-field">
+                    <label class="form-label required-field" for="Effect">
                         <i class="fas fa-bullseye" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Effect
                     </label>
-                    <input type="text" class="form-control modern-input" placeholder="e.g. Financial, Operational, Reputational" required />
+                    <input type="text" class="form-control modern-input" id="Effect" name="Effect" placeholder="e.g. Financial, Operational, Reputational" required />
                 </div>
 
                 <div class="col-lg-3 col-md-6">
-                    <label class="form-label required-field">
+                    <label class="form-label required-field" for="Probability">
                         <i class="fas fa-percent" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Probability (%)
                     </label>
-                    <input type="number" class="form-control modern-input" placeholder="0-100" min="0" max="100" required />
+                    <input type="number" class="form-control modern-input" id="Probability" name="Probability" placeholder="0-100" min="0" max="100" required />
                 </div>
 
                 <div class="col-lg-3 col-md-6">
-                    <label class="form-label required-field">
+                    <label class="form-label required-field" for="ImpactLevel">
                         <i class="fas fa-arrow-up" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Impact Level
                     </label>
-                    <select class="form-select modern-input" required>
+                    <select class="form-select modern-input" id="ImpactLevel" name="ImpactLevel" required>
                         <option value="">Select Impact</option>
-                        <option>Low</option>
-                        <option>Medium</option>
-                        <option>High</option>
-                        <option>Critical</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                        <option value="Critical">Critical</option>
                     </select>
                 </div>
 
                 <div class="col-lg-3 col-md-6">
-                    <label class="form-label required-field">
+                    <label class="form-label required-field" for="RiskScore">
                         <i class="fas fa-calculator" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Risk Score
                     </label>
-                    <input type="number" class="form-control modern-input" placeholder="Calculated score" step="0.01" required />
+                    <input type="number" class="form-control modern-input" id="RiskScore" name="RiskScore" placeholder="Calculated score" step="0.01" required />
                     <span class="field-helper">Probability × Impact</span>
                 </div>
 
                 <div class="col-lg-6 col-md-6">
-                    <label class="form-label required-field">
+                    <label class="form-label required-field" for="RiskRating">
                         <i class="fas fa-gauge-high" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Risk Rating
                     </label>
-                    <select class="form-select modern-input" required>
+                    <select class="form-select modern-input" id="RiskRating" name="RiskRating" required>
                         <option value="">Select Rating</option>
-                        <option>Low</option>
-                        <option>Medium</option>
-                        <option>High</option>
-                        <option>Extreme</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                        <option value="Extreme">Extreme</option>
                     </select>
                 </div>
 
                 <div class="col-lg-6 col-md-6">
-                    <label class="form-label required-field">
+                    <label class="form-label required-field" for="ResidualRiskLevel">
                         <i class="fas fa-shield" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Residual Risk Level
                     </label>
-                    <select class="form-select modern-input" required>
+                    <select class="form-select modern-input" id="ResidualRiskLevel" name="ResidualRiskLevel" required>
                         <option value="">Select Residual Risk</option>
-                        <option>Low</option>
-                        <option>Medium</option>
-                        <option>High</option>
-                        <option>Extreme</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                        <option value="Extreme">Extreme</option>
                     </select>
                     <span class="field-helper">After applying existing controls</span>
                 </div>
@@ -212,37 +211,37 @@
             <div class="row g-4">
 
                 <div class="col-12">
-                    <label class="form-label required-field">
+                    <label class="form-label required-field" for="ExistingMitigation">
                         <i class="fas fa-check-circle" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Existing Risk Mitigation
                     </label>
-                    <textarea class="form-control modern-input" 
+                    <textarea class="form-control modern-input" id="ExistingMitigation" name="ExistingMitigation"
                               placeholder="Describe all existing controls, safeguards, and mitigation measures currently in place…" 
                               required></textarea>
                     <span class="field-helper">Include both preventive and detective controls.</span>
                 </div>
 
                 <div class="col-lg-6">
-                    <label class="form-label required-field">
+                    <label class="form-label required-field" for="MitigationRating">
                         <i class="fas fa-star" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Mitigation Rating
                     </label>
-                    <select class="form-select modern-input" required>
+                    <select class="form-select modern-input" id="MitigationRating" name="MitigationRating" required>
                         <option value="">Select Rating</option>
-                        <option>Very Weak</option>
-                        <option>Weak</option>
-                        <option>Moderate</option>
-                        <option>Strong</option>
-                        <option>Very Strong</option>
+                        <option value="VeryWeak">Very Weak</option>
+                        <option value="Weak">Weak</option>
+                        <option value="Moderate">Moderate</option>
+                        <option value="Strong">Strong</option>
+                        <option value="VeryStrong">Very Strong</option>
                     </select>
                 </div>
 
                 <div class="col-lg-6">
-                    <label class="form-label required-field">
+                    <label class="form-label required-field" for="Recommendation">
                         <i class="fas fa-lightbulb" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Recommendation
                     </label>
-                    <textarea class="form-control modern-input" 
+                    <textarea class="form-control modern-input" id="Recommendation" name="Recommendation"
                               placeholder="Provide recommended actions to further mitigate or eliminate the risk…" 
                               required></textarea>
                 </div>
@@ -265,31 +264,31 @@
             <div class="row g-4">
 
                 <div class="col-lg-4 col-md-6">
-                    <label class="form-label required-field">
+                    <label class="form-label required-field" for="MitigationPlannedDate">
                         <i class="far fa-calendar-check" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Mitigation Planned Date
                     </label>
-                    <input type="date" class="form-control modern-input" required />
+                    <input type="date" class="form-control modern-input" id="MitigationPlannedDate" name="MitigationPlannedDate" required />
                 </div>
 
                 <div class="col-lg-4 col-md-6">
-                    <label class="form-label required-field">
+                    <label class="form-label required-field" for="RiskOwner">
                         <i class="fas fa-user" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Risk Owner
                     </label>
-                    <input type="text" class="form-control modern-input" placeholder="Full name or role" required />
+                    <input type="text" class="form-control modern-input" id="RiskOwner" name="RiskOwner" placeholder="Full name or role" required />
                     <span class="field-helper">Person responsible for managing this risk</span>
                 </div>
 
                 <div class="col-lg-4 col-md-6">
-                    <label class="form-label">
+                    <label class="form-label" for="Status">
                         <i class="fas fa-flag" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Status
                     </label>
-                    <select class="form-select modern-input">
-                        <option>Open</option>
-                        <option>In Progress</option>
-                        <option>Closed</option>
+                    <select class="form-select modern-input" id="Status" name="Status">
+                        <option value="Open">Open</option>
+                        <option value="InProgress">In Progress</option>
+                        <option value="Closed">Closed</option>
                     </select>
                 </div>
 
@@ -301,10 +300,10 @@
         <!-- ACTION BAR                                                   -->
         <!-- ============================================================ -->
         <div class="action-bar">
-            <button type="reset" class="btn btn-outline-secondary">
+            <button type="reset" class="btn btn-outline-secondary" id="clearFormBtn">
                 <i class="bi bi-arrow-counterclockwise me-2"></i>Clear Form
             </button>
-            <button type="submit" class="btn btn-success">
+            <button type="submit" class="btn btn-success" id="submitRiskBtn">
                 <i class="bi bi-floppy me-2"></i>Register Risk
             </button>
         </div>
