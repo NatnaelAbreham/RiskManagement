@@ -24,7 +24,7 @@
         @if (User.IsInRole("Maker"))
         {
             <a asp-controller="Maker"
-               asp-action="Index"
+               asp-action="Dashboard"
                class="@(currentController == "Maker" && currentAction == "Index" ? "active" : "")">
                 <i class="bi bi-speedometer2"></i>
                 Dashboard
