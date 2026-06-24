@@ -7,7 +7,7 @@ namespace RiskManagement.Models
     {
         // SECTION 1: RISK INFORMATION
         public int Id { get; set; }
-        
+
         [Required]
         [DataType(DataType.Date)]
         public DateTime RiskDate { get; set; }
@@ -76,5 +76,20 @@ namespace RiskManagement.Models
 
         [Required]
         public string Status { get; set; } = "Open";
+//===========================
+        [Required]
+        [StringLength(150)]
+        public string RegisteredBy { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime RegisteredDate { get; set; }
+         [Required]
+        [StringLength(150)]
+        public string? ApprovedBy { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime? ApprovedDate { get; set; }
     }
 }
