@@ -35,7 +35,7 @@ form.addEventListener("submit", async function (e) {
         },
         body: JSON.stringify(data)
     });
-
+    const result = await response.json();
     const modalElement = new bootstrap.Modal(modalDiv);
     const modalTitle = document.getElementById("modalTitle");
     const messageBox = document.getElementById("modalMessage");
@@ -51,9 +51,16 @@ form.addEventListener("submit", async function (e) {
             '<i class="bi bi-check-circle-fill text-success" style="font-size:60px;"></i>';
 
         modalTitle.textContent = "Success";
-        messageBox.innerHTML =
-            '<p class="text-success fw-bold">Record Created Successfully!</p>';
+        messageBox.innerHTML = `
+    <p class="text-success fw-bold">
+        Record Created Successfully!
+    </p>
 
+    <div class="alert alert-info mt-2">
+        <strong>Risk ID:</strong> ${result.riskId}
+    </div>
+`;
+        console.log(result.riskId);
         modalElement.show();
 
         function handleModalClose() {
