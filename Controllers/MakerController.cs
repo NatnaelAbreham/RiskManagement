@@ -56,7 +56,7 @@ namespace RiskManagement.Controllers
                 Recommendation = dto.Recommendation,
                 MitigationPlannedDate = dto.MitigationPlannedDate,
                 RiskOwner = dto.RiskOwner,
-                Status = "Open",
+                Status = "pending",
                 RegisteredBy = email,   // 👈 secure source
                 RegisteredDate = DateTime.UtcNow
             };
