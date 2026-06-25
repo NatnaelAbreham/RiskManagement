@@ -57,18 +57,7 @@ form.addEventListener("submit", async function (e) {
         modalElement.show();
 
         function handleModalClose() {
-            //console.log("Modal closed");
-
-            clearValidation();
-            //form.reset();
-
-            console.log("Modal closed");
-            console.log("Before reset:", document.getElementById("IdentifiedRisk").value);
-
             form.reset();
-
-            console.log("After reset:", document.getElementById("IdentifiedRisk").value);
-
             modalDiv.removeEventListener("hidden.bs.modal", handleModalClose);
         }
 
