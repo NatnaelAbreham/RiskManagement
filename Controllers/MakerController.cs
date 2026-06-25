@@ -63,5 +63,18 @@ namespace RiskManagement.Controllers
 
             return Ok(risk);
         }
+
+        private string GetRiskPrefix(string identifiedRisk)
+        {
+            return identifiedRisk switch
+            {
+                "DomesticBanking" => "DB",
+                "CreditOperation" => "CO",
+                "InternationalBanking" => "IB",
+                "InvestmentPortfolio" => "IP",
+                "ComplianceRegulatory" => "CR",
+                _ => "RK"
+            };
+        }
     }
 }
