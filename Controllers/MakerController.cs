@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RiskManagement.Data;
 using RiskManagement.Models;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace RiskManagement.Controllers
@@ -75,6 +76,30 @@ namespace RiskManagement.Controllers
                 "ComplianceRegulatory" => "CR",
                 _ => "RK"
             };
+        }
+
+        private async Task<string> GenerateRiskId(string identifiedRisk)
+        {
+            var prefix = GetRiskPrefix(identifiedRisk);
+
+            var lastRisk = await _context.RiskRegistrations
+                .Where(r => r.RiskId.StartsWith(prefix))
+                .OrderByDescending(r => r.RiskId)
+                .FirstOrDefaultAsync();
+
+            int nextNumber = 1;
+
+            if (lastRisk != null)
+            {
+                var numericPart = lastRisk.RiskId.Substring(2);
+
+                if (int.TryParse(numericPart, out int currentNumber))
+                {
+                    nextNumber = currentNumber + 1;
+                }
+            }
+
+            return $"{prefix}{nextNumber:D6}";
         }
     }
 }
