@@ -6,6 +6,7 @@ namespace RiskManagement.Models
     public class RiskRegistration
     {
         public int Id { get; set; }
+        public string RiskId { get; set; }   // DB000001, CR000001
 
         // SECTION 1: RISK INFORMATION
         public DateTime RiskDate { get; set; }
