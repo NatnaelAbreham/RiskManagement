@@ -9,7 +9,7 @@ namespace RiskManagement.Data
             public AppDBContext(DbContextOptions<AppDBContext> options) : base(options) { }
             public DbSet<User> Users { get; set; }
             public DbSet<RiskRegistration> RiskRegistrations { get; set; }
-
+            public DbSet<RiskSequence> RiskSequences { get; set; }
             protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
                   base.OnModelCreating(modelBuilder);
@@ -26,10 +26,18 @@ namespace RiskManagement.Data
                        entity.Property(e => e.Role).HasMaxLength(50).IsRequired().HasDefaultValue("124451");
                        entity.Property(e => e.CreatedOn).IsRequired().HasDefaultValueSql("SYSUTCDATETIME()");
                  });
+
+                  modelBuilder.Entity<RiskSequence>(entity =>
+                 {
+                       entity.ToTable("RiskSequence");
+                       entity.HasKey(e => e.Id);                    
+                       entity.Property(e => e.Prefix).HasMaxLength(10).IsRequired();                       
+                       entity.Property(e => e.LastNumber ).IsRequired();                    
+                 });
+
                   modelBuilder.Entity<RiskRegistration>(entity =>
                  {
                        entity.ToTable("RiskRegistration");
-
                        entity.HasKey(e => e.Id);
 
                        // Id (Identity)

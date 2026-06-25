@@ -1,6 +1,6 @@
 namespace RiskManagement.Models
 {
-    public class ReskSequence
+    public class RiskSequence
     {
         public int Id { get; set; }
 

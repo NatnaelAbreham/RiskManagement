@@ -76,32 +76,24 @@ namespace RiskManagement.Controllers
                 "InternationalBanking" => "IB",
                 "InvestmentPortfolio" => "IP",
                 "ComplianceRegulatory" => "CR",
-                _ => "RK"
+                _ => throw new Exception("Unknown risk type")
             };
         }
-
         private async Task<string> GenerateRiskId(string identifiedRisk)
         {
             var prefix = GetRiskPrefix(identifiedRisk);
 
-            var lastRisk = await _context.RiskRegistrations
-                .Where(r => r.RiskId.StartsWith(prefix))
-                .OrderByDescending(r => r.RiskId)
-                .FirstOrDefaultAsync();
+            var sequence = await _context.RiskSequences
+                .FirstOrDefaultAsync(x => x.Prefix == prefix);
 
-            int nextNumber = 1;
+            if (sequence == null)
+                throw new Exception($"Sequence not found for {prefix}");
 
-            if (lastRisk != null)
-            {
-                var numericPart = lastRisk.RiskId.Substring(2);
+            sequence.LastNumber++;
 
-                if (int.TryParse(numericPart, out int currentNumber))
-                {
-                    nextNumber = currentNumber + 1;
-                }
-            }
+            await _context.SaveChangesAsync();
 
-            return $"{prefix}{nextNumber:D6}";
+            return $"{prefix}{sequence.LastNumber:D6}";
         }
     }
 }
