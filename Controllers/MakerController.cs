@@ -7,23 +7,27 @@ using System.Security.Claims;
 
 namespace RiskManagement.Controllers
 {
+    [Route("Maker")]
     [Authorize(Roles = "Maker")]
     public class MakerController : Controller
     {
         public MakerController(AppDBContext context) => _context = context;
         private readonly AppDBContext _context;
+
+        [HttpGet("Dashboard")]
         public IActionResult Dashboard()
         {
             return View();
         }
+
+        [HttpGet("Register")]
         public IActionResult Register()
         {
             return View();
         }
 
 
-
-        [HttpPost ("createrisk")]
+        [HttpPost("createrisk")]
         public async Task<IActionResult> CreateRisk([FromBody] RiskRegistrationDto dto)
         {
             var email = User.FindFirst(ClaimTypes.Email)?.Value;

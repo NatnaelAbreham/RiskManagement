@@ -26,7 +26,7 @@ document.getElementById("createRiskForm").addEventListener("submit", async funct
         status: document.getElementById("Status").value
     };
 
-    const response = await fetch("/Risk/CreateRisk", {
+    const response = await fetch("/Maker/createrisk", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

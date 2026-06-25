@@ -6,15 +6,17 @@
 @section Styles {
     <link href="~/css/register.css" rel="stylesheet" />
     <!-- Font Awesome for icons (optional) -->
-   @*  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" /> *@
+    @* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" /> *@
 }
-
+@section Scripts {
+    <script src="~/js/riskregistration.js"></script>
+}
 <div class="card border-0 shadow-sm p-4">
 
     <!-- ========== PAGE HEADER ========== -->
     <div class="page-header">
         <h2>
-           <i class="bi bi-card-checklist" style="color: var(--primary);"></i>
+            <i class="bi bi-card-checklist" style="color: var(--primary);"></i>
             Risk Registration
             <span class="badge">New</span>
         </h2>
@@ -32,8 +34,7 @@
         <div class="step"></div>
     </div>
 
-    <form id="createRiskForm" action="@Url.Action("CreateRisk", "Risk")" method="post">
-
+    <form id="createRiskForm">
         <!-- ============================================================ -->
         <!-- SECTION 1: RISK INFORMATION                                   -->
         <!-- ============================================================ -->
@@ -75,7 +76,8 @@
                         <i class="fas fa-search" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Source of Risk
                     </label>
-                    <input type="text" class="form-control modern-input" id="SourceOfRisk" name="SourceOfRisk" placeholder="e.g. Client feedback, Audit, Process" required />
+                    <input type="text" class="form-control modern-input" id="SourceOfRisk" name="SourceOfRisk"
+                           placeholder="e.g. Client feedback, Audit, Process" required />
                 </div>
 
                 <div class="col-lg-3 col-md-6">
@@ -101,10 +103,11 @@
                         Risk Event Description
                     </label>
                     <textarea class="form-control modern-input" id="RiskDescription" name="RiskDescription"
-                              placeholder="Provide a comprehensive description of the identified risk event, including context, triggers, and potential consequences…" 
+                              placeholder="Provide a comprehensive description of the identified risk event, including context, triggers, and potential consequences…"
                               required></textarea>
                     <span class="field-helper">
-                        <i class="far fa-comment"></i> Be specific about the nature, scope, and potential impact of the risk.
+                        <i class="far fa-comment"></i> Be specific about the nature, scope, and potential impact of the
+                        risk.
                     </span>
                 </div>
 
@@ -130,7 +133,8 @@
                         <i class="fas fa-bullseye" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Effect
                     </label>
-                    <input type="text" class="form-control modern-input" id="Effect" name="Effect" placeholder="e.g. Financial, Operational, Reputational" required />
+                    <input type="text" class="form-control modern-input" id="Effect" name="Effect"
+                           placeholder="e.g. Financial, Operational, Reputational" required />
                 </div>
 
                 <div class="col-lg-3 col-md-6">
@@ -138,7 +142,8 @@
                         <i class="fas fa-percent" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Probability (%)
                     </label>
-                    <input type="number" class="form-control modern-input" id="Probability" name="Probability" placeholder="0-100" min="0" max="100" required />
+                    <input type="number" class="form-control modern-input" id="Probability" name="Probability"
+                           placeholder="0-100" min="0" max="100" required />
                 </div>
 
                 <div class="col-lg-3 col-md-6">
@@ -160,7 +165,8 @@
                         <i class="fas fa-calculator" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Risk Score
                     </label>
-                    <input type="number" class="form-control modern-input" id="RiskScore" name="RiskScore" placeholder="Calculated score" step="0.01" required />
+                    <input type="number" class="form-control modern-input" id="RiskScore" name="RiskScore"
+                           placeholder="Calculated score" step="0.01" required />
                     <span class="field-helper">Probability × Impact</span>
                 </div>
 
@@ -216,7 +222,7 @@
                         Existing Risk Mitigation
                     </label>
                     <textarea class="form-control modern-input" id="ExistingMitigation" name="ExistingMitigation"
-                              placeholder="Describe all existing controls, safeguards, and mitigation measures currently in place…" 
+                              placeholder="Describe all existing controls, safeguards, and mitigation measures currently in place…"
                               required></textarea>
                     <span class="field-helper">Include both preventive and detective controls.</span>
                 </div>
@@ -242,7 +248,7 @@
                         Recommendation
                     </label>
                     <textarea class="form-control modern-input" id="Recommendation" name="Recommendation"
-                              placeholder="Provide recommended actions to further mitigate or eliminate the risk…" 
+                              placeholder="Provide recommended actions to further mitigate or eliminate the risk…"
                               required></textarea>
                 </div>
 
@@ -268,7 +274,8 @@
                         <i class="far fa-calendar-check" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Mitigation Planned Date
                     </label>
-                    <input type="date" class="form-control modern-input" id="MitigationPlannedDate" name="MitigationPlannedDate" required />
+                    <input type="date" class="form-control modern-input" id="MitigationPlannedDate"
+                           name="MitigationPlannedDate" required />
                 </div>
 
                 <div class="col-lg-4 col-md-6">
@@ -276,7 +283,8 @@
                         <i class="fas fa-user" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Risk Owner
                     </label>
-                    <input type="text" class="form-control modern-input" id="RiskOwner" name="RiskOwner" placeholder="Full name or role" required />
+                    <input type="text" class="form-control modern-input" id="RiskOwner" name="RiskOwner"
+                           placeholder="Full name or role" required />
                     <span class="field-helper">Person responsible for managing this risk</span>
                 </div>
 
@@ -310,4 +318,19 @@
 
     </form>
 
+</div>
+
+<!-- Response Modal -->
+<div class="modal fade" id="responseModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center p-4 rounded-4 shadow-lg">
+            <div id="modalIcon" class="mb-3" style="font-size: 60px;"></div>
+            <h5 id="modalTitle" class="fw-bold"></h5>
+            <p id="modalMessage" class="mt-2"></p>
+            <button id="okButton" type="button"
+                    class="btn btn-success mt-3 px-5 py-2 rounded-pill shadow-lg btn-animated" data-bs-dismiss="modal">
+                OK
+            </button>
+        </div>
+    </div>
 </div>
