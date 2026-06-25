@@ -32,12 +32,14 @@ namespace RiskManagement.Controllers
         public async Task<IActionResult> CreateRisk([FromBody] RiskRegistrationDto dto)
         {
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
+            var riskId = await GenerateRiskId(dto.IdentifiedRisk);
 
             if (string.IsNullOrEmpty(email))
                 return Unauthorized();
 
             var risk = new RiskRegistration
             {
+                RiskId = riskId,
                 RiskDate = dto.RiskDate,
                 IdentifiedRisk = dto.IdentifiedRisk,
                 SourceOfRisk = dto.SourceOfRisk,
