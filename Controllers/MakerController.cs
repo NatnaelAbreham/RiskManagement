@@ -15,6 +15,19 @@ namespace RiskManagement.Controllers
         public MakerController(AppDBContext context) => _context = context;
         private readonly AppDBContext _context;
 
+        [HttpGet("View")]
+        public IActionResult ViewRecord()
+        {
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
+            var filteredUsers = _context.RiskRegistrations
+          .Where(u => u.RegisteredBy == email)
+          .OrderByDescending(u => u.Id)
+          .ToList();
+
+
+            return View("ViewRecord", filteredUsers);
+        }
+        
         [HttpGet("Dashboard")]
         public IActionResult Dashboard()
         {
@@ -32,8 +45,6 @@ namespace RiskManagement.Controllers
         {
             return View();
         }
-
-
 
         [HttpPost("createrisk")]
         public async Task<IActionResult> CreateRisk([FromBody] RiskRegistrationDto dto)
