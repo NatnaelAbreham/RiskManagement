@@ -27,6 +27,13 @@ namespace RiskManagement.Controllers
             return View();
         }
 
+        [HttpGet("Profile")]
+        public IActionResult Profile()
+        {
+            return View();
+        }
+
+
 
         [HttpPost("createrisk")]
         public async Task<IActionResult> CreateRisk([FromBody] RiskRegistrationDto dto)
