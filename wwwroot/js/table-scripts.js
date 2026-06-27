@@ -1,6 +1,12 @@
 $(function () {
     $('#dataTable').DataTable({
-        pageLength: 5,
-        lengthMenu: [5, 10, 25, 50, 100]
-    });
+    responsive: true,
+    pageLength: 10,
+    scrollX: true,
+    autoWidth: false,
+    language: {
+        search: "",
+        searchPlaceholder: "Search risk records..."
+    }
+});
 });
