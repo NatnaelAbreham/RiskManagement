@@ -1,6 +1,7 @@
 const fieldsToShow = [
     // SECTION 1: RISK INFORMATION
     { key: "RiskId", label: "Risk ID" },
+    { key: "RegisteredDate", label: "Registered Date" },
     { key: "RiskDate", label: "Risk Date" },
     /*{ key: "IdentifiedRisk", label: "Identified Risk" },*/
     { key: "SourceOfRisk", label: "Source of Risk" },
@@ -25,9 +26,7 @@ const fieldsToShow = [
     { key: "RiskOwner", label: "Risk Owner" },
     { key: "Status", label: "Status" },
 
-    // AUDIT FIELDS
-    { key: "RegisteredBy", label: "Registered By" },
-    { key: "RegisteredDate", label: "Registered Date" },
+   
 
 ];
 
@@ -86,7 +85,7 @@ $(document).on('click', '.edit-btn', async function () {
         const value = user[field.key] ?? '-';
 
         // Handle dropdowns for specific fields
-        if (isEditable && !["RiskId", "RegisteredBy", "RegisteredDate"].includes(field.key)) {
+        if (isEditable && !["RiskId",  "RegisteredDate"].includes(field.key)) {
 
             if (field.key === "RiskCategory") {
 
