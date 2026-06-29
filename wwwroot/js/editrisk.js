@@ -28,18 +28,7 @@ const fieldsToShow = [
     // AUDIT FIELDS
     { key: "RegisteredBy", label: "Registered By" },
     { key: "RegisteredDate", label: "Registered Date" },
-    /* { key: "ApprovedBy", label: "Approved By" },
-    { key: "ApprovedDate", label: "Approved Date" }  */
-];
 
-
-let branches = [];
-const currencyOptions = [
-    "US DOLLAR", "POUND STERLING", "SWISS FRANC", "SWEDISH KRONER",
-    "NORWEGIAN KRONER", "DANISH KRONER", "DJIBOUTI FRANC", "INDIAN RUPEE",
-    "KENYA SHILLING", "JAPANESE YEN", "CANADIAN DOLLAR", "AUSTRALIAN DOLLAR",
-    "SAUDI RIYAL", "UAE DIRHAM", "EURO", "SOUTH AFRICA RAND", "CHINESE YUAN",
-    "KUWAITI DINAR"
 ];
 
 const riskCategories = [
@@ -51,21 +40,33 @@ const riskCategories = [
     { value: "ProcessManagementExecution", text: "Process Management & Execution" },
     { value: "CustomerProductRisk", text: "Customer & Product Risk" }
 ];
-
-$(document).on('click', '.reason-btn', function () {
-    const reason = $(this).data('reason') || 'No reason available';
-    const rejectedBy = $(this).data('rejectedby') || 'Unknown';
-    const rejectedOn = $(this).data('rejectedon') || 'Unknown';
-
-    const content = `
-        <p><strong>Reason:</strong> ${reason}</p>
-        <p><strong>Rejected By:</strong> ${rejectedBy}</p>
-        <p><strong>Rejected On:</strong> ${rejectedOn}</p>
-    `;
-
-    $('#reasonModalBody').html(content);
-    $('#reasonModal').modal('show');
-});
+const impactLevels = [
+    { value: "", text: "Select Impact" },
+    { value: "Low", text: "Low" },
+    { value: "Medium", text: "Medium" },
+    { value: "High", text: "High" },
+    { value: "Critical", text: "Critical" }
+];
+const riskRatings = [
+    { value: "", text: "Select Rating" },
+    { value: "Low", text: "Low" },
+    { value: "Medium", text: "Medium" },
+    { value: "High", text: "High" },
+    { value: "Extreme", text: "Extreme" }
+];
+const mitigationRatings = [
+    { value: "", text: "Select Rating" },
+    { value: "VeryWeak", text: "Very Weak" },
+    { value: "Weak", text: "Weak" },
+    { value: "Moderate", text: "Moderate" },
+    { value: "Strong", text: "Strong" },
+    { value: "VeryStrong", text: "Very Strong" }
+];
+const statusOptions = [
+    { value: "Open", text: "Open" },
+    { value: "InProgress", text: "In Progress" },
+    { value: "Closed", text: "Closed" }
+];
 
 $(document).on('click', '.edit-btn', async function () {
 
@@ -88,82 +89,59 @@ $(document).on('click', '.edit-btn', async function () {
         if (isEditable && !["RiskId", "RegisteredBy", "RegisteredDate"].includes(field.key)) {
 
             if (field.key === "RiskCategory") {
-                html += `
-                <div class="col-md-6">
-                    <div class="border-bottom py-2 px-1">
-                        <label class="fw-semibold text-dark">${field.label}:</label>
-                        <select class="form-control mt-1" name="${field.key}">
-                            <option value="Priority" ${value === 'Priority' ? 'selected' : ''}>Priority</option>
-                            <option value="NonPriority" ${value === 'NonPriority' ? 'selected' : ''}>Non Priority</option>
-                        </select>
-                    </div>
-                </div>
-            `;
-            } else if (field.key === "Branch") {
 
-                html += `
-        <div class="col-md-6" style="position: relative;">
-            <div class="border-bottom py-2 px-1">
-                <label for="branch" class="fw-semibold text-dark">${field.label}:</label>
-                <input 
-                    type="text" 
-                    class="form-control branch-input mt-1" 
-                    name="${field.key}" 
-                    id="branch" 
-                    placeholder="Start typing branch name..." 
-                    autocomplete="off"
-                >
-                <div id="branchDropdown" class="autocomplete-list"></div>
-                <div class="error-message" id="branchError"></div>
-            </div>
-        </div>
-    `;
-            }
-            else if (field.key === "Currency") {
                 html += `
         <div class="col-md-6">
             <div class="border-bottom py-2 px-1">
                 <label class="fw-semibold text-dark">${field.label}:</label>
-                <select class="form-control mt-1" name="${field.key}" id="currency">
-                    ${currencyOptions.map(curr => `
-                        <option value="${curr}" ${curr === user.Currency ? 'selected' : ''}>${curr}</option>
-                    `).join('')}
-                </select>
+
+                ${renderRiskCategorySelect(field.key, value)}
             </div>
         </div>
     `;
-            }
+            } else if (field.key === "ImpactLevel") {
+                html += `
+<div class="col-md-6">
+    <div class="border-bottom py-2 px-1">
+        <label class="fw-semibold text-dark">${field.label}:</label>
 
-            else if (field.key === "PaymentMethod") {
-                html += `
-                <div class="col-md-6">
-                    <div class="border-bottom py-2 px-1">
-                        <label class="fw-semibold text-dark">${field.label}:</label>
-                        <select class="form-control mt-1" name="${field.key}">
-                            <option value="LC" ${value === 'LC' ? 'selected' : ''}>LC</option>
-                            <option value="CAD" ${value === 'CAD' ? 'selected' : ''}>CAD</option>
-                            <option value="TT" ${value === 'TT' ? 'selected' : ''}>TT</option>
-                        </select>
-                    </div>
-                </div>
-            `;
-            } else if (
-                field.key === "FormDate"
-            ) {
-                html += `
-    <div class="col-md-6">
-        <div class="border-bottom py-2 px-1">
-            <label class="fw-semibold text-dark">${field.label}:</label>
-            <input
-                type="date"
-                class="form-control mt-1"
-                name="${field.key}"
-                value="${value ? value.split('T')[0] : ''}"
-            >
-        </div>
+        ${renderSelect(impactLevels, "ImpactLevel", value, "form-select modern-input", true)}
     </div>
-    `;
-            } else {
+</div>
+`;
+            } else if (field.key === "RiskRating") {
+                html += `
+<div class="col-md-6">
+    <div class="border-bottom py-2 px-1">
+        <label class="fw-semibold text-dark">${field.label}:</label>
+
+        ${renderSelect(riskRatings, "RiskRating", value, "form-select modern-input", true)}
+    </div>
+</div>
+`;
+            }
+            else if (field.key === "MitigationRating") {
+                html += `
+<div class="col-md-6">
+    <div class="border-bottom py-2 px-1">
+        <label class="fw-semibold text-dark">${field.label}:</label>
+
+        ${renderMitigationRatingSelect(field.key, value)}
+    </div>
+</div>
+`;
+            } else if (field.key === "Status") {
+                html += `
+<div class="col-md-6">
+    <div class="border-bottom py-2 px-1">
+        <label class="fw-semibold text-dark">${field.label}:</label>
+
+        ${renderSelect(statusOptions, "Status", value)}
+    </div>
+</div>
+`;
+            }
+            else {
                 // Default text input
                 html += `
                 <div class="col-md-6">
@@ -176,20 +154,15 @@ $(document).on('click', '.edit-btn', async function () {
             }
 
         } else {
-            // Format money fields
             let displayValue = value;
-            if (["Balance", "PerformaUSD", "PerformaAmount"].includes(field.key) && !isNaN(value)) {
-                displayValue = Number(value).toLocaleString(); // Adds commas
-            }
-
             // Format date field
-            if (field.key === "CreatedOn" || field.key === "FormDate" || field.key === "ApprovedOn" || field.key === "VerifiedOn") {
+            if (field.key === "RegisteredOn" || field.key === "MitigationPlannedDate" || field.key === "RiskDate") {
                 if (value != '-') {
                     const date = new Date(value);
                     displayValue = date.toLocaleDateString(); // default format: MM/DD/YYYY
 
                 }
-                // If you want, you can customize: date.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
+
             }
 
 
@@ -211,7 +184,7 @@ $(document).on('click', '.edit-btn', async function () {
         if (isEditable) {
             html += `
         <div class="col-12 d-flex justify-content-center mt-3">
-            <button class="btn btn-success me-3" id="saveChangesBtn" data-id="${user.QueueNumber}">Save Changes</button>
+            <button class="btn btn-success me-3" id="saveChangesBtn" data-id="${user.RiskId}">Save Changes</button>
             <button class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
         </div>
     `;
@@ -231,13 +204,6 @@ $(document).on('click', '.edit-btn', async function () {
 
     $('#editModalContent').html(html);
     $('#editModal').modal('show');
-
-    const branchInput = document.getElementById('branch');
-    if (branchInput && user.Branch) {
-        branchInput.value = user.Branch;
-    }
-
-
 });
 
 document.addEventListener('click', function (event) {
@@ -254,25 +220,18 @@ document.addEventListener('click', function (event) {
         }).then((result) => {
             if (result.isConfirmed) {
                 const updatedData = {
-                    queueNumber: queueNumber,
+                    RiskId: RiskId,
                 };
 
                 fieldsToShow.forEach(field => {
                     const inputElement = document.querySelector(`[name="${field.key}"]`);
-                    if (inputElement) {
-                        let value = inputElement.value.trim();
-                        // Convert numeric fields
-                        if (["Balance", "PerformaAmount", "PerformaUSD", "CustomerAccountBalance"].includes(field.key)) {
-                            value = Number(value) || 0;
-                        }
-                        updatedData[field.key] = value;
-                    }
+
                 });
 
                 // Add this line to debug
                 console.log("Data to be sent to backend:", updatedData);
 
-                fetch('/updatefcy', {
+                fetch('/updaterisk', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(updatedData)
@@ -295,6 +254,64 @@ document.addEventListener('click', function (event) {
         });
     }
 });
+
+function renderMitigationRatingSelect(name, value) {
+    return `
+        <select class="form-select modern-input" id="${name}" name="${name}" required>
+            ${mitigationRatings.map(r => `
+                <option value="${r.value}" ${value === r.value ? 'selected' : ''}>
+                    ${r.text}
+                </option>
+            `).join('')}
+        </select>
+    `;
+}
+
+function renderRiskCategorySelect(name, value) {
+    return `
+        <select class="form-control mt-1" name="${name}">
+            ${riskCategories.map(c => `
+                <option value="${c.value}" ${value === c.value ? 'selected' : ''}>
+                    ${c.text}
+                </option>
+            `).join('')}
+        </select>
+    `;
+}
+function renderSelect(options, name, value, className = "form-select modern-input", required = false) {
+    return `
+        <select class="${className}" id="${name}" name="${name}" ${required ? "required" : ""}>
+            ${options.map(o => `
+                <option value="${o.value}" ${value === o.value ? 'selected' : ''}>
+                    ${o.text}
+                </option>
+            `).join('')}
+        </select>
+    `;
+}
+
+function renderSelect(options, name, value, className = "form-select modern-input", required = false) {
+    return `
+        <select class="${className}" id="${name}" name="${name}" ${required ? "required" : ""}>
+            ${options.map(o => `
+                <option value="${o.value}" ${value === o.value ? 'selected' : ''}>
+                    ${o.text}
+                </option>
+            `).join('')}
+        </select>
+    `;
+}
+function renderSelect(options, name, value, className = "form-select modern-input", required = false) {
+    return `
+        <select class="${className}" id="${name}" name="${name}" ${required ? "required" : ""}>
+            ${options.map(o => `
+                <option value="${o.value}" ${value === o.value ? 'selected' : ''}>
+                    ${o.text}
+                </option>
+            `).join('')}
+        </select>
+    `;
+}
 
 
 

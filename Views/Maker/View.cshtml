@@ -2,7 +2,9 @@
     ViewBag.Title = @User.Identity.Name;
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
-
+@section Scripts {
+    <script src="~/js/editrisk.js"></script>
+}
 @model List<RiskManagement.Models.RiskRegistration>
 
 
@@ -27,25 +29,21 @@
                         <!-- Section 1: Risk Information -->
                         <th>Risk Date</th>
                         <th>Identified Risk</th>
-                        <th>Source of Risk</th>
                         <th>Risk Category</th>
-                        <th>Risk Event Description</th>
 
                         <!-- Section 2: Risk Assessment -->
-                        <th>Effect</th>
+                        @* <th>Effect</th>
                         <th>Probability</th>
                         <th>Impact Level</th>
                         <th>Risk Score</th>
                         <th>Risk Rating</th>
                         <th>Residual Risk Level</th>
-
+ *@
                         <!-- Section 3: Mitigation & Controls -->
                         <th>Existing Risk Mitigation</th>
                         <th>Mitigation Rating</th>
-                        <th>Recommendation</th>
 
                         <!-- Section 4: Ownership & Planning -->
-                        <th>Mitigation Planned Date</th>
                         <th>Risk Owner</th>
 
                         <!-- Optional -->
@@ -70,25 +68,21 @@
                                 <!-- Section 1: Risk Information -->
                                 <td>@user.RiskDate.ToString("yyyy-MM-dd")</td>
                                 <td>@user.IdentifiedRisk</td>
-                                <td>@user.SourceOfRisk</td>
                                 <td>@user.RiskCategory</td>
-                                <td>@user.RiskEventDescription</td>
 
                                 <!-- Section 2: Risk Assessment -->
-                                <td>@user.Effect</td>
+                               @*  <td>@user.Effect</td>
                                 <td>@user.Probability</td>
                                 <td>@user.ImpactLevel</td>
                                 <td>@user.RiskScore</td>
                                 <td>@user.RiskRating</td>
-                                <td>@user.ResidualRiskLevel</td>
+                                <td>@user.ResidualRiskLevel</td> *@
 
                                 <!-- Section 3: Mitigation & Controls -->
                                 <td>@user.ExistingRiskMitigation</td>
                                 <td>@user.MitigationRating</td>
-                                <td>@user.Recommendation</td>
 
                                 <!-- Section 4: Ownership & Planning -->
-                                <td>@user.MitigationPlannedDate.ToString("yyyy-MM-dd")</td>
                                 <td>@user.RiskOwner</td>
                                 <td>
                                     @if (user.Status == "approved")
