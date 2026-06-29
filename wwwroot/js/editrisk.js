@@ -165,7 +165,6 @@ $(document).on('click', '.edit-btn', async function () {
 
             }
 
-
             // Read-only view
             html += `
         <div class="col-md-6">
