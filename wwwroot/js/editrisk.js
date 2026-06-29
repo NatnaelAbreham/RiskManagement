@@ -1,24 +1,38 @@
 const fieldsToShow = [
-    { key: "QueueNumber", label: "Queue Number" },
-    { key: "FormDate", label: "Date" },
-    { key: "Balance", label: "Account Balance" },
-    { key: "Branch", label: "Branch" },
-    { key: "ImporterName", label: "Importer Name" },
-    { key: "ImporterNBEAcc", label: "Importer NBE Account" },
-    { key: "ImporterTIN", label: "Importer TIN" },
-    { key: "ImporterPhone", label: "Importer Phone" },
-    { key: "PerformaNumber", label: "Performa Number" },
-    { key: "Currency", label: "Currency" },
-    { key: "PerformaAmount", label: "Performa Amount" },
-    { key: "PerformaUSD", label: "Performa USD" },
-    { key: "PaymentMethod", label: "Payment Method" },
-    { key: "Priority", label: "Priority" },
-    { key: "Item", label: "Item" },
-    { key: "CustomerAccount", label: "Customer Account" },
+    // SECTION 1: RISK INFORMATION
+    { key: "RiskId", label: "Risk ID" },
+    { key: "RiskDate", label: "Risk Date" },
+    /*{ key: "IdentifiedRisk", label: "Identified Risk" },*/
+    { key: "SourceOfRisk", label: "Source of Risk" },
+    { key: "RiskCategory", label: "Risk Category" },
+    { key: "RiskEventDescription", label: "Risk Event Description" },
 
-    //{ key: "CreatedOn", label: "Recorded On" },
-    //{ key: "FormDate", label: "Date" }
+    // SECTION 2: RISK ASSESSMENT
+    { key: "Effect", label: "Effect" },
+    { key: "Probability", label: "Probability" },
+    { key: "ImpactLevel", label: "Impact Level" },
+    { key: "RiskScore", label: "Risk Score" },
+    { key: "RiskRating", label: "Risk Rating" },
+    { key: "ResidualRiskLevel", label: "Residual Risk Level" },
+
+    // SECTION 3: MITIGATION & CONTROLS
+    { key: "ExistingRiskMitigation", label: "Existing Risk Mitigation" },
+    { key: "MitigationRating", label: "Mitigation Rating" },
+    { key: "Recommendation", label: "Recommendation" },
+
+    // SECTION 4: OWNERSHIP & PLANNING
+    { key: "MitigationPlannedDate", label: "Mitigation Planned Date" },
+    { key: "RiskOwner", label: "Risk Owner" },
+    { key: "Status", label: "Status" },
+
+    // AUDIT FIELDS
+    { key: "RegisteredBy", label: "Registered By" },
+    { key: "RegisteredDate", label: "Registered Date" },
+    /* { key: "ApprovedBy", label: "Approved By" },
+    { key: "ApprovedDate", label: "Approved Date" }  */
 ];
+
+
 let branches = [];
 const currencyOptions = [
     "US DOLLAR", "POUND STERLING", "SWISS FRANC", "SWEDISH KRONER",
@@ -26,6 +40,16 @@ const currencyOptions = [
     "KENYA SHILLING", "JAPANESE YEN", "CANADIAN DOLLAR", "AUSTRALIAN DOLLAR",
     "SAUDI RIYAL", "UAE DIRHAM", "EURO", "SOUTH AFRICA RAND", "CHINESE YUAN",
     "KUWAITI DINAR"
+];
+
+const riskCategories = [
+    { value: "InternalFraud", text: "Internal Fraud" },
+    { value: "ExternalFraud", text: "External Fraud" },
+    { value: "EmploymentWorkplaceSafety", text: "Employment & Workplace Safety" },
+    { value: "PropertyDamage", text: "Property Damage" },
+    { value: "SystemFailureBusinessDisruption", text: "System Failure & Business Disruption" },
+    { value: "ProcessManagementExecution", text: "Process Management & Execution" },
+    { value: "CustomerProductRisk", text: "Customer & Product Risk" }
 ];
 
 $(document).on('click', '.reason-btn', function () {
@@ -51,7 +75,7 @@ $(document).on('click', '.edit-btn', async function () {
         alert('User data or status missing!');
         return;
     }
-    await loadBranches()
+
     const status = user.Status.trim().toLowerCase();
     const isEditable = status === 'pending' || status === 'rejected';
 
@@ -61,9 +85,9 @@ $(document).on('click', '.edit-btn', async function () {
         const value = user[field.key] ?? '-';
 
         // Handle dropdowns for specific fields
-        if (isEditable && !["QueueNumber", "RecordedBy", "CreatedOn"].includes(field.key)) {
+        if (isEditable && !["RiskId", "RegisteredBy", "RegisteredDate"].includes(field.key)) {
 
-            if (field.key === "Priority") {
+            if (field.key === "RiskCategory") {
                 html += `
                 <div class="col-md-6">
                     <div class="border-bottom py-2 px-1">
@@ -124,7 +148,7 @@ $(document).on('click', '.edit-btn', async function () {
                 </div>
             `;
             } else if (
-                field.key === "FormDate" 
+                field.key === "FormDate"
             ) {
                 html += `
     <div class="col-md-6">
@@ -214,90 +238,7 @@ $(document).on('click', '.edit-btn', async function () {
     }
 
 
-
-
-
-
-
-
 });
-
-async function loadBranches() {
-    try {
-        const response = await fetch('/getbranches');
-        const data = await response.json();
-
-        if (response.ok && Array.isArray(data.branches)) {
-            branches = data.branches; // array of strings
-        } else {
-            console.error('Invalid branch response:', data);
-        }
-
-    } catch (error) {
-        console.error('Error fetching branches:', error);
-    }
-}
-
-//document.addEventListener('click', function (event) {
-//    if (event.target && event.target.id === 'saveChangesBtn') {
-//        const queueNumber = event.target.getAttribute('data-id');
-
-//        Swal.fire({
-//            title: 'Are you sure?',
-//            text: "Do you want to save the changes?",
-//            icon: 'warning',
-//            showCancelButton: true,
-//            confirmButtonText: 'Yes, save it!',
-//            cancelButtonText: 'No, cancel',
-//        }).then((result) => {
-//            if (result.isConfirmed) {
-//                const updatedData = {
-//                    queueNumber: queueNumber, // Already included
-//                };
-
-//                // Loop through fieldsToShow and get the value from input fields
-//                fieldsToShow.forEach(field => {
-//                    const inputElement = document.querySelector(`[name="${field.key}"]`);
-
-//                    if (inputElement) {
-//                        updatedData[field.key] = inputElement.value.trim(); // Safely extract value
-//                    }
-//                });
-
-
-//                fetch('/updatefcy', {
-//                    method: 'POST',
-//                    headers: {
-//                        'Content-Type': 'application/json',
-//                    },
-//                    body: JSON.stringify(updatedData)
-//                })
-//                    .then(res => res.json())  // <-- Add this to parse JSON response
-//                    .then(data => {
-//                        if (data.success) {
-//                            const queueNumber = updatedData.queueNumber || data.data?.queueNumber || "this record";
-
-//                            Swal.fire('Saved!', 'Changes have been saved for ' + queueNumber + ' successfully', 'success')
-//                                .then(() => {
-//                                    $('#viewModal').modal('hide'); // Close modal
-//                                    location.reload();             // Refresh page
-//                                });
-//                        } else {
-//                            Swal.fire('Error!', 'Failed to save changes for ' + updatedData.queueNumber, 'error');
-//                        }
-//                    })
-//                    .catch(error => {
-//                        console.error('Error:', error);
-//                        Swal.fire('Error!', 'Something went wrong.', 'error');
-//                    });
-
-//            }
-//        });
-//    }
-//});
-
-
-
 
 document.addEventListener('click', function (event) {
     if (event.target && event.target.id === 'saveChangesBtn') {
@@ -357,45 +298,7 @@ document.addEventListener('click', function (event) {
 
 
 
-document.addEventListener('input', function (e) {
-    if (!e.target.classList.contains('branch-input')) return;
 
-    const input = e.target;
-    const query = input.value.toLowerCase();
-    const dropdown = document.getElementById('branchDropdown');
-
-    dropdown.innerHTML = '';
-
-    if (!query) {
-        dropdown.style.display = 'none';
-        return;
-    }
-
-    const matches = branches.filter(b =>
-        b.toLowerCase().includes(query)
-    );
-
-    if (matches.length === 0) {
-        dropdown.style.display = 'none';
-        return;
-    }
-
-    matches.forEach(branch => {
-        const item = document.createElement('div');
-        item.className = 'autocomplete-item';
-        item.textContent = branch;
-
-        item.onclick = () => {
-            input.value = branch;
-            dropdown.innerHTML = '';
-            dropdown.style.display = 'none';
-        };
-
-        dropdown.appendChild(item);
-    });
-
-    dropdown.style.display = 'block';
-});
 
 
 
