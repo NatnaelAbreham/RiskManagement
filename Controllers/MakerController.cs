@@ -84,7 +84,46 @@ namespace RiskManagement.Controllers
 
             return Ok(risk);
         }
+        [HttpPost("updaterisk")]
+        public IActionResult Updaterisk([FromBody] RiskRegistration model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { message = "Invalid input", errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
+            }
 
+            var risk = _context.RiskRegistrations.FirstOrDefault(a => a.RiskId == model.RiskId);
+            if (risk == null)
+            {
+                return NotFound(new { message = "Record with this queue number not found" });
+            }
+
+            risk.RiskDate = model.RiskDate;
+            risk.SourceOfRisk = model.SourceOfRisk;
+            risk.RiskCategory = model.RiskCategory;
+            risk.RiskEventDescription = model.RiskEventDescription;
+
+            // SECTION 2: RISK ASSESSMENT
+            risk.Effect = model.Effect;
+            risk.Probability = model.Probability;
+            risk.ImpactLevel = model.ImpactLevel;
+            risk.RiskScore = model.RiskScore;
+            risk.RiskRating = model.RiskRating;
+            risk.ResidualRiskLevel = model.ResidualRiskLevel;
+
+            // SECTION 3: MITIGATION & CONTROLS
+            risk.ExistingRiskMitigation = model.ExistingRiskMitigation;
+            risk.MitigationRating = model.MitigationRating;
+            risk.Recommendation = model.Recommendation;
+
+            // SECTION 4: OWNERSHIP & PLANNING
+            risk.MitigationPlannedDate = model.MitigationPlannedDate;
+            risk.RiskOwner = model.RiskOwner;
+            risk.Status = model.Status;
+            _context.SaveChanges();
+
+            return Ok(new { StatusCode = 200, success = true, message = "Status updated successfully", data = fcy });
+        }
         private string GetRiskPrefix(string identifiedRisk)
         {
             return identifiedRisk switch
