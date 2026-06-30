@@ -95,7 +95,7 @@ namespace RiskManagement.Controllers
             var risk = _context.RiskRegistrations.FirstOrDefault(a => a.RiskId == model.RiskId);
             if (risk == null)
             {
-                return NotFound(new { message = "Record with this queue number not found" });
+                return NotFound(new { message = "Record with this Risk ID not found" });
             }
 
             risk.RiskDate = model.RiskDate;

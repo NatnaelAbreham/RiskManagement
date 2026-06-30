@@ -67,135 +67,184 @@ const statusOptions = [
     { value: "Closed", text: "Closed" }
 ];
 
-$(document).on('click', '.edit-btn', async function () {
-
+$(document).on('click', '.edit-btn', function () {
 
     const user = $(this).data('user');
+
     if (!user || !user.Status) {
-        alert('User data or status missing!');
+        Swal.fire('Error', 'User data or status is missing.', 'error');
         return;
     }
 
     const status = user.Status.trim().toLowerCase();
-    const isEditable = status === 'pending' || status === 'rejected';
+    const isEditable = status === "pending" || status === "rejected";
 
-    let html = '';
+    let html = "";
 
     fieldsToShow.forEach(field => {
-        const value = user[field.key] ?? '-';
 
-        // Handle dropdowns for specific fields
+        const value = user[field.key] ?? "";
+
         if (isEditable && !["RiskId", "RegisteredDate"].includes(field.key)) {
+
+            // ------------------------------
+            // Dropdowns
+            // ------------------------------
 
             if (field.key === "RiskCategory") {
 
                 html += `
-        <div class="col-md-6">
-            <div class="border-bottom py-2 px-1">
-                <label class="fw-semibold text-dark">${field.label}:</label>
+                <div class="col-md-6">
+                    <div class="border-bottom py-2 px-1">
+                        <label class="fw-semibold">${field.label}</label>
+                        ${renderRiskCategorySelect(field.key, value)}
+                    </div>
+                </div>`;
 
-                ${renderRiskCategorySelect(field.key, value)}
-            </div>
-        </div>
-    `;
-            } else if (field.key === "ImpactLevel") {
-                html += `
-<div class="col-md-6">
-    <div class="border-bottom py-2 px-1">
-        <label class="fw-semibold text-dark">${field.label}:</label>
-
-        ${renderSelect(impactLevels, "ImpactLevel", value, "form-select modern-input", true)}
-    </div>
-</div>
-`;
-            } else if (field.key === "RiskRating") {
-                html += `
-<div class="col-md-6">
-    <div class="border-bottom py-2 px-1">
-        <label class="fw-semibold text-dark">${field.label}:</label>
-
-        ${renderSelect(riskRatings, "RiskRating", value, "form-select modern-input", true)}
-    </div>
-</div>
-`;
+                return;
             }
-            else if (field.key === "MitigationRating") {
-                html += `
-<div class="col-md-6">
-    <div class="border-bottom py-2 px-1">
-        <label class="fw-semibold text-dark">${field.label}:</label>
 
-        ${renderMitigationRatingSelect(field.key, value)}
-    </div>
-</div>
-`;
-            } else if (field.key === "Status") {
-                html += `
-<div class="col-md-6">
-    <div class="border-bottom py-2 px-1">
-        <label class="fw-semibold text-dark">${field.label}:</label>
+            if (field.key === "ImpactLevel") {
 
-        ${renderSelect(statusOptions, "Status", value)}
-    </div>
-</div>
-`;
-            }
-            else {
-                // Default text input
                 html += `
                 <div class="col-md-6">
                     <div class="border-bottom py-2 px-1">
-                        <label class="fw-semibold text-dark">${field.label}:</label>
-                        <input type="text" class="form-control mt-1" name="${field.key}" value="${value}">
+                        <label class="fw-semibold">${field.label}</label>
+                        ${renderSelect(impactLevels, field.key, value)}
                     </div>
-                </div>
-            `;
+                </div>`;
+
+                return;
             }
 
-        } else {
-            let displayValue = value;
-            // Format date field
-            if (field.key === "RegisteredOn" || field.key === "MitigationPlannedDate" || field.key === "RiskDate") {
-                if (value != '-') {
-                    const date = new Date(value);
-                    displayValue = date.toLocaleDateString(); // default format: MM/DD/YYYY
+            if (field.key === "RiskRating") {
 
+                html += `
+                <div class="col-md-6">
+                    <div class="border-bottom py-2 px-1">
+                        <label class="fw-semibold">${field.label}</label>
+                        ${renderSelect(riskRatings, field.key, value)}
+                    </div>
+                </div>`;
+
+                return;
+            }
+
+            if (field.key === "MitigationRating") {
+
+                html += `
+                <div class="col-md-6">
+                    <div class="border-bottom py-2 px-1">
+                        <label class="fw-semibold">${field.label}</label>
+                        ${renderMitigationRatingSelect(field.key, value)}
+                    </div>
+                </div>`;
+
+                return;
+            }
+
+            if (field.key === "Status") {
+
+                html += `
+                <div class="col-md-6">
+                    <div class="border-bottom py-2 px-1">
+                        <label class="fw-semibold">${field.label}</label>
+                        ${renderSelect(statusOptions, field.key, value)}
+                    </div>
+                </div>`;
+
+                return;
+            }
+
+            // ------------------------------
+            // Decide Input Type
+            // ------------------------------
+
+            let inputType = "text";
+            let inputValue = value;
+            let extra = "";
+
+            // Date Fields
+            if (field.key === "RiskDate" || field.key === "MitigationPlannedDate") {
+
+                inputType = "date";
+
+                if (value) {
+                    inputValue = new Date(value).toISOString().split("T")[0];
                 }
-
+                else {
+                    inputValue = "";
+                }
             }
 
-            // Read-only view
+            // Decimal Fields
+            if (field.key === "Probability" || field.key === "RiskScore") {
+
+                inputType = "number";
+                extra = 'step="0.01"';
+            }
+
             html += `
-        <div class="col-md-6">
-            <div class="border-bottom py-2 px-1">
-                <span class="fw-semibold text-dark">${field.label}:</span>
-                <span class="ms-1 text-muted">${displayValue}</span>
-            </div>
-        </div>
-    `;
+            <div class="col-md-6">
+                <div class="border-bottom py-2 px-1">
+                    <label class="fw-semibold">${field.label}</label>
+
+                    <input
+                        type="${inputType}"
+                        class="form-control mt-1"
+                        name="${field.key}"
+                        value="${inputValue}"
+                        ${extra}>
+                </div>
+            </div>`;
+
+        }
+        else {
+
+            let displayValue = value;
+
+            // Format Dates
+            if (
+                field.key === "RegisteredDate" ||
+                field.key === "RiskDate" ||
+                field.key === "MitigationPlannedDate"
+            ) {
+
+                if (value) {
+                    displayValue = new Date(value).toLocaleDateString();
+                }
+            }
+
+            html += `
+            <div class="col-md-6">
+                <div class="border-bottom py-2 px-1">
+                    <span class="fw-semibold">${field.label}:</span>
+                    <span class="ms-1 text-muted">${displayValue}</span>
+                </div>
+            </div>`;
         }
 
     });
-
 
     let footerHtml = "";
 
     if (isEditable) {
 
         footerHtml = `
-        <button type="button"
+            <button
+                type="button"
                 class="btn btn-danger"
                 data-bs-dismiss="modal">
-            Cancel
-        </button>
+                Cancel
+            </button>
 
-        <button type="button"
+            <button
+                type="button"
                 class="btn btn-success"
                 id="saveChangesBtn"
                 data-id="${user.RiskId}">
-            Save Changes
-        </button>
-    `;
+                Save Changes
+            </button>`;
 
     } else {
 
@@ -204,73 +253,118 @@ $(document).on('click', '.edit-btn', async function () {
             <div class="alert alert-warning text-center mb-0">
                 Verified or approved records cannot be edited.
             </div>
-        </div>
-    `;
+        </div>`;
 
         footerHtml = `
-        <button type="button"
+            <button
+                type="button"
                 class="btn btn-success"
                 data-bs-dismiss="modal">
-            OK
-        </button>
-    `;
+                OK
+            </button>`;
     }
 
+    $("#editModalContent").html(html);
+    $("#editModalFooter").html(footerHtml);
 
+    $("#editModal").modal("show");
 
-    $('#editModalContent').html(html);
-    $('#editModalFooter').html(footerHtml);
-
-    $('#editModal').modal('show');
 });
 
 document.addEventListener('click', function (event) {
+
     if (event.target && event.target.id === 'saveChangesBtn') {
+
         const RiskId = event.target.getAttribute('data-id');
 
         Swal.fire({
             title: 'Are you sure?',
-            text: "Do you want to save the changes?",
+            text: 'Do you want to save the changes?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Yes, save it!',
-            cancelButtonText: 'No, cancel',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const updatedData = {
-                    RiskId: RiskId,
-                };
+            confirmButtonText: 'Yes, Save it!',
+            cancelButtonText: 'Cancel'
+        }).then(async (result) => {
 
-                fieldsToShow.forEach(field => {
-                    const inputElement = document.querySelector(`[name="${field.key}"]`);
+            if (!result.isConfirmed)
+                return;
 
+            const updatedData = {
+                RiskId: RiskId
+            };
+
+            // Read all editable controls
+            fieldsToShow.forEach(field => {
+
+                if (field.key === "RiskId" || field.key === "RegisteredDate")
+                    return;
+
+                const element = document.querySelector(`[name="${field.key}"]`);
+
+                if (!element)
+                    return;
+
+                let value = element.value;
+
+                // Convert decimal fields
+                if (field.key === "Probability" || field.key === "RiskScore") {
+                    value = value === "" ? 0 : parseFloat(value);
+                }
+
+                updatedData[field.key] = value;
+            });
+
+            console.log("Sending to backend:", updatedData);
+
+            try {
+
+                const response = await fetch('/Maker/editrisk', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updatedData)
                 });
 
-                // Add this line to debug
-                console.log("Data to be sent to backend:", updatedData);
+                const result = await response.json();
 
-                fetch('/Maker/editrisk', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(updatedData)
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log("Response from backend:", data);
-                        if (data.success) {
-                            Swal.fire('Saved!', 'Changes have been saved successfully', 'success')
-                                .then(() => location.reload());
-                        } else {
-                            Swal.fire('Error!', 'Failed to save changes', 'error');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        Swal.fire('Error!', 'Something went wrong.', 'error');
+                console.log("Backend Response:", result);
+
+                if (!response.ok) {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Request Failed',
+                        text: result.message || 'Bad Request'
                     });
+
+                    return;
+                }
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: result.message
+                }).then(() => {
+                    location.reload();
+                });
+
             }
+            catch (err) {
+
+                console.error(err);
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Something went wrong.'
+                });
+            }
+
         });
+
     }
+
 });
 
 function renderMitigationRatingSelect(name, value) {
