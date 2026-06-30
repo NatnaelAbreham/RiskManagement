@@ -26,7 +26,7 @@ const fieldsToShow = [
     { key: "RiskOwner", label: "Risk Owner" },
     { key: "Status", label: "Status" },
 
-   
+
 
 ];
 
@@ -85,7 +85,7 @@ $(document).on('click', '.edit-btn', async function () {
         const value = user[field.key] ?? '-';
 
         // Handle dropdowns for specific fields
-        if (isEditable && !["RiskId",  "RegisteredDate"].includes(field.key)) {
+        if (isEditable && !["RiskId", "RegisteredDate"].includes(field.key)) {
 
             if (field.key === "RiskCategory") {
 
@@ -180,9 +180,9 @@ $(document).on('click', '.edit-btn', async function () {
 
     let footerHtml = "";
 
-if (isEditable) {
+    if (isEditable) {
 
-    footerHtml = `
+        footerHtml = `
         <button type="button"
                 class="btn btn-secondary"
                 data-bs-dismiss="modal">
@@ -197,9 +197,9 @@ if (isEditable) {
         </button>
     `;
 
-} else {
+    } else {
 
-    html += `
+        html += `
         <div class="col-12">
             <div class="alert alert-warning text-center mb-0">
                 Verified or approved records cannot be edited.
@@ -207,18 +207,20 @@ if (isEditable) {
         </div>
     `;
 
-    footerHtml = `
+        footerHtml = `
         <button type="button"
                 class="btn btn-primary"
                 data-bs-dismiss="modal">
             OK
         </button>
     `;
-}
+    }
 
 
 
     $('#editModalContent').html(html);
+    $('#editModalFooter').html(footerHtml);
+
     $('#editModal').modal('show');
 });
 
