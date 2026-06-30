@@ -226,7 +226,7 @@ $(document).on('click', '.edit-btn', async function () {
 
 document.addEventListener('click', function (event) {
     if (event.target && event.target.id === 'saveChangesBtn') {
-        const queueNumber = event.target.getAttribute('data-id');
+        const RiskId = event.target.getAttribute('data-id');
 
         Swal.fire({
             title: 'Are you sure?',
