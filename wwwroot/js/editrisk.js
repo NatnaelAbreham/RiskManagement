@@ -249,7 +249,7 @@ document.addEventListener('click', function (event) {
                 // Add this line to debug
                 console.log("Data to be sent to backend:", updatedData);
 
-                fetch('/updaterisk', {
+                fetch('/Maker/editrisk', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(updatedData)

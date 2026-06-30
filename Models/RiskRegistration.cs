@@ -34,8 +34,8 @@ namespace RiskManagement.Models
         public string Status { get; set; } = "Open";
 
         // AUDIT FIELDS
-        public string RegisteredBy { get; set; }
-        public DateTime RegisteredDate { get; set; }
+        public string? RegisteredBy { get; set; }
+        public DateTime? RegisteredDate { get; set; }
 
         public string? ApprovedBy { get; set; }
         public DateTime? ApprovedDate { get; set; }

@@ -84,7 +84,7 @@ namespace RiskManagement.Controllers
 
             return Ok(risk);
         }
-        [HttpPost("updaterisk")]
+        [HttpPost("editrisk")]
         public IActionResult Updaterisk([FromBody] RiskRegistration model)
         {
             if (!ModelState.IsValid)
