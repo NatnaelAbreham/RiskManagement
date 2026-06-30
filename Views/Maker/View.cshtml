@@ -2,6 +2,9 @@
     ViewBag.Title = @User.Identity.Name;
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
+@section Styles {
+    <link href="~/css/view.css" rel="stylesheet" />
+}
 @section Scripts {
     <script src="~/js/editrisk.js"></script>
 }
@@ -155,17 +158,26 @@
 
 <!-- Modal Body -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-top-safe">
         <div class="modal-content">
+
+            <!-- Header -->
             <div class="modal-header">
                 <h5 class="modal-title" id="editModalLabel">Edit Information</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
+
+            <!-- Body -->
             <div class="modal-body">
                 <div class="row" id="editModalContent"></div>
             </div>
+
+            <!-- Dynamic Footer -->
+            <div class="modal-footer" id="editModalFooter">
+                <!-- Buttons will be added by JavaScript -->
+            </div>
+
         </div>
     </div>
 </div>
-
       

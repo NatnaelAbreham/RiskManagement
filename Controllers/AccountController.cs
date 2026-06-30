@@ -98,7 +98,7 @@ namespace RiskManagement.Controllers
             var user = await _context.Users
                 .FirstOrDefaultAsync(x => x.Email == email);
 
-            if (user == null)
+             if (user == null)
             {
                 return Unauthorized(new
                 {
@@ -108,10 +108,11 @@ namespace RiskManagement.Controllers
             }
 
             // 2. Outlook validation
-            var result = await _mailService.ValidateOutlookCredentialsAsync(
+           /*  var result = await _mailService.ValidateOutlookCredentialsAsync(
                 email,
                 request.Password);
 
+  
             if (!result.Success)
             {
                 return Unauthorized(new
@@ -119,7 +120,7 @@ namespace RiskManagement.Controllers
                     success = false,
                     message = "The user name or password you entered isn't correct. Try entering it again."
                 });
-            }
+            } */
 
             var roleName = user.Role switch
             {

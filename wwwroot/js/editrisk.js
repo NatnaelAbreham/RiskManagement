@@ -178,25 +178,43 @@ $(document).on('click', '.edit-btn', async function () {
     });
 
 
-    if (isEditable) {
-        if (isEditable) {
-            html += `
-        <div class="col-12 d-flex justify-content-center mt-3">
-            <button class="btn btn-success me-3" id="saveChangesBtn" data-id="${user.RiskId}">Save Changes</button>
-            <button class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+    let footerHtml = "";
+
+if (isEditable) {
+
+    footerHtml = `
+        <button type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal">
+            Cancel
+        </button>
+
+        <button type="button"
+                class="btn btn-success"
+                id="saveChangesBtn"
+                data-id="${user.RiskId}">
+            Save Changes
+        </button>
+    `;
+
+} else {
+
+    html += `
+        <div class="col-12">
+            <div class="alert alert-warning text-center mb-0">
+                Verified or approved records cannot be edited.
+            </div>
         </div>
     `;
-        }
 
-
-    } else {
-        html += `
-            <div class="col-12 mt-3 text-center">
-                <div class="text-danger fw-bold mb-3">Verified or approved records cannot be edited.</div>
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
-            </div>
-        `;
-    }
+    footerHtml = `
+        <button type="button"
+                class="btn btn-primary"
+                data-bs-dismiss="modal">
+            OK
+        </button>
+    `;
+}
 
 
 
