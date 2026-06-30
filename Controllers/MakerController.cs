@@ -122,7 +122,7 @@ namespace RiskManagement.Controllers
             risk.Status = model.Status;
             _context.SaveChanges();
 
-            return Ok(new { StatusCode = 200, success = true, message = "Status updated successfully", data = fcy });
+            return Ok(new { StatusCode = 200, success = true, message = "Status updated successfully", data = risk });
         }
         private string GetRiskPrefix(string identifiedRisk)
         {
