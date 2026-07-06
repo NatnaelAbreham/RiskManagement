@@ -90,5 +90,20 @@ namespace RiskManagement.Controllers
             return Json(trend);
         }
 
+        [HttpGet("GetRiskRating")]
+        public JsonResult GetRiskRating()
+        {
+            var data = _context.RiskRegistrations
+                .GroupBy(r => r.RiskRating)
+                .Select(g => new
+                {
+                    Rating = g.Key,
+                    Count = g.Count()
+                })
+                .OrderBy(x => x.Rating)
+                .ToList();
+
+            return Json(data);
+        }
     }
 }
