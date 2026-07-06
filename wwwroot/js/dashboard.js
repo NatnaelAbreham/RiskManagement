@@ -160,3 +160,78 @@ fetch('/Checker/GetRiskCategory')
 
     });
 
+fetch('/Checker/GetStatusDistribution')
+    .then(response => response.json())
+    .then(data => {
+
+        var options = {
+
+            chart: {
+                type: 'donut',
+                height: 350
+            },
+
+            series: data.map(x => x.count),
+
+            labels: data.map(x => x.status),
+
+            colors: data.map(x => {
+
+                switch (x.status.toLowerCase()) {
+
+                    case "open":
+                        return "#0d6efd";
+
+                    case "closed":
+                        return "#198754";
+
+                    case "pending":
+                        return "#ffc107";
+
+                    case "approved":
+                        return "#6f42c1";
+
+                    case "overdue":
+                        return "#dc3545";
+
+                    default:
+                        return "#6c757d";
+                }
+
+            }),
+
+            legend: {
+                position: "bottom",
+                fontSize: "14px"
+            },
+
+            plotOptions: {
+                pie: {
+                    donut: {
+                        size: "65%"
+                    }
+                }
+            },
+
+            dataLabels: {
+                enabled: true
+            },
+
+            stroke: {
+                width: 2
+            },
+
+            tooltip: {
+                y: {
+                    formatter: function (value) {
+                        return value + " Risks";
+                    }
+                }
+            }
+
+        };
+
+        new ApexCharts(document.querySelector("#statusChart"), options).render();
+
+    });
+
