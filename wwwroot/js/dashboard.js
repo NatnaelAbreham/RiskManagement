@@ -235,3 +235,53 @@ fetch('/Checker/GetStatusDistribution')
 
     });
 
+fetch('/Checker/GetUpcomingDeadlines')
+    .then(response => response.json())
+    .then(data => {
+
+        var options = {
+
+            chart: {
+                type: 'bar',
+                height: 300,
+                toolbar: {
+                    show: false
+                }
+            },
+
+            series: [{
+                name: 'Due Risks',
+                data: data.map(x => x.count)
+            }],
+
+            xaxis: {
+                categories: data.map(x => x.date)
+            },
+
+            plotOptions: {
+                bar: {
+                    borderRadius: 6,
+                    columnWidth: '45%'
+                }
+            },
+
+            colors: ["#dc3545"], // red = urgency
+
+            dataLabels: {
+                enabled: true
+            },
+
+            grid: {
+                borderColor: '#f1f1f1'
+            },
+
+            title: {
+                text: 'Upcoming Mitigation Deadlines (Next 30 Days)'
+            }
+
+        };
+
+        new ApexCharts(document.querySelector("#deadlineChart"), options).render();
+
+    });
+
