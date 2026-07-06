@@ -62,5 +62,21 @@ namespace RiskManagement.Controllers
             return View();
         }
 
+        [HttpGet]
+        public JsonResult GetRiskTrend()
+        {
+            var data = _context.RiskRegistrations
+                .GroupBy(r => new { r.RiskDate.Year, r.RiskDate.Month })
+                .Select(g => new
+                {
+                    Month = new DateTime(g.Key.Year, g.Key.Month, 1).ToString("MMM yyyy"),
+                    Count = g.Count()
+                })
+                .OrderBy(x => DateTime.ParseExact(x.Month, "MMM yyyy", null))
+                .ToList();
+
+            return Json(data);
+        }
+
     }
 }
