@@ -251,7 +251,7 @@ $(document).on('click', '.edit-btn', function () {
         html += `
         <div class="col-12">
             <div class="alert alert-warning text-center mb-0">
-                Verified or approved records cannot be edited.
+                 Approved records cannot be edited.
             </div>
         </div>`;
 
