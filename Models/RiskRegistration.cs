@@ -8,9 +8,9 @@ namespace RiskManagement.Models
         public int Id { get; set; }
         public string RiskId { get; set; }   // DB000001, CR000001
 
-        // SECTION 1: RISK INFORMATION
+        // SECTION 1: RISK INFORMATIONclear
         public DateTime RiskDate { get; set; }
-        public string IdentifiedRisk { get; set; }
+        public string? IdentifiedRisk { get; set; }
         public string SourceOfRisk { get; set; }
         public string RiskCategory { get; set; }
         public string RiskEventDescription { get; set; }
