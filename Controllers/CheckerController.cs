@@ -105,5 +105,22 @@ namespace RiskManagement.Controllers
 
             return Json(data);
         }
+        [HttpGet("GetRiskCategory")]
+        public JsonResult GetRiskCategory()
+        {
+            var data = _context.RiskRegistrations
+                .Where(r => !string.IsNullOrWhiteSpace(r.RiskCategory))
+                .GroupBy(r => r.RiskCategory.Trim())
+                .Select(g => new
+                {
+                    Category = g.Key,
+                    Count = g.Count()
+                })
+                .OrderByDescending(x => x.Count)
+                .ToList();
+
+            return Json(data);
+        }
+
     }
 }
