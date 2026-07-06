@@ -62,20 +62,32 @@ namespace RiskManagement.Controllers
             return View();
         }
 
-        [HttpGet]
+        [HttpGet("GetRiskTrend")]
         public JsonResult GetRiskTrend()
         {
-            var data = _context.RiskRegistrations
-                .GroupBy(r => new { r.RiskDate.Year, r.RiskDate.Month })
-                .Select(g => new
-                {
-                    Month = new DateTime(g.Key.Year, g.Key.Month, 1).ToString("MMM yyyy"),
-                    Count = g.Count()
-                })
-                .OrderBy(x => DateTime.ParseExact(x.Month, "MMM yyyy", null))
-                .ToList();
+            var trend = _context.RiskRegistrations
+            .GroupBy(r => new
+            {
+                r.RiskDate.Year,
+                r.RiskDate.Month
+            })
+            .OrderBy(g => g.Key.Year)
+    .ThenBy(g => g.Key.Month)
+    .Select(g => new
+    {
+        Year = g.Key.Year,
+        Month = g.Key.Month,
+        Count = g.Count()
+    })
+    .ToList()
+    .Select(x => new
+    {
+        Month = new DateTime(x.Year, x.Month, 1).ToString("MMM yyyy"),
+        x.Count
+    })
+    .ToList();
 
-            return Json(data);
+            return Json(trend);
         }
 
     }
