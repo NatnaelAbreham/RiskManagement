@@ -137,5 +137,26 @@ namespace RiskManagement.Controllers
 
             return Json(data);
         }
+        [HttpGet("GetUpcomingDeadlines")]
+        public JsonResult GetUpcomingDeadlines()
+        {
+            var today = DateTime.Today;
+            var next30Days = today.AddDays(30);
+
+            var data = _context.RiskRegistrations
+                .Where(r => r.MitigationPlannedDate >= today
+                         && r.MitigationPlannedDate <= next30Days)
+                .GroupBy(r => r.MitigationPlannedDate.Date)
+                .Select(g => new
+                {
+                    Date = g.Key.ToString("dd MMM"),
+                    Count = g.Count()
+                })
+                .OrderBy(x => DateTime.ParseExact(x.Date, "dd MMM", null))
+                .ToList();
+
+            return Json(data);
+        }
+
     }
 }
