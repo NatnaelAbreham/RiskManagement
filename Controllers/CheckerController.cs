@@ -121,6 +121,21 @@ namespace RiskManagement.Controllers
 
             return Json(data);
         }
+        [HttpGet("GetStatusDistribution")]
+        public JsonResult GetStatusDistribution()
+        {
+            var data = _context.RiskRegistrations
+                .Where(r => !string.IsNullOrWhiteSpace(r.Status))
+                .GroupBy(r => r.Status.Trim())
+                .Select(g => new
+                {
+                    Status = g.Key,
+                    Count = g.Count()
+                })
+                .OrderBy(x => x.Status)
+                .ToList();
 
+            return Json(data);
+        }
     }
 }
