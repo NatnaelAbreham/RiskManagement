@@ -144,16 +144,22 @@ namespace RiskManagement.Controllers
             var next30Days = today.AddDays(30);
 
             var data = _context.RiskRegistrations
-                .Where(r => r.MitigationPlannedDate >= today
-                         && r.MitigationPlannedDate <= next30Days)
-                .GroupBy(r => r.MitigationPlannedDate.Date)
-                .Select(g => new
-                {
-                    Date = g.Key.ToString("dd MMM"),
-                    Count = g.Count()
-                })
-                .OrderBy(x => DateTime.ParseExact(x.Date, "dd MMM", null))
-                .ToList();
+       .Where(r => r.MitigationPlannedDate >= today &&
+                   r.MitigationPlannedDate <= next30Days)
+       .GroupBy(r => r.MitigationPlannedDate.Date)
+       .Select(g => new
+       {
+           Date = g.Key,
+           Count = g.Count()
+       })
+       .OrderBy(x => x.Date)
+       .ToList()           // SQL ends here
+       .Select(x => new
+       {
+           Date = x.Date.ToString("dd MMM"),
+           Count = x.Count
+       })
+       .ToList();
 
             return Json(data);
         }
