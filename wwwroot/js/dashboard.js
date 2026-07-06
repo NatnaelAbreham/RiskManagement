@@ -1,3 +1,6 @@
+document.querySelector(".btn-primary").addEventListener("click", function () {
+    location.reload();
+});
 fetch('/Checker/GetRiskTrend')
     .then(response => response.json())
     .then(data => {
