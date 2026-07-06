@@ -48,3 +48,54 @@ fetch('/Checker/GetRiskTrend')
 
     });
 
+    fetch('/Checker/GetRiskRating')
+    .then(response => response.json())
+    .then(data => {
+
+        var options = {
+
+            chart: {
+                type: 'donut',
+                height: 350
+            },
+             colors: [
+        "#28a745",
+        "#ffc107",
+        "#fd7e14",
+        "#dc3545"
+    ],
+
+            series: data.map(x => x.count),
+
+            labels: data.map(x => x.rating),
+
+            legend: {
+                position: 'bottom'
+            },
+
+            dataLabels: {
+                enabled: true
+            },
+
+            plotOptions: {
+                pie: {
+                    donut: {
+                        size: '65%'
+                    }
+                }
+            },
+
+            tooltip: {
+                y: {
+                    formatter: function (value) {
+                        return value + " Risks";
+                    }
+                }
+            }
+
+        };
+
+        new ApexCharts(document.querySelector("#riskRatingChart"), options).render();
+
+    });
+
