@@ -1,21 +1,302 @@
+@model RiskManagement.Models.CheckerDashboard
+
 @{
-    ViewBag.Title = @User.Identity.Name;
+    ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
 
-<div class="card shadow p-4">
-    <h2>Checker Dashboard</h2>
+<div class="container-fluid">
 
-    <hr />
+    <!-- Page Title -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0">Risk Management Dashboard</h2>
+            <small class="text-muted">
+                Welcome back, @User.Identity.Name
+            </small>
+        </div>
 
-    <h5>User Information</h5>
-
-    <p><b>Name:</b> @User.Identity.Name</p>
-    <p><b>Email:</b> @User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value</p>
-    <p><b>Role:</b> @User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value</p>
-    <p><b>Phone Number:</b> @User.FindFirst(System.Security.Claims.ClaimTypes.MobilePhone)?.Value</p>
-
-    <div class="alert alert-success mt-3">
-        You are logged in as <b>Checker</b>
+        <div>
+            <button class="btn btn-primary">
+                <i class="bi bi-arrow-clockwise"></i> Refresh
+            </button>
+        </div>
     </div>
+
+    <!-- ================= KPI CARDS ================= -->
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-xl-2 col-md-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <small class="text-muted">Total Risks</small>
+                    <h2 class="fw-bold mt-2">@Model.TotalRisk</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-2 col-md-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <small class="text-muted">Open Risks</small>
+                    <h2 class="text-warning fw-bold mt-2">@Model.OpenRisk</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-2 col-md-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <small class="text-muted">Closed Risks</small>
+                    <h2 class="text-success fw-bold mt-2">@Model.ClosedRisk</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <small class="text-muted">High Risk</small>
+                    <h2 class="text-danger fw-bold mt-2">@Model.HighRisk</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <small class="text-muted">Due This Week</small>
+                    <h2 class="text-primary fw-bold mt-2">@Model.DueSoon</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= CHARTS ================= -->
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white fw-bold">
+                    Risk Trend
+                </div>
+
+                <div class="card-body">
+
+                    <div id="riskTrendChart" style="height:350px;">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-white fw-bold">
+                    Risk Rating
+                </div>
+
+                <div class="card-body">
+
+                    <div id="riskRatingChart" style="height:350px;">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= SECOND ROW ================= -->
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-lg-6">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-white fw-bold">
+                    Risk Categories
+                </div>
+
+                <div class="card-body">
+
+                    <div id="categoryChart" style="height:350px;">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-6">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-white fw-bold">
+                    Status Distribution
+                </div>
+
+                <div class="card-body">
+
+                    <div id="statusChart" style="height:350px;">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= TOP RISKS ================= -->
+
+    <div class="card shadow-sm border-0 mb-4">
+
+        <div class="card-header bg-white fw-bold">
+            Top 10 High Risks
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th>Risk ID</th>
+                        <th>Category</th>
+                        <th>Owner</th>
+                        <th>Score</th>
+                        <th>Rating</th>
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in Model.TopRisk)
+                    {
+                        <tr>
+
+                            <td>@item.RiskId</td>
+
+                            <td>@item.RiskCategory</td>
+
+                            <td>@item.RiskOwner</td>
+
+                            <td>@item.RiskScore</td>
+
+                            <td>
+                                <span class="badge bg-danger">
+                                    @item.RiskRating
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="badge bg-warning text-dark">
+                                    @item.Status
+                                </span>
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- ================= BOTTOM TABLES ================= -->
+
+    <div class="row">
+
+        <div class="col-lg-6">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-white fw-bold">
+                    Recent Risks
+                </div>
+
+                <div class="table-responsive">
+
+                    <table class="table table-striped">
+
+                        <thead>
+
+                        <tr>
+
+                            <th>Risk ID</th>
+                            <th>Date</th>
+                            <th>Category</th>
+
+                        </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        @foreach (var item in Model.RecentRisks)
+                        {
+                            <tr>
+
+                                <td>@item.RiskId</td>
+
+                                <td>@item.RiskDate.ToString("dd-MMM-yyyy")</td>
+
+                                <td>@item.RiskCategory</td>
+
+                            </tr>
+                        }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-6">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-white fw-bold">
+                    Upcoming Mitigation Dates
+                </div>
+
+                <div class="card-body">
+
+                    <div id="deadlineChart" style="height:300px;"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
