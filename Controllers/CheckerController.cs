@@ -13,12 +13,12 @@ namespace RiskManagement.Controllers
         public CheckerController(AppDBContext context) => _context = context;
         private readonly AppDBContext _context;
 
-        [HttpGet("View")]
+        [HttpGet("Record")]
         public IActionResult ViewRecord()
         {
             // var email = User.FindFirst(ClaimTypes.Email)?.Value;
             var filteredUsers = _context.RiskRegistrations
-          //.Where(u => u.RegisteredBy == email)
+          .Where(u => u.Status == "pending")
           .OrderByDescending(u => u.Id)
           .ToList();
             return View("View", filteredUsers);
@@ -163,6 +163,7 @@ namespace RiskManagement.Controllers
 
             return Json(data);
         }
+
 
     }
 }
