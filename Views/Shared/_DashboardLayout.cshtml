@@ -46,6 +46,11 @@
         <!-- CHECKER -->
         @if (User.IsInRole("Checker"))
         {
+            <a asp-controller="Checker" asp-action="Dashboard"
+               class="@(currentController == "Checker" && currentAction == "Dashboard" ? "active" : "")">
+                <i class="bi bi-speedometer2"></i>
+                Dashboard
+            </a>
             <a asp-controller="Checker" asp-action="Record"
                class="@(currentController == "Checker" && currentAction == "Record" ? "active" : "")">
                 <i class="bi bi-journal-text"></i>
@@ -96,7 +101,7 @@
             <ul class="dropdown-menu dropdown-menu-end">
 
                 <li>
-                   @*  <a class="dropdown-item" href="/Profile">
+                    @* <a class="dropdown-item" href="/Profile">
                         <i class="bi bi-person"></i>
                         My Profile
                     </a> *@
