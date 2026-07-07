@@ -26,8 +26,8 @@ const fieldsToShow = [
     { key: "RiskOwner", label: "Risk Owner" },
     { key: "Status", label: "Status" },
 
-    // SECTION 5: RISK SUMMARY
-    { key: "RiskSummary", label: "Risk Summary" },
-    { key: "RiskSummary", label: "Risk Summary" },
+    // SECTION 5: Recorded by
+    { key: "RegisteredBy", label: "Registered By" },
+    { key: "RegisteredDate", label: "Registered Date" },
 
 ];
