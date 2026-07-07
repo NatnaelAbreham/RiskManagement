@@ -24,6 +24,7 @@ namespace RiskManagement.Controllers
             return View("View", filteredUsers);
         }
 
+
         [HttpGet("Dashboard")]
         public IActionResult Dashboard()
         {
