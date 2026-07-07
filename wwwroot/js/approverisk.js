@@ -3,6 +3,7 @@ const fieldsToShow = [
     { key: "RiskId", label: "Risk ID" },
     { key: "RegisteredDate", label: "Registered Date" },
     { key: "RiskDate", label: "Risk Date" },
+
     /*{ key: "IdentifiedRisk", label: "Identified Risk" },*/
     { key: "SourceOfRisk", label: "Source of Risk" },
     { key: "RiskCategory", label: "Risk Category" },
@@ -28,6 +29,72 @@ const fieldsToShow = [
 
     // SECTION 5: Recorded by
     { key: "RegisteredBy", label: "Registered By" },
-    { key: "RegisteredDate", label: "Registered Date" },
+   
 
 ];
+
+$(document).on('click', '.edit-btn', function () {
+
+    const user = $(this).data('user');
+
+    if (!user || !user.Status) {
+        Swal.fire('Error', 'User data or status is missing.', 'error');
+        return;
+    }
+
+    let html = "";
+
+    fieldsToShow.forEach(field => {
+
+        const value = user[field.key] ?? "";
+
+            let displayValue = value;
+
+            // Format Dates
+            if (
+                field.key === "RegisteredDate" ||
+                field.key === "RiskDate" ||
+                field.key === "MitigationPlannedDate"
+            ) {
+
+                if (value) {
+                    displayValue = new Date(value).toLocaleDateString();
+                }
+            }
+
+            html += `
+            <div class="col-md-6">
+                <div class="border-bottom py-2 px-1">
+                    <span class="fw-semibold">${field.label}:</span>
+                    <span class="ms-1 text-muted">${displayValue}</span>
+                </div>
+            </div>`;
+        
+
+    });
+
+    let footerHtml = "";
+
+   
+        html += `
+        <div class="col-12">
+            <div class="alert alert-warning text-center mb-0">
+                 Approved records cannot be edited.
+            </div>
+        </div>`;
+
+        footerHtml = `
+            <button
+                type="button"
+                class="btn btn-success"
+                data-bs-dismiss="modal">
+                OK
+            </button>`;
+    
+
+    $("#editModalContent").html(html);
+    $("#editModalFooter").html(footerHtml);
+
+    $("#editModal").modal("show");
+
+});
