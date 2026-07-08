@@ -83,7 +83,8 @@ $(document).on('click', '.approveBtn', function () {
             <button
                 type="button"
                 class="btn btn-danger"
-                data-bs-dismiss="modal">
+                 id="rejectBtn"
+                data-id="${user.RiskId}">
                 Reject
             </button>
 
@@ -133,10 +134,11 @@ $(document).on('click', '#approveBtn', function () {
                 success: function (response) {
                     Swal.fire('Approved!', 'Request ' + currentUser.RiskId + ' has been approved.', 'success')
                         .then(() => {
-                            $('#viewModal').modal('hide');
+                            $('#editModal').modal('hide');
                             location.reload();
                         });
                 },
+
                 error: function () {
                     Swal.fire('Error!', 'Something went wrong.', 'error');
                 }
@@ -169,7 +171,7 @@ $(document).on('click', '#rejectBtn', function () {
         confirmButtonText: 'Submit Rejection',
         confirmButtonColor: '#28a745',
         cancelButtonColor: '#dc3545',
-        target: document.getElementById('viewModal'),
+        target: document.getElementById('editModal'),
         didOpen: () => {
             Swal.getInput().focus();
         }
@@ -177,7 +179,7 @@ $(document).on('click', '#rejectBtn', function () {
         if (result.isConfirmed) {
             const reason = result.value;
             
-            if (!rejectedBy || !reason.trim()) {
+            if (!reason.trim()) {
                 Swal.fire('Validation Error', 'Both "Rejected By" and "Reason" are required.', 'warning');
                 return;
             }
@@ -193,7 +195,7 @@ $(document).on('click', '#rejectBtn', function () {
                 success: function () {
                     Swal.fire('Rejected!', 'Request ' + currentUser.RiskId + ' has been rejected.', 'success')
                         .then(() => {
-                            $('#viewModal').modal('hide');
+                            $('#editModal').modal('hide');
                             location.reload();
                         });
                 },

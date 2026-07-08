@@ -146,7 +146,7 @@ namespace RiskManagement.Data
                    .HasMaxLength(50)
                    .IsRequired();
 
-                        entity.Property(e => e.RegisteredByBy)
+                        entity.Property(e => e.RegisteredBy)
                         .HasMaxLength(100)
                         .IsRequired();
 
