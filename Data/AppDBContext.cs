@@ -8,6 +8,7 @@ namespace RiskManagement.Data
       {
             public AppDBContext(DbContextOptions<AppDBContext> options) : base(options) { }
             public DbSet<User> Users { get; set; }
+            public DbSet<RejectedRisk> RejectedRisks { get; set; }
             public DbSet<RiskRegistration> RiskRegistrations { get; set; }
             public DbSet<RiskSequence> RiskSequences { get; set; }
             protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -30,9 +31,9 @@ namespace RiskManagement.Data
                   modelBuilder.Entity<RiskSequence>(entity =>
                  {
                        entity.ToTable("RiskSequence");
-                       entity.HasKey(e => e.Id);                    
-                       entity.Property(e => e.Prefix).HasMaxLength(10).IsRequired();                       
-                       entity.Property(e => e.LastNumber ).IsRequired();                    
+                       entity.HasKey(e => e.Id);
+                       entity.Property(e => e.Prefix).HasMaxLength(10).IsRequired();
+                       entity.Property(e => e.LastNumber).IsRequired();
                  });
 
                   modelBuilder.Entity<RiskRegistration>(entity =>
@@ -135,7 +136,30 @@ namespace RiskManagement.Data
                        entity.Property(e => e.ApprovedDate)
                        .HasColumnType("datetime2");
                  });
-            
+                  modelBuilder.Entity<RejectedRisk>(entity =>
+                  {
+                        entity.ToTable("RejectedRisks");
+
+                        entity.HasKey(e => e.Id);
+
+                        entity.Property(e => e.RiskId)
+                   .HasMaxLength(50)
+                   .IsRequired();
+
+                        entity.Property(e => e.RegisteredByBy)
+                        .HasMaxLength(100)
+                        .IsRequired();
+
+                        entity.Property(e => e.RejectedBy)
+                        .HasMaxLength(100)
+                        .IsRequired();
+
+                        entity.Property(e => e.RejectedOn)
+                        .IsRequired();
+
+                        entity.Property(e => e.Reason)
+                        .IsRequired();
+                  });
             }
       }
 }
