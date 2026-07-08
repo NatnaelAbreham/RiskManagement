@@ -203,23 +203,12 @@ namespace RiskManagement.Controllers
 
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
 
-            model.RegisteredByBy = record.RegisteredBy;
+            model.RegisteredBy = record.RegisteredBy;
             model.RejectedBy = email;
             model.RejectedOn = DateTime.Now;
 
             _context.RejectedRisks.Add(model);
             _context.SaveChanges();
-
-            // After successful rejection
-            //await _context.Notifications.AddAsync(new Notification
-            //{
-            //    maker = makerId, // the original request creator
-            //    Message = $"Your request with queue number {queueNumber} was rejected.",
-            //    IsRead = false
-            //});
-            //await _context.SaveChangesAsync();
-
-
 
             return Ok(new
             {
