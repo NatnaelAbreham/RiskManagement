@@ -65,14 +65,6 @@
                                 <td>@user.IdentifiedRisk</td>
                                 <td>@user.RiskCategory</td>
 
-                                <!-- Section 2: Risk Assessment -->
-                               @*  <td>@user.Effect</td>
-                                <td>@user.Probability</td>
-                                <td>@user.ImpactLevel</td>
-                                <td>@user.RiskScore</td>
-                                <td>@user.RiskRating</td>
-                                <td>@user.ResidualRiskLevel</td> *@
-
                                 <!-- Section 3: Mitigation & Controls -->
                                 <td>@user.ExistingRiskMitigation</td>
                                 <td>@user.MitigationRating</td>
@@ -101,13 +93,11 @@
                                     }
                                 </td>
 
-                                <td>
-                               
-                                        <button class="btn btn-outline-success edit-btn"
+                                <td>                              
+                                        <button class="btn btn-outline-success approveBtn"
                                                 data-user='@Html.Raw(System.Text.Json.JsonSerializer.Serialize(user))'>
                                             <i class="bi bi-eye-fill"></i>
-                                        </button>                                          
-                                       
+                                        </button>                                                                                
                                 </td>
                             </tr>
 
@@ -126,9 +116,7 @@
         }
         else
         {
-
             <h6 colspan="6" class="text-muted">No data available!</h6>
-
         }
     </div>
 </div>
@@ -141,7 +129,7 @@
 
             <!-- Header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Edit Information</h5>
+                <h5 class="modal-title" id="editModalLabel">risk Information</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 

@@ -135,6 +135,7 @@ namespace RiskManagement.Data
                        entity.Property(e => e.ApprovedDate)
                        .HasColumnType("datetime2");
                  });
+            
             }
       }
 }

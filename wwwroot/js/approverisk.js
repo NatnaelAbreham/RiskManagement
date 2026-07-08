@@ -35,7 +35,7 @@ const fieldsToShow = [
 
 let currentUser = null;
 
-$(document).on('click', '.edit-btn', function () {
+$(document).on('click', '.approveBtn', function () {
 
     const user = $(this).data('user');
     currentUser = user;
@@ -90,7 +90,7 @@ $(document).on('click', '.edit-btn', function () {
             <button
                 type="button"
                 class="btn btn-success"
-                id="saveChangesBtn"
+                id="approveBtn"
                 data-id="${user.RiskId}">
                 Approve
             </button>`;
@@ -105,7 +105,7 @@ $(document).on('click', '.edit-btn', function () {
 });
 
 // APPROVE BUTTON HANDLER - Attached once outside view-btn click
-$('#approveBtn').off('click').on('click', function () {
+$(document).on('click', '#approveBtn', function () {
     if (!currentUser) {
         Swal.fire('Error!', 'No user data available', 'error');
         return;
