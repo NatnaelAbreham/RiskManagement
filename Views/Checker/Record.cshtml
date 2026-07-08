@@ -6,7 +6,7 @@
     <link href="~/css/view.css" rel="stylesheet" />
 }
 @section Scripts {
-    <script src="~/js/aproverisk.js"></script>
+    <script src="~/js/approverisk.js"></script>
 }
 @model List<RiskManagement.Models.RiskRegistration>
 
@@ -105,7 +105,7 @@
                                
                                         <button class="btn btn-outline-success edit-btn"
                                                 data-user='@Html.Raw(System.Text.Json.JsonSerializer.Serialize(user))'>
-                                           <i class="bi bi-eye-fill"></i> View
+                                            <i class="bi bi-eye-fill"></i>
                                         </button>                                          
                                        
                                 </td>
@@ -141,7 +141,7 @@
 
             <!-- Header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Approve Information</h5>
+                <h5 class="modal-title" id="editModalLabel">Edit Information</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 

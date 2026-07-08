@@ -28,10 +28,12 @@ const fieldsToShow = [
     { key: "Status", label: "Status" },
 
     // SECTION 5: Recorded by
-    { key: "RegisteredBy", label: "Registered By" },
-   
+     { key: "RegisteredBy", label: "Registered By" },
+    /*{ key: "RegisteredDate", label: "Registered Date" }, */
 
 ];
+
+
 
 $(document).on('click', '.edit-btn', function () {
 
@@ -75,21 +77,24 @@ $(document).on('click', '.edit-btn', function () {
 
     let footerHtml = "";
 
-   
-        html += `
-        <div class="col-12">
-            <div class="alert alert-warning text-center mb-0">
-                 Approved records cannot be edited.
-            </div>
-        </div>`;
+  
 
         footerHtml = `
             <button
                 type="button"
-                class="btn btn-success"
+                class="btn btn-danger"
                 data-bs-dismiss="modal">
-                OK
+                Reject
+            </button>
+
+            <button
+                type="button"
+                class="btn btn-success"
+                id="saveChangesBtn"
+                data-id="${user.RiskId}">
+                Approve
             </button>`;
+
     
 
     $("#editModalContent").html(html);
@@ -97,4 +102,127 @@ $(document).on('click', '.edit-btn', function () {
 
     $("#editModal").modal("show");
 
+});
+
+// APPROVE BUTTON HANDLER - Attached once outside view-btn click
+$('#approveBtn').off('click').on('click', function () {
+    if (!currentUser) {
+        Swal.fire('Error!', 'No user data available', 'error');
+        return;
+    }
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You are about to approve this request.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#198754',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, approve it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const verifiedBy = document.getElementById("verifiedBy").value;
+
+            $.ajax({
+                url: '/approve',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    queueNumber: currentUser.QueueNumber,
+                    verifiedBy: verifiedBy
+                }),
+                success: function (response) {
+                    Swal.fire('Approved!', 'Request ' + currentUser.QueueNumber + ' has been approved.', 'success')
+                        .then(() => {
+                            $('#viewModal').modal('hide');
+                            location.reload();
+                        });
+                },
+                error: function () {
+                    Swal.fire('Error!', 'Something went wrong.', 'error');
+                }
+            });
+        }
+    });
+});
+
+// REJECT BUTTON HANDLER - Attached once outside view-btn click
+$('#rejectBtn').off('click').on('click', function () {
+    if (!currentUser) {
+        Swal.fire('Error!', 'No user data available', 'error');
+        return;
+    }
+
+    Swal.fire({
+        title: 'Reject Request',
+        input: 'textarea',
+        inputLabel: 'Enter reason for rejection:',
+        inputPlaceholder: 'Type your reason here...',
+        inputAttributes: {
+            'aria-label': 'Reason'
+        },
+        inputValidator: (value) => {
+            if (!value.trim()) {
+                return 'You must provide a reason!';
+            }
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Submit Rejection',
+        confirmButtonColor: '#28a745',
+        cancelButtonColor: '#dc3545',
+        target: document.getElementById('viewModal'),
+        didOpen: () => {
+            Swal.getInput().focus();
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const reason = result.value;
+            const rejectedBy = document.getElementById("verifiedBy").value;
+
+            if (!rejectedBy || !reason.trim()) {
+                Swal.fire('Validation Error', 'Both "Rejected By" and "Reason" are required.', 'warning');
+                return;
+            }
+
+            $.ajax({
+                url: '/reject',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    queueNumber: currentUser.QueueNumber,
+                    rejectedBy: rejectedBy,
+                    reason: reason
+                }),
+                success: function () {
+                    Swal.fire('Rejected!', 'Request ' + currentUser.QueueNumber + ' has been rejected.', 'success')
+                        .then(() => {
+                            $('#viewModal').modal('hide');
+                            location.reload();
+                        });
+                },
+                error: function (xhr, status, error) {
+                    console.error('Rejection Error:', {
+                        status: status,
+                        xhr: xhr,
+                        error: error,
+                        responseText: xhr.responseText
+                    });
+
+                    let message = "Something went wrong while rejecting.";
+                    if (xhr.responseText) {
+                        try {
+                            const response = JSON.parse(xhr.responseText);
+                            if (response.message) {
+                                message = response.message;
+                            }
+                        } catch {
+                            message = xhr.responseText;
+                        }
+                    }
+
+                    Swal.fire('Error!', message, 'error');
+                }
+            });
+        }
+    });
 });

@@ -21,7 +21,7 @@ namespace RiskManagement.Controllers
           .Where(u => u.Status == "pending")
           .OrderByDescending(u => u.Id)
           .ToList();
-            return View("View", filteredUsers);
+            return View("Record", filteredUsers);
         }
 
 
@@ -165,6 +165,22 @@ namespace RiskManagement.Controllers
             return Json(data);
         }
 
+        [HttpPost("approve")]
+        public IActionResult Approve([FromBody] ApproveRequest model)
+        {
+            var record = _context.RiskRegistrations.FirstOrDefault(x => x.RiskId == model.RiskId);
+
+            if (record == null)
+                return NotFound();
+
+            record.Status = "approved";
+            record.ApprovedBy = model.ApprovedBy; 
+            record.ApprovedDate = DateTime.Now;
+
+            _context.SaveChanges();
+
+            return Ok(new { message = "Approved successfully!" });
+        }
 
     }
 }
