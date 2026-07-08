@@ -282,6 +282,8 @@ document.addEventListener('click', function (event) {
             text: 'Do you want to save the changes?',
             icon: 'warning',
             showCancelButton: true,
+            confirmButtonColor: '#198754',
+            cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, Save it!',
             cancelButtonText: 'Cancel'
         }).then(async (result) => {
