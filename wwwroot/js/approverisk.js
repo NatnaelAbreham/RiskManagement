@@ -146,7 +146,7 @@ $(document).on('click', '#approveBtn', function () {
 });
 
 // REJECT BUTTON HANDLER - Attached once outside view-btn click
-$('#rejectBtn').off('click').on('click', function () {
+$(document).on('click', '#rejectBtn', function () {
     if (!currentUser) {
         Swal.fire('Error!', 'No user data available', 'error');
         return;

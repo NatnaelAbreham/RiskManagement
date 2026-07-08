@@ -177,13 +177,59 @@ namespace RiskManagement.Controllers
                 return NotFound();
 
             record.Status = "approved";
-            record.ApprovedBy = email; 
+            record.ApprovedBy = email;
             record.ApprovedDate = DateTime.Now;
 
             _context.SaveChanges();
 
             return Ok(new { message = "Approved successfully!" });
         }
+
+
+        [HttpPost("reject")]
+        public IActionResult RecordRejected([FromBody] RejectedRisk model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+
+            var record = _context.RiskRegistrations.FirstOrDefault(x => x.RiskId == model.RiskId);
+
+            if (record == null)
+                return NotFound();
+
+            record.Status = "rejected";
+            _context.SaveChanges();
+
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
+
+            model.RegisteredByBy = record.RegisteredBy;
+            model.RejectedBy = email;
+            model.RejectedOn = DateTime.Now;
+
+            _context.RejectedRisks.Add(model);
+            _context.SaveChanges();
+
+            // After successful rejection
+            //await _context.Notifications.AddAsync(new Notification
+            //{
+            //    maker = makerId, // the original request creator
+            //    Message = $"Your request with queue number {queueNumber} was rejected.",
+            //    IsRead = false
+            //});
+            //await _context.SaveChangesAsync();
+
+
+
+            return Ok(new
+            {
+                message = "Risk record rejected successfully",
+                QueueNumber = model.RiskId,
+                data = model
+            });
+        }
+
+
 
     }
 }
