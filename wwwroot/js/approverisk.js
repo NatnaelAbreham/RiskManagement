@@ -176,24 +176,22 @@ $(document).on('click', '#rejectBtn', function () {
     }).then((result) => {
         if (result.isConfirmed) {
             const reason = result.value;
-            const rejectedBy = document.getElementById("verifiedBy").value;
-
+            
             if (!rejectedBy || !reason.trim()) {
                 Swal.fire('Validation Error', 'Both "Rejected By" and "Reason" are required.', 'warning');
                 return;
             }
 
             $.ajax({
-                url: '/reject',
+                url: '/Checker/reject',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({
-                    queueNumber: currentUser.QueueNumber,
-                    rejectedBy: rejectedBy,
+                    RiskId: currentUser.RiskId,
                     reason: reason
                 }),
                 success: function () {
-                    Swal.fire('Rejected!', 'Request ' + currentUser.QueueNumber + ' has been rejected.', 'success')
+                    Swal.fire('Rejected!', 'Request ' + currentUser.RiskId + ' has been rejected.', 'success')
                         .then(() => {
                             $('#viewModal').modal('hide');
                             location.reload();
