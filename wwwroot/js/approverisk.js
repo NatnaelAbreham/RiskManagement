@@ -33,12 +33,12 @@ const fieldsToShow = [
 
 ];
 
-
+let currentUser = null;
 
 $(document).on('click', '.edit-btn', function () {
 
     const user = $(this).data('user');
-
+    currentUser = user;
     if (!user || !user.Status) {
         Swal.fire('Error', 'User data or status is missing.', 'error');
         return;
@@ -121,18 +121,17 @@ $('#approveBtn').off('click').on('click', function () {
         confirmButtonText: 'Yes, approve it!'
     }).then((result) => {
         if (result.isConfirmed) {
-            const verifiedBy = document.getElementById("verifiedBy").value;
-
+            
             $.ajax({
-                url: '/approve',
+                url: '/Checker/approve',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({
-                    queueNumber: currentUser.QueueNumber,
-                    verifiedBy: verifiedBy
+                    RiskId: currentUser.RiskId
+                    
                 }),
                 success: function (response) {
-                    Swal.fire('Approved!', 'Request ' + currentUser.QueueNumber + ' has been approved.', 'success')
+                    Swal.fire('Approved!', 'Request ' + currentUser.RiskId + ' has been approved.', 'success')
                         .then(() => {
                             $('#viewModal').modal('hide');
                             location.reload();
