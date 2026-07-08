@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RiskManagement.Data;
 using RiskManagement.Models;
+using System.Security.Claims;
 
 namespace RiskManagement.Controllers
 {
@@ -12,6 +13,7 @@ namespace RiskManagement.Controllers
 
         public CheckerController(AppDBContext context) => _context = context;
         private readonly AppDBContext _context;
+
 
         [HttpGet("Record")]
         public IActionResult ViewRecord()
@@ -169,12 +171,13 @@ namespace RiskManagement.Controllers
         public IActionResult Approve([FromBody] ApproveRequest model)
         {
             var record = _context.RiskRegistrations.FirstOrDefault(x => x.RiskId == model.RiskId);
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
 
             if (record == null)
                 return NotFound();
 
             record.Status = "approved";
-            record.ApprovedBy = model.ApprovedBy; 
+            record.ApprovedBy = email; 
             record.ApprovedDate = DateTime.Now;
 
             _context.SaveChanges();
