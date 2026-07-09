@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function loadIdentifiedRisks() {
 
-    fetch('/Report/GetIdentifiedRisks')
+    fetch('/Checker/GetIdentifiedRisks')
         .then(response => response.json())
         .then(data => {
 

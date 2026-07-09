@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RiskManagement.Data;
 using RiskManagement.Models;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace RiskManagement.Controllers
 {
@@ -220,18 +221,64 @@ namespace RiskManagement.Controllers
             });
         }
 
-[HttpGet]
-public async Task<IActionResult> GetIdentifiedRisks()
-{
-    var risks = await _context.RiskRegistrations
-        .Where(x => !string.IsNullOrEmpty(x.IdentifiedRisk))
-        .Select(x => x.IdentifiedRisk)
-        .Distinct()
-        .OrderBy(x => x)
-        .ToListAsync();
+        [HttpGet("GetIdentifiedRisks")]
+        public async Task<IActionResult> GetIdentifiedRisks()
+        {
+            var risks = await _context.RiskRegistrations
+                .Where(x => !string.IsNullOrEmpty(x.IdentifiedRisk))
+                .Select(x => x.IdentifiedRisk)
+                .Distinct()
+                .OrderBy(x => x)
+                .ToListAsync();
 
-    return Json(risks);
-}
+            return Json(risks);
+        }
 
+        [HttpGet("GetReportData")]
+        public async Task<IActionResult> GetReportData(
+            string? identifiedRisk,
+            string? status,
+            string? rating,
+            DateTime? fromDate,
+            DateTime? toDate)
+        {
+            var query = _context.RiskRegistrations.AsQueryable();
+
+            // Identified Risk
+            if (!string.IsNullOrWhiteSpace(identifiedRisk))
+            {
+                query = query.Where(x => x.IdentifiedRisk == identifiedRisk);
+            }
+
+            // Status
+            if (!string.IsNullOrWhiteSpace(status))
+            {
+                query = query.Where(x => x.Status == status);
+            }
+
+            // Rating
+            if (!string.IsNullOrWhiteSpace(rating))
+            {
+                query = query.Where(x => x.RiskRating == rating);
+            }
+
+            // From Date
+            if (fromDate.HasValue)
+            {
+                query = query.Where(x => x.RiskDate >= fromDate.Value);
+            }
+
+            // To Date
+            if (toDate.HasValue)
+            {
+                query = query.Where(x => x.RiskDate <= toDate.Value);
+            }
+
+            var risks = await query
+                .OrderByDescending(x => x.RegisteredDate)
+                .ToListAsync();
+
+            return Json(risks);
+        }
     }
 }
