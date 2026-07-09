@@ -3,7 +3,12 @@ document.addEventListener("DOMContentLoaded", () => {
     loadIdentifiedRisks();
 
 });
+document.getElementById("btnFilter")
+    .addEventListener("click", function () {
 
+        loadReport();
+
+    });
 function loadIdentifiedRisks() {
 
     fetch('/Checker/GetIdentifiedRisks')
