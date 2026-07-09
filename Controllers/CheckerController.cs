@@ -25,8 +25,11 @@ namespace RiskManagement.Controllers
           .ToList();
             return View("Record", filteredUsers);
         }
-
-
+        [HttpGet("Report")]
+        public IActionResult Report()
+        {
+            return View();
+        }
         [HttpGet("Dashboard")]
         public IActionResult Dashboard()
         {
