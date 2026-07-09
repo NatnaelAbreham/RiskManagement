@@ -25,3 +25,46 @@ function loadIdentifiedRisks() {
         .catch(error => console.error(error));
 
 }
+
+function loadReport() {
+
+    const identifiedRisk = document.getElementById("identifiedRisk").value;
+    const status = document.getElementById("status").value;
+    const rating = document.getElementById("rating").value;
+    const fromDate = document.getElementById("fromDate").value;
+    const toDate = document.getElementById("toDate").value;
+
+    const url =
+        `/Checker/GetReportData?identifiedRisk=${encodeURIComponent(identifiedRisk)}
+        &status=${encodeURIComponent(status)}
+        &rating=${encodeURIComponent(rating)}
+        &fromDate=${fromDate}
+        &toDate=${toDate}`;
+
+    fetch(url.replace(/\s/g, ""))
+        .then(response => response.json())
+        .then(data => {
+
+            const tbody = document.querySelector("#reportTable tbody");
+
+            tbody.innerHTML = "";
+
+            data.forEach(risk => {
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${risk.riskId}</td>
+                        <td>${formatDate(risk.riskDate)}</td>
+                        <td>${risk.identifiedRisk ?? ""}</td>
+                        <td>${risk.riskCategory}</td>
+                        <td>${risk.riskRating}</td>
+                        <td>${risk.riskScore}</td>
+                        <td>${risk.status}</td>
+                        <td>${risk.riskOwner}</td>
+                    </tr>
+                `;
+
+            });
+
+        });
+}
