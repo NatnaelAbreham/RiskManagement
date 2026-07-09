@@ -185,7 +185,6 @@ namespace RiskManagement.Controllers
             return Ok(new { message = "Approved successfully!" });
         }
 
-
         [HttpPost("reject")]
         public IActionResult RecordRejected([FromBody] RejectedRisk model)
         {
