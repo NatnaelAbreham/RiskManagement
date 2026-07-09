@@ -220,7 +220,18 @@ namespace RiskManagement.Controllers
             });
         }
 
+[HttpGet]
+public async Task<IActionResult> GetIdentifiedRisks()
+{
+    var risks = await _context.RiskRegistrations
+        .Where(x => !string.IsNullOrEmpty(x.IdentifiedRisk))
+        .Select(x => x.IdentifiedRisk)
+        .Distinct()
+        .OrderBy(x => x)
+        .ToListAsync();
 
+    return Json(risks);
+}
 
     }
 }
