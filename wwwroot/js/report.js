@@ -9,6 +9,17 @@ document.getElementById("btnFilter")
         loadReport();
 
     });
+document.getElementById("btnReset").addEventListener("click", () => {
+
+    document.getElementById("identifiedRisk").value = "";
+    document.getElementById("status").value = "";
+    document.getElementById("rating").value = "";
+    document.getElementById("fromDate").value = "";
+    document.getElementById("toDate").value = "";
+
+    loadReport();
+
+});
 function loadIdentifiedRisks() {
 
     fetch('/Checker/GetIdentifiedRisks')
@@ -30,7 +41,6 @@ function loadIdentifiedRisks() {
         .catch(error => console.error(error));
 
 }
-
 function loadReport() {
 
     const identifiedRisk = document.getElementById("identifiedRisk").value;
@@ -72,4 +82,10 @@ function loadReport() {
             });
 
         });
+}
+function formatDate(dateString) {
+    if (!dateString) return "";
+
+    const date = new Date(dateString);
+    return date.toLocaleDateString(); // e.g. 7/9/2026
 }
