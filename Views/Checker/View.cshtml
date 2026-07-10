@@ -6,7 +6,7 @@
     <link href="~/css/view.css" rel="stylesheet" />
 }
 @section Scripts {
-    <script src="~/js/editrisk.js"></script>
+    <script src="~/js/viewrisk.js"></script>
 }
 @model List<RiskManagement.Models.RiskRegistration>
 
@@ -60,10 +60,7 @@
 
                         foreach (var user in Model)
                         {
-                            @if (user.Status == "rejected")
-                            {
-                                continue;
-                            }
+                           
                             <tr>
 
                                 <td>@user.RiskId</td>
@@ -109,26 +106,11 @@
                                     }
                                 </td>
 
-                                <td>
-
-                                    @if (user.Status == "rejected" || user.Status == "pending")
-                                    {
-                                        <button class="btn btn-outline-success edit-btn"
-                                                data-user='@Html.Raw(System.Text.Json.JsonSerializer.Serialize(user))'>
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-
-                                    }
-                                    else
-                                    {
-                                        <button class="btn btn-outline-success edit-btn"
+                                <td>                                  
+                                        <button class="btn btn-outline-success view-btn"
                                                 data-user='@Html.Raw(System.Text.Json.JsonSerializer.Serialize(user))'>
                                             <i class="bi bi-eye-fill"></i>
-                                        </button>
-
-                                    }
-
-                                           
+                                        </button>                                                                  
                                        
                                 </td>
                             </tr>
@@ -163,7 +145,7 @@
 
             <!-- Header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Edit Information</h5>
+                <h5 class="modal-title" id="editModalLabel">Risk Detail</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
