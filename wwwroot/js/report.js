@@ -49,6 +49,13 @@ function loadReport() {
     const fromDate = document.getElementById("fromDate").value;
     const toDate = document.getElementById("toDate").value;
 
+
+    // Destroy DataTable before changing rows
+    if ($.fn.DataTable.isDataTable('#dataTable')) {
+        $('#dataTable').DataTable().destroy();
+    }
+
+
     const url =
         `/Checker/GetReportData?identifiedRisk=${encodeURIComponent(identifiedRisk)}
         &status=${encodeURIComponent(status)}
@@ -56,13 +63,16 @@ function loadReport() {
         &fromDate=${fromDate}
         &toDate=${toDate}`;
 
+
     fetch(url.replace(/\s/g, ""))
         .then(response => response.json())
         .then(data => {
 
+
             const tbody = document.querySelector("#dataTable tbody");
 
             tbody.innerHTML = "";
+
 
             data.forEach(risk => {
 
@@ -81,7 +91,16 @@ function loadReport() {
 
             });
 
+
+            // Initialize DataTable after data is loaded
+            $('#dataTable').DataTable({
+                pageLength: 5,
+                lengthMenu: [5, 10, 25, 50, 100]
+            });
+
+
         });
+
 }
 function formatDate(dateString) {
     if (!dateString) return "";
