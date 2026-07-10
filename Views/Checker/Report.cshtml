@@ -80,7 +80,7 @@
                         From
                     </label>
 
-                    <input type="date" id="fromDate" class="form-control" />
+                    <input type="date" id="fromDate" class="form-control" required />
 
                 </div>
 
@@ -90,7 +90,7 @@
                         To
                     </label>
 
-                    <input type="date" id="toDate" class="form-control" />
+                    <input type="date" id="toDate" class="form-control" required />
 
                 </div>
 
@@ -112,18 +112,28 @@
 
     <!-- Export Buttons -->
 
-    <div class="d-flex justify-content-end gap-2 mb-3">
-        <button type="button" class="btn btn-success">
-            <i class="bi bi-file-earmark-excel"></i> Excel
-        </button>
+    <div class="d-flex justify-content-end mb-3">
+        <div class="btn-group" role="group" aria-label="Export options">
+            <button id="btnCopy" class="btn btn-primary">
+                <i class="bi bi-clipboard me-1"></i>
+                Copy
+            </button>
+            <button id="btnExcel" type="button" class="btn btn-success">
+                <i class="bi bi-file-earmark-excel me-1"></i>
+                Excel
+            </button>
 
-        <button type="button" class="btn btn-danger">
-            <i class="bi bi-file-earmark-pdf"></i> PDF
-        </button>
+            <button id="btnPdf" type="button" class="btn btn-danger">
+                <i class="bi bi-file-earmark-pdf me-1"></i>
+                PDF
+            </button>
 
-        <button type="button" class="btn btn-secondary">
-            <i class="bi bi-printer"></i> Print
-        </button>
+            <button id="btnPrint" type="button" class="btn btn-secondary">
+                <i class="bi bi-printer me-1"></i>
+                Print
+            </button>
+
+        </div>
     </div>
 
     <!-- Report Table -->
@@ -132,7 +142,7 @@
 
         <div class="card-body">
 
-            <table id="reportTable" class="table table-bordered table-hover align-middle">
+            <table id="dataTable" class="table table-bordered table-hover align-middle">
 
                 <thead class="table-primary">
 
@@ -160,5 +170,28 @@
         </div>
 
     </div>
+    @* <div class="table-responsive">
+        <table class="table table-hover table-bordered text-center align-middle" id="dataTable">
+             <thead class="table-primary">
 
+                    <tr>
+
+                        <th>Risk ID</th>
+                        <th>Date</th>
+                        <th>Identified Risk</th>
+                        <th>Category</th>
+                        <th>Rating</th>
+                        <th>Score</th>
+                        <th>Status</th>
+                        <th>Owner</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                </tbody>
+        </table>
+    </div> *@
 </div>

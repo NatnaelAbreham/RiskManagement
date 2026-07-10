@@ -16,6 +16,7 @@ namespace RiskManagement.Controllers
         private readonly AppDBContext _context;
 
 
+
         [HttpGet("Record")]
         public IActionResult ViewRecord()
         {
@@ -26,6 +27,8 @@ namespace RiskManagement.Controllers
           .ToList();
             return View("Record", filteredUsers);
         }
+
+
         [HttpGet("Report")]
         public IActionResult Report()
         {

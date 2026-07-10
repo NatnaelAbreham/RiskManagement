@@ -60,7 +60,7 @@ function loadReport() {
         .then(response => response.json())
         .then(data => {
 
-            const tbody = document.querySelector("#reportTable tbody");
+            const tbody = document.querySelector("#dataTable tbody");
 
             tbody.innerHTML = "";
 
