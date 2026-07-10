@@ -16,7 +16,18 @@ namespace RiskManagement.Controllers
         private readonly AppDBContext _context;
 
 
+        [HttpGet("View")]
+        public IActionResult View()
+        {
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
+            var filteredUsers = _context.RiskRegistrations
+          //.Where(u => u.RegisteredBy == email)
+          .OrderByDescending(u => u.Id)
+          .ToList();
 
+
+            return View("View", filteredUsers);
+        }
         [HttpGet("Record")]
         public IActionResult ViewRecord()
         {

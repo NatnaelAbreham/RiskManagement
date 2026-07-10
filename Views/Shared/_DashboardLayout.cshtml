@@ -62,6 +62,11 @@
                 <i class="bi bi-file-earmark-bar-graph"></i>
                 Reports
             </a>
+            <a asp-controller="Checker" asp-action="View"
+               class="@(currentController == "Checker" && currentAction == "View" ? "active" : "")">
+                <i class="bi bi-eye"></i>
+                View
+            </a>
         }
 
         <!-- ADMIN -->
