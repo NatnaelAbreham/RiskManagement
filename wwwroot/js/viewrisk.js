@@ -99,5 +99,3 @@ $(document).on('click', '.view-btn', function () {
 
 });
 
-// APPROVE BUTTON HANDLER - Attached once outside view-btn click
-
