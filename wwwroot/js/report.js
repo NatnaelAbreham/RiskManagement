@@ -108,3 +108,15 @@ function formatDate(dateString) {
     const date = new Date(dateString);
     return date.toLocaleDateString(); // e.g. 7/9/2026
 }
+
+document.getElementById("btnCopy").addEventListener("click", function () {
+
+    $('.buttons-copy').click();
+
+});
+
+document.getElementById("btnExcel").addEventListener("click", function () {
+
+    $('.buttons-excel').click();
+
+});
