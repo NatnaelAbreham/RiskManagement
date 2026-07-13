@@ -93,10 +93,30 @@ function loadReport() {
 
 
             // Initialize DataTable after data is loaded
-            $('#dataTable').DataTable({
+           /*  $('#dataTable').DataTable({
                 pageLength: 5,
                 lengthMenu: [5, 10, 25, 50, 100]
+            }); */
+
+            const table = $('#dataTable').DataTable({
+                pageLength: 5,
+                lengthMenu: [5, 10, 25, 50, 100],
+
+                dom: 'Bfrtip',
+
+                buttons: [
+                    {
+                        extend: 'copyHtml5',
+                        className: 'buttons-copy'
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        className: 'buttons-excel'
+                    }
+                ]
             });
+
+            table.buttons().container().hide();
 
 
         });
