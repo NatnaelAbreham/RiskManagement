@@ -5,7 +5,7 @@ $(function () {
     });
 });
 
-const table = $('#dataTable').DataTable({
+/* const table = $('#dataTable').DataTable({
     pageLength: 5,
     lengthMenu: [5, 10, 25, 50, 100],
 
@@ -23,4 +23,4 @@ const table = $('#dataTable').DataTable({
     ]
 });
 
-$('.dt-buttons').hide();
+$('.dt-buttons').hide(); */
