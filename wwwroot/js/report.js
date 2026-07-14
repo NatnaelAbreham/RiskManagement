@@ -121,7 +121,15 @@ function loadReport() {
                     {
                         extend: 'print',
                         className: 'buttons-print',
-                        title: 'Risk Management Report'
+                        title: 'Risk Management Report',
+                        customize: function (win) {
+                            $(win.document.body)
+                                .css('font-size', '10pt');
+
+                            $(win.document.body).find('table')
+                                .addClass('table table-bordered')
+                                .css('font-size', 'inherit');
+                        }
                     }
                 ]
             });
