@@ -117,6 +117,11 @@ function loadReport() {
                         extend: 'pdfHtml5',
                         className: 'buttons-pdf',
                         title: 'Risk Management Report'
+                    },
+                    {
+                        extend: 'print',
+                        className: 'buttons-print',
+                        title: 'Risk Management Report'
                     }
                 ]
             });
@@ -148,5 +153,10 @@ document.getElementById("btnExcel").addEventListener("click", function () {
 document.getElementById("btnPdf").addEventListener("click", function () {
 
     $('.buttons-pdf').click();
+
+});
+document.getElementById("btnPrint").addEventListener("click", function () {
+
+    $('.buttons-print').click();
 
 });
