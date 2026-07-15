@@ -128,31 +128,26 @@ namespace RiskManagement.Controllers
         [HttpGet("Reject")]
         public IActionResult Reject()
         {
-            if (!IsMakerLoggedIn())
-                return RedirectToAction("", "Home");
+           
 
-            SetSessionViewBag();
-            PreventCache();
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
 
-            //var sessionName = HttpContext.Session.GetString("Name");
-            string sessionName = ViewBag.FullName;
-            // Fetch users recorded by the current session user
-            var filteredUsers = _context.Fcys
-                .Where(u => u.RecordedBy == sessionName)
+            var filteredUsers = _context.RiskRegistrations
+                .Where(u => u.RegisteredBy == email)
                 .OrderByDescending(u => u.Id)
                 .ToList();
 
             // Extract the queue numbers from filtered users
-            var queueNumbers = filteredUsers
-                .Select(f => f.QueueNumber)
+            var riskIds = filteredUsers
+                .Select(f => f.RiskId)
                 .ToList();
 
             // Get the latest rejection per queue number
-            var latestRejections = _context.Rejecteds
-                .Where(r => queueNumbers.Contains(r.QueueNumber))
-                .GroupBy(r => r.QueueNumber)
+            var latestRejections = _context.RejectedRisks
+                .Where(r => riskIds.Contains(r.RiskId))
+                .GroupBy(r => r.RiskId)
                 .Select(g => g.OrderByDescending(r => r.Id).FirstOrDefault())
-                .ToDictionary(r => r.QueueNumber, r => r); // Convert to Dictionary for easy access
+                .ToDictionary(r => r.RiskId, r => r); // Convert to Dictionary for easy access
 
             // Build the view model
             var viewModel = new MergeDB
