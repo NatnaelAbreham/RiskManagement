@@ -124,7 +124,48 @@ namespace RiskManagement.Controllers
 
             return Ok(new { StatusCode = 200, success = true, message = "Status updated successfully", data = risk });
         }
-        private string GetRiskPrefix(string identifiedRisk)
+              
+        [HttpGet("Reject")]
+        public IActionResult Reject()
+        {
+            if (!IsMakerLoggedIn())
+                return RedirectToAction("", "Home");
+
+            SetSessionViewBag();
+            PreventCache();
+
+            //var sessionName = HttpContext.Session.GetString("Name");
+            string sessionName = ViewBag.FullName;
+            // Fetch users recorded by the current session user
+            var filteredUsers = _context.Fcys
+                .Where(u => u.RecordedBy == sessionName)
+                .OrderByDescending(u => u.Id)
+                .ToList();
+
+            // Extract the queue numbers from filtered users
+            var queueNumbers = filteredUsers
+                .Select(f => f.QueueNumber)
+                .ToList();
+
+            // Get the latest rejection per queue number
+            var latestRejections = _context.Rejecteds
+                .Where(r => queueNumbers.Contains(r.QueueNumber))
+                .GroupBy(r => r.QueueNumber)
+                .Select(g => g.OrderByDescending(r => r.Id).FirstOrDefault())
+                .ToDictionary(r => r.QueueNumber, r => r); // Convert to Dictionary for easy access
+
+            // Build the view model
+            var viewModel = new MergeDB
+            {
+                UserData = filteredUsers,
+                RejectedInfoMap = latestRejections
+            };
+
+            return View("Rejected", viewModel);
+        }
+
+
+private string GetRiskPrefix(string identifiedRisk)
         {
             return identifiedRisk switch
             {
