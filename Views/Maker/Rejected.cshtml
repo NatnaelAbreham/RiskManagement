@@ -1,0 +1,184 @@
+@{
+    ViewBag.Title = @User.Identity.Name;
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+@section Styles {
+    <link href="~/css/view.css" rel="stylesheet" />
+}
+@section Scripts {
+    <script src="~/js/editrisk.js"></script>
+}
+@model RiskManagement.Models.MergeDB
+
+
+<div class="card shadow-lg p-4">
+    <div class="card-header bg-transparent border-0 py-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="fw-bold mb-0">
+                <i class="bi bi-shield-check text-success me-2"></i>
+                Risk Records
+            </h4>
+        </div>
+    </div>
+    <div class="table-responsive">
+
+        @{
+            var rejectedUsers = Model.UserData?.Where(u => u.Status == "rejected").ToList();
+        }
+        @if (rejectedUsers != null && rejectedUsers.Any())
+        {
+            <table class="table table-hover table-bordered text-center align-middle" id="dataTable">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Risk ID</th>
+
+                        <!-- Section 1: Risk Information -->
+                        <th>Risk Date</th>
+                        <th>Identified Risk</th>
+                        <th>Risk Category</th>
+
+                        <!-- Section 3: Mitigation & Controls -->
+                        <th>Existing Risk Mitigation</th>
+                        <th>Mitigation Rating</th>
+
+                        <!-- Section 4: Ownership & Planning -->
+                        <th>Risk Owner</th>
+
+                        <!-- Optional -->
+                        <th>Status</th>
+                        <th>Reason</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.UserData != null && Model.UserData.Any())
+
+                    {
+
+                        foreach (var user in Model.UserData)
+                        {
+                            @* @if (user.Status == "rejected")
+                            {
+                                continue;
+                            } *@
+                            <tr>
+
+                                <td>@user.RiskId</td>
+
+                                <!-- Section 1: Risk Information -->
+                                <td>@user.RiskDate.ToString("yyyy-MM-dd")</td>
+                                <td>@user.IdentifiedRisk</td>
+                                <td>@user.RiskCategory</td>
+
+                                <!-- Section 3: Mitigation & Controls -->
+                                <td>@user.ExistingRiskMitigation</td>
+                                <td>@user.MitigationRating</td>
+
+                                <!-- Section 4: Ownership & Planning -->
+                                <td>@user.RiskOwner</td>
+                                <td>
+                                    @if (user.Status == "approved")
+                                    {
+                                        <span class="badge bg-success rounded-pill px-3 py-2">
+                                            Approved
+                                        </span>
+                                    }
+                                    else if (user.Status == "rejected")
+                                    {
+                                        <span class="badge bg-danger rounded-pill px-3 py-2">
+                                            Rejected
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        @* <i class="bi bi-dash text-muted"></i> *@
+                                        <span class="badge bg-warning text-dark rounded-pill px-3 py-2">
+                                            Pending
+                                        </span>
+                                    }
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-success reason-btn"
+                                            data-reason="@(Model.RejectedInfoMap.ContainsKey(user.RiskId) ? Model.RejectedInfoMap[user.RiskId].Reason : "No reason available")"
+                                            data-rejectedby="@(Model.RejectedInfoMap.ContainsKey(user.RiskId) ? Model.RejectedInfoMap[user.RiskId].RejectedBy : "Unknown")"
+                                            data-rejectedon="@(Model.RejectedInfoMap.ContainsKey(user.RiskId) ? Model.RejectedInfoMap[user.RiskId].RejectedOn : "Unknown")">
+                                        <i class="bi bi-eye-fill"></i>
+                                    </button>
+                                </td>
+
+                                <td>
+
+                                    <button class="btn btn-outline-success edit-btn"
+                                            data-user='@Html.Raw(System.Text.Json.JsonSerializer.Serialize(user))'>
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+
+                                </td>
+                            </tr>
+
+                                
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-muted">No data available</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        }
+        else
+        {
+
+            <h6 colspan="6" class="text-muted">No data available!</h6>
+
+        }
+    </div>
+</div>
+
+
+<!-- Modal Body -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-top-safe">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body">
+                <div class="row" id="editModalContent"></div>
+            </div>
+
+            <!-- Dynamic Footer -->
+            <div class="modal-footer justify-content-center" id="editModalFooter">
+                <!-- Buttons will be added by JavaScript -->
+            </div>
+
+        </div>
+    </div>
+</div>
+
+ <!-- Reason Modal -->
+ <div class="modal fade" id="reasonModal" tabindex="-1" aria-labelledby="reasonModalLabel" aria-hidden="true">
+     <div class="modal-dialog">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title" id="reasonModalLabel">Rejection Reason</h5>
+                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+             </div>
+             <div class="modal-body" id="reasonModalBody">
+                 <!-- Reason text will be inserted here -->
+             </div>
+             <div class="modal-footer">
+                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+             </div>
+         </div>
+     </div>
+ </div>
+      
