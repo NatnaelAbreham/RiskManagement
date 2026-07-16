@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace RiskManagement.Controllers
 {
-  /*   [ApiController] */
+    /*   [ApiController] */
     [Route("")]
     public class AccountController : Controller
     {
@@ -98,7 +98,7 @@ namespace RiskManagement.Controllers
             var user = await _context.Users
                 .FirstOrDefaultAsync(x => x.Email == email);
 
-             if (user == null)
+            if (user == null)
             {
                 return Unauthorized(new
                 {
@@ -108,24 +108,25 @@ namespace RiskManagement.Controllers
             }
 
             // 2. Outlook validation
-           /*  var result = await _mailService.ValidateOutlookCredentialsAsync(
-                email,
-                request.Password);
+            /*  var result = await _mailService.ValidateOutlookCredentialsAsync(
+                 email,
+                 request.Password);
 
-  
-            if (!result.Success)
-            {
-                return Unauthorized(new
-                {
-                    success = false,
-                    message = "The user name or password you entered isn't correct. Try entering it again."
-                });
-            } */
+
+             if (!result.Success)
+             {
+                 return Unauthorized(new
+                 {
+                     success = false,
+                     message = "The user name or password you entered isn't correct. Try entering it again."
+                 });
+             } */
 
             var roleName = user.Role switch
             {
                 "124451" => "Maker",
                 "125451" => "Checker",
+                "124551" => "Admin",
                 _ => "Unknown"
             };
 
