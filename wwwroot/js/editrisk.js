@@ -90,7 +90,6 @@ $(document).on('click', '.edit-btn', function () {
             // ------------------------------
             // Dropdowns
             // ------------------------------
-
             if (field.key === "RiskCategory") {
 
                 html += `
@@ -144,14 +143,6 @@ $(document).on('click', '.edit-btn', function () {
             }
 
             if (field.key === "Status") {
-
-                html += `
-                <div class="col-md-6">
-                    <div class="border-bottom py-2 px-1">
-                        <label class="fw-semibold">${field.label}</label>
-                        ${renderSelect(statusOptions, field.key, value)}
-                    </div>
-                </div>`;
 
                 return;
             }

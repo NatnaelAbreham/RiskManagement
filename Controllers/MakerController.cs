@@ -119,21 +119,21 @@ namespace RiskManagement.Controllers
             // SECTION 4: OWNERSHIP & PLANNING
             risk.MitigationPlannedDate = model.MitigationPlannedDate;
             risk.RiskOwner = model.RiskOwner;
-            risk.Status = model.Status;
+            risk.Status = "pending";
             _context.SaveChanges();
 
             return Ok(new { StatusCode = 200, success = true, message = "Status updated successfully", data = risk });
         }
               
-        [HttpGet("Reject")]
-        public IActionResult Reject()
+        [HttpGet("RejectedRecords")]
+        public IActionResult RejectedRecords()
         {
            
 
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
 
             var filteredUsers = _context.RiskRegistrations
-                .Where(u => u.RegisteredBy == email)
+                .Where(u => u.RegisteredBy == email && u.Status == "rejected")
                 .OrderByDescending(u => u.Id)
                 .ToList();
 

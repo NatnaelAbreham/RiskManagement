@@ -41,10 +41,10 @@
                 <i class="bi bi-eye"></i>
                 View
             </a>
-             <a asp-controller="Maker" asp-action="Reject"
-               class="@(currentController == "Maker" && currentAction == "Rejected" ? "active" : "")">
-                <i class="bi bi-eye"></i>
-                View
+             <a asp-controller="Maker" asp-action="RejectedRecords"
+               class="@(currentController == "Maker" && currentAction == "RejectedRecords" ? "active" : "")">
+                <i class="bi-x-octagon"></i>
+                Rejected risk
             </a>
         }
 
