@@ -14,8 +14,7 @@ namespace RiskManagement.Data
             protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
                   base.OnModelCreating(modelBuilder);
-
-                  // Existing configuration for fcy
+                  
                   modelBuilder.Entity<User>(entity =>
                  {
                        entity.ToTable("Users");
@@ -27,7 +26,6 @@ namespace RiskManagement.Data
                        entity.Property(e => e.Role).HasMaxLength(50).IsRequired().HasDefaultValue("124451");
                        entity.Property(e => e.CreatedOn).IsRequired().HasDefaultValueSql("SYSUTCDATETIME()");
                  });
-
                   modelBuilder.Entity<RiskSequence>(entity =>
                  {
                        entity.ToTable("RiskSequence");
@@ -35,7 +33,6 @@ namespace RiskManagement.Data
                        entity.Property(e => e.Prefix).HasMaxLength(10).IsRequired();
                        entity.Property(e => e.LastNumber).IsRequired();
                  });
-
                   modelBuilder.Entity<RiskRegistration>(entity =>
                  {
                        entity.ToTable("RiskRegistration");
