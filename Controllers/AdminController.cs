@@ -17,6 +17,11 @@ namespace RiskManagement.Controllers
         public AdminController(AppDBContext context) => _context = context;
         private readonly AppDBContext _context;
 
+        [HttpGet("AddUser")]
+        public IActionResult AddUser()
+        {
+            return View();
+        }
         [HttpPost("adduser")]
         public async Task<IActionResult> AddUser([FromBody] CreateUserDto dto)
         {
