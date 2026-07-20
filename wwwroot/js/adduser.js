@@ -13,6 +13,14 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener("submit", async function (e) {
 
         e.preventDefault();
+     
+
+    if (!form.checkValidity()) {
+
+        form.reportValidity();
+
+        return;
+    }
 
         const dto = {
 

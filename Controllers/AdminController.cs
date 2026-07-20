@@ -53,13 +53,31 @@ namespace RiskManagement.Controllers
                 }
             }
 
+
+            string role;
+
+            if (dto.Role == "Maker")
+                role = "124451";
+            else if (dto.Role == "Checker")
+                role = "125451";
+            else if (dto.Role == "Admin")
+                role = "124551";
+            else
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    message = "Invalid role selected."
+                });
+            }
+
             var user = new User
             {
                 FullName = dto.FullName,
                 Email = email,
                 Phone = phone,
                 Status = dto.Status,
-                Role = dto.Role,
+                Role = role,
                 CreatedOn = DateTime.UtcNow
             };
 
