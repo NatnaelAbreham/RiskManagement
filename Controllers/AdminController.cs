@@ -26,24 +26,38 @@ namespace RiskManagement.Controllers
         public async Task<IActionResult> AddUser([FromBody] CreateUserDto dto)
         {
             var email = dto.Email.Trim().ToLower();
+            var phone = dto.Phone?.Trim();
 
-            var existingUser = await _context.Users
-                .FirstOrDefaultAsync(x => x.Email.ToLower() == email);
+            var existingUser = await _context.Users.FirstOrDefaultAsync(x =>
+                x.Email.ToLower() == email ||
+                (!string.IsNullOrEmpty(phone) && x.Phone == phone));
 
             if (existingUser != null)
             {
-                return BadRequest(new
+                if (existingUser.Email.ToLower() == email)
                 {
-                    success = false,
-                    message = "A user with this email already exists."
-                });
+                    return BadRequest(new
+                    {
+                        success = false,
+                        message = "A user with this email already exists."
+                    });
+                }
+
+                if (!string.IsNullOrEmpty(phone) && existingUser.Phone == phone)
+                {
+                    return BadRequest(new
+                    {
+                        success = false,
+                        message = "A user with this phone number already exists."
+                    });
+                }
             }
 
             var user = new User
             {
                 FullName = dto.FullName,
                 Email = email,
-                Phone = dto.Phone,
+                Phone = phone,
                 Status = dto.Status,
                 Role = dto.Role,
                 CreatedOn = DateTime.UtcNow
@@ -55,7 +69,7 @@ namespace RiskManagement.Controllers
             return Ok(new
             {
                 success = true,
-                message = "User added successfully",
+                message = "User added successfully.",
                 data = user
             });
         }

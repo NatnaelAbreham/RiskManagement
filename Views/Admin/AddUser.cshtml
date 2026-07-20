@@ -1,12 +1,16 @@
 @model RiskManagement.Account.Models.User
 
 @{
-    ViewBag.Title = "Add User";
+    ViewBag.Title = @User.Identity.Name;
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
 
 @section Styles {
     <link href="~/css/adduser.css" rel="stylesheet" />
+}
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/adduser.js"></script>
 }
 <div class="container-fluid">
 
@@ -14,7 +18,7 @@
 
         <div class="card-header bg-white">
             <h3 class="mb-0">
-                <i class="bi bi-person-plus-fill text-primary me-2"></i>
+                <i class="bi bi-person-plus-fill text-success me-2"></i>
                 Add New User
             </h3>
             <small class="text-muted">
@@ -26,62 +30,97 @@
 
             <form id="addUserForm">
 
-                <div class="row">
+                <div class="row g-4">
 
                     <!-- Full Name -->
-                    <div class="input-group">
+                    <div class="col-md-6">
 
-                        <span class="input-group-text">
-                            <i class="bi bi-person"></i>
-                        </span>
+                        <label class="form-label fw-semibold">
+                            Full Name
+                        </label>
 
-                        <input asp-for="FullName" class="form-control" placeholder="Enter full name" />
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+                                <i class="bi bi-person"></i>
+                            </span>
+
+                            <input asp-for="FullName" class="form-control" placeholder="Enter full name" />
+
+                        </div>
 
                     </div>
+
 
                     <!-- Email -->
-                    <div class="input-group">
+                    <div class="col-md-6">
 
-                        <span class="input-group-text">
-                            <i class="bi bi-envelope-fill"></i>
-                        </span>
+                        <label class="form-label fw-semibold">
+                            Email Address
+                        </label>
 
-                        <input asp-for="Email" class="form-control" placeholder="example@company.com" />
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+                                <i class="bi bi-envelope-fill"></i>
+                            </span>
+
+                            <input asp-for="Email" class="form-control" placeholder="example@company.com" />
+
+                        </div>
 
                     </div>
+
 
                     <!-- Phone -->
-                    <div class="input-group">
+                    <div class="col-md-6">
 
-                        <span class="input-group-text">
-                            <i class="bi bi-telephone-fill"></i>
-                        </span>
+                        <label class="form-label fw-semibold">
+                            Phone Number
+                        </label>
 
-                        <input asp-for="Phone" class="form-control" placeholder="+2519XXXXXXXX" />
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+                                <i class="bi bi-telephone-fill"></i>
+                            </span>
+
+                            <input asp-for="Phone" class="form-control" placeholder="+2519XXXXXXXX" />
+
+                        </div>
 
                     </div>
+
 
                     <!-- Role -->
-                    <div class="input-group">
+                    <div class="col-md-6">
 
-                        <span class="input-group-text">
-                            <i class="bi bi-person-badge-fill"></i>
-                        </span>
+                        <label class="form-label fw-semibold">
+                            User Role
+                        </label>
 
-                        <select asp-for="Role" class="form-select">
+                        <div class="input-group">
 
-                            <option value="">Select Role</option>
+                            <span class="input-group-text">
+                                <i class="bi bi-person-badge-fill"></i>
+                            </span>
 
-                            <option value="Admin">Admin</option>
-                            <option value="Maker">Maker</option>
-                            <option value="Checker">Checker</option>
+                            <select asp-for="Role" class="form-select">
 
-                        </select>
+                                <option value="">Select Role</option>
+                                <option value="Admin">Admin</option>
+                                <option value="Maker">Maker</option>
+                                <option value="Checker">Checker</option>
+
+                            </select>
+
+                        </div>
 
                     </div>
 
+
                     <!-- Status -->
-                    <div class="mb-3">
+                    <div class="col-md-6">
 
                         <label class="form-label fw-semibold">
                             Status
@@ -111,7 +150,7 @@
                         Reset
                     </button>
 
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-success">
                         <i class="bi bi-floppy-fill me-1"></i>
                         Save User
                     </button>
@@ -126,7 +165,3 @@
 
 </div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <script src="~/js/admin/adduser.js"></script>
-}
