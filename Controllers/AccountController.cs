@@ -154,6 +154,7 @@ namespace RiskManagement.Controllers
             {
                 "Maker" => "/Maker/Dashboard",
                 "Checker" => "/Checker/Dashboard",
+                "Admin" => "/Admin/Dashboard",
                 _ => "/Account/Login"
             };
 

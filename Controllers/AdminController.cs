@@ -54,6 +54,17 @@ namespace RiskManagement.Controllers
                 data = user
             });
         }
+        [HttpGet("Profile")]
+        public IActionResult Profile()
+        {
+            return View();
+        }
 
+
+        [HttpGet("Dashboard")]
+        public IActionResult Dashboard()
+        {
+            return View();
+        }
     }
 }
