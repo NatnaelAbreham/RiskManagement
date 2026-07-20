@@ -72,5 +72,28 @@
     .text-danger{
 
         font-size:13px;
-    }
+    }.input-group-text{
+
+    width:52px;
+    justify-content:center;
+    border-radius:12px 0 0 12px;
+    border:1px solid #dbe2ea;
+    border-right:none;
+    background:#f8fafc;
+    color:#6b7280;
+}
+
+.input-group .form-control,
+.input-group .form-select{
+
+    border-left:none;
+    border-radius:0 12px 12px 0;
+}
+
+.input-group:focus-within .input-group-text{
+
+    border-color:#0d6efd;
+    background:#fff;
+    color:#0d6efd;
+}
 
