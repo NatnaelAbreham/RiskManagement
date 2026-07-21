@@ -85,7 +85,12 @@
 
             <a asp-controller="Admin" asp-action="adduser"
                class="@(currentController == "Admin" && currentAction == "AddUser" ? "active" : "")">
-                <i class="bi bi-people"></i>
+                <i class="bi bi-person-plus"></i>
+                Add User
+            </a>
+             <a asp-controller="Admin" asp-action="users"
+               class="@(currentController == "Admin" && currentAction == "Users" ? "active" : "")">
+                <i class="bi bi-people"></i> 
                 Users
             </a>
         }

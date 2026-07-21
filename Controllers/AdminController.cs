@@ -96,8 +96,6 @@ namespace RiskManagement.Controllers
         {
             return View();
         }
-
-
         [HttpGet("Dashboard")]
         public IActionResult Dashboard()
         {

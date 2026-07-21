@@ -1,0 +1,108 @@
+@{
+    ViewBag.Title = @User.Identity.Name;
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+@section Styles {
+    <link href="~/css/view.css" rel="stylesheet" />
+}
+@section Scripts {
+    <script src="~/js/editusers.js"></script>
+}
+@model List<RiskManagement.Account.Models.User>
+
+
+<div class="card shadow-lg p-4">
+    <div class="card-header bg-transparent border-0 py-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="fw-bold mb-0">
+                <i class="bi bi-person-check text-success me-2"></i>
+            </h1>
+        </div>
+    </div>
+    <div class="table-responsive">
+
+        @if (Model != null && Model.Any())
+        {
+            <table class="table table-hover table-bordered text-center align-middle" id="dataTable">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>View</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+
+                        foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>@user.FullName</td>
+                                <td>@user.Email</td>
+                                <td>@user.Phone</td>
+
+                                <td>
+                                    <button class="btn btn-outline-success edit-btn"
+                                            data-user='@Html.Raw(System.Text.Json.JsonSerializer.Serialize(user))'>
+                                    <i class="bi bi-eye-fill"></i>
+                                    </button>
+                                </td>
+                                <td> 
+                                    <button class="btn btn-outline-success edit-btn"
+                                         data-user='@Html.Raw(System.Text.Json.JsonSerializer.Serialize(user))'>
+                                    <i class="bi bi-pencil-square"></i>
+                                    </button>
+                                </td>
+                      
+                       
+                            </tr>                           
+                }
+            }
+                    else
+            {
+                <tr>
+                    <td colspan="5" class="text-muted">No data available</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+        else
+{
+
+    <h6 colspan="5" class="text-muted">No data available!</h6>
+
+}
+</div>
+</div>
+
+
+<!-- Modal Body -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-top-safe">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body">
+                <div class="row" id="editModalContent"></div>
+            </div>
+
+            <!-- Dynamic Footer -->
+            <div class="modal-footer justify-content-center" id="editModalFooter">
+                <!-- Buttons will be added by JavaScript -->
+            </div>
+
+        </div>
+    </div>
+</div>
+      
