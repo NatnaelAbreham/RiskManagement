@@ -25,7 +25,7 @@ namespace RiskManagement.Controllers
         [HttpPost("adduser")]
         public async Task<IActionResult> AddUser([FromBody] CreateUserDto dto)
         {
-            var email = dto.Email.Trim().ToLower();
+            var email = NormalizeEmail(dto.Email);
             var phone = dto.Phone?.Trim();
 
             var existingUser = await _context.Users.FirstOrDefaultAsync(x =>
@@ -102,6 +102,23 @@ namespace RiskManagement.Controllers
         public IActionResult Dashboard()
         {
             return View();
+        }
+
+        private string NormalizeEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return email;
+
+            email = email.Trim().ToLower();
+
+            const string domain = "@tsedeybank.com.et";
+
+            if (!email.Contains("@"))
+            {
+                email = email + domain;
+            }
+
+            return email;
         }
     }
 }

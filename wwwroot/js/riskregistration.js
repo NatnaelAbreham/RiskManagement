@@ -25,7 +25,7 @@ form.addEventListener("submit", async function (e) {
         mitigationPlannedDate: document.getElementById("MitigationPlannedDate").value,
         riskOwner: document.getElementById("RiskOwner").value,
 
-        status: document.getElementById("Status").value
+        /* status: document.getElementById("Status").value */
     };
 
     const response = await fetch("/Maker/createrisk", {
