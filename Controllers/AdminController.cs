@@ -101,6 +101,7 @@ namespace RiskManagement.Controllers
                 .OrderByDescending(u => u.Id)
                 .Select(u => new User
                 {
+                    Id = u.Id,
                     FullName = u.FullName,
                     Email = u.Email,
                     Phone = u.Phone,

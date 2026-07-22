@@ -30,6 +30,7 @@
                         <th>Full Name</th>
                         <th>Email</th>
                         <th>Phone</th>
+                        <th>Role</th>
                         <th>View</th>
                         <th>Edit</th>
                     </tr>
@@ -44,21 +45,21 @@
                                 <td>@user.FullName</td>
                                 <td>@user.Email</td>
                                 <td>@user.Phone</td>
+                                <td>@user.Role</td>
+                                <td>
+                                   <button class="btn btn-outline-success view-btn"
+                                      data-user='@Html.Raw(System.Text.Json.JsonSerializer.Serialize(user))'>
+                                     <i class="bi bi-eye-fill"></i>
+                                   </button>
+                                </td>
 
                                 <td>
-                                    <button class="btn btn-outline-success edit-btn"
-                                            data-user='@Html.Raw(System.Text.Json.JsonSerializer.Serialize(user))'>
-                                    <i class="bi bi-eye-fill"></i>
-                                    </button>
-                                </td>
-                                <td> 
-                                    <button class="btn btn-outline-success edit-btn"
-                                         data-user='@Html.Raw(System.Text.Json.JsonSerializer.Serialize(user))'>
+                                   <button class="btn btn-outline-primary edit-btn"
+                                      data-user='@Html.Raw(System.Text.Json.JsonSerializer.Serialize(user))'>
                                     <i class="bi bi-pencil-square"></i>
-                                    </button>
-                                </td>
+                                   </button>
+                                </td>                    
                       
-                       
                             </tr>                           
                 }
             }
