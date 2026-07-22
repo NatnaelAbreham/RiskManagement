@@ -15,6 +15,15 @@ const userRoles = [
     { value: "Admin", text: "Admin" }
 ];
 
+const fieldIcons = {
+    FullName: "bi bi-person",
+    Email: "bi bi-envelope",
+    Phone: "bi bi-telephone",
+    Role: "bi bi-shield-lock",
+    Status: "bi bi-toggle-on",
+    CreatedOn: "bi bi-calendar",
+};
+
 $(document).on('click', '.edit-btn', function () {
 
     const user = $(this).data('user');
@@ -24,124 +33,190 @@ $(document).on('click', '.edit-btn', function () {
         return;
     }
 
-    const status = user.Status.trim().toLowerCase();
-
     let html = "";
 
     fieldsToShow.forEach(field => {
 
         const value = user[field.key] ?? "";
 
-        let inputType = "text";
-        let inputValue = value;
-        let extra = "";
+        // Skip ID
+        if (field.key === "Id")
+            return;
 
-        if (!["CreatedOn"].includes(field.key)) {
+        // ===========================
+        // READ ONLY FIELD
+        // ===========================
+        if (field.key === "CreatedOn") {
 
-            if (field.key === "Role") {
+            let displayValue = "";
 
+            if (value) {
+                displayValue = new Date(value).toLocaleDateString();
+            }
 
-                html += `
-                <div class="col-md-6">
-                    <div class="border-bottom py-2 px-1">
-                        <label class="fw-semibold">${field.label}</label>
-                        ${roleSelect(field.key, value)}
+            html += `
+            <div class="col-md-6">
+                <div class="profile-card">
+
+                    <label class="profile-label">
+                        <i class="${fieldIcons[field.key]}"></i>
+                        ${field.label}
+                    </label>
+
+                    <div class="form-control bg-light d-flex align-items-center">
+                        ${displayValue}
                     </div>
-                </div>`;
 
-                return;
-            } if (field.key === "Id") {
+                </div>
+            </div>`;
 
-                return;
-            } if (field.key === "Status") {
+            return;
+        }
 
-                const isChecked = Number(value) === 1 ? "checked" : "";
+        // ===========================
+        // ROLE
+        // ===========================
+        if (field.key === "Role") {
 
-                html += `
-    <div class="col-md-6">
-        <div class="border-bottom py-2 px-1">
-            <label class="fw-semibold">${field.label}</label>
+            html += `
+            <div class="col-md-6">
+                <div class="profile-card">
 
-            <div class="form-check form-switch mt-2">
-                <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="statusToggle"
-                    name="Status"
-                    value="1"
-                    ${isChecked}>
-                <label class="form-check-label" for="statusToggle">
-                    <span id="statusText">${Number(value) === 1 ? "On" : "Off"}</span>
+                    <label class="profile-label">
+                        <i class="${fieldIcons[field.key]}"></i>
+                        ${field.label}
+                    </label>
+
+                    ${roleSelect(field.key, value)}
+
+                </div>
+            </div>`;
+
+            return;
+        }
+
+        // ===========================
+        // STATUS
+        // ===========================
+        if (field.key === "Status") {
+
+            const isChecked = Number(value) === 1 ? "checked" : "";
+            const badgeClass = Number(value) === 1 ? "bg-success" : "bg-secondary";
+            const statusText = Number(value) === 1 ? "Active" : "Inactive";
+
+            html += `
+            <div class="col-md-6">
+
+                <div class="profile-card">
+
+                    <label class="profile-label">
+                        <i class="${fieldIcons[field.key]}"></i>
+                        ${field.label}
+                    </label>
+
+                    <div class="d-flex align-items-center justify-content-between mt-3">
+
+                        <div class="form-check form-switch fs-5 m-0">
+
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                id="statusToggle"
+                                name="Status"
+                                value="1"
+                                ${isChecked}>
+
+                        </div>
+
+                        <span id="statusText"
+                              class="badge ${badgeClass} px-3 py-2 rounded-pill">
+                              ${statusText}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>`;
+
+            return;
+        }
+
+        // ===========================
+        // NORMAL INPUTS
+        // ===========================
+        html += `
+        <div class="col-md-6">
+
+            <div class="profile-card">
+
+                <label class="profile-label">
+                    <i class="${fieldIcons[field.key]}"></i>
+                    ${field.label}
                 </label>
+
+                <input
+                    type="text"
+                    class="form-control"
+                    name="${field.key}"
+                    value="${value}">
+
             </div>
-        </div>
-    </div>`;
 
-                return;
-            }
-
-
-            html += `
-            <div class="col-md-6">
-                <div class="border-bottom py-2 px-1">
-                    <label class="fw-semibold">${field.label}</label>
-
-                    <input
-                        type="${inputType}"
-                        class="form-control mt-1"
-                        name="${field.key}"
-                        value="${inputValue}"
-                        ${extra}>
-                </div>
-            </div>`;
-
-        }
-        else {
-
-            let displayValue = value;
-
-            // Format Dates
-            if (
-                field.key === "CreatedOn"
-            ) {
-
-                if (value) {
-                    displayValue = new Date(value).toLocaleDateString();
-                }
-            }
-
-            html += `
-            <div class="col-md-6">
-                <div class="border-bottom py-2 px-1">
-                    <span class="fw-semibold">${field.label}:</span>
-                    <span class="ms-1 text-muted">${displayValue}</span>
-                </div>
-            </div>`;
-        }
+        </div>`;
 
     });
 
-    let footerHtml = "";
+    // ===========================
+    // Footer
+    // ===========================
 
+    const footerHtml = `
 
+<button
+    type="button"
+    class="btn btn-danger btn-cancel px-4"
+    data-bs-dismiss="modal">
 
-    footerHtml = `
-            <button
-                type="button"
-                class="btn btn-danger"
-                data-bs-dismiss="modal">
-                Cancel
-            </button>
+    <i class="bi bi-x-circle me-2"></i>
 
-            <button
-                type="button"
-                class="btn btn-success"
-                id="saveChangesBtn"
-                data-id="${user.Id}">
-                Save Changes
-            </button>`;
+    Cancel
 
+</button>
 
+<button
+    type="button"
+    class="btn btn-success btn-save px-4"
+    id="saveChangesBtn"
+    data-id="${user.Id}">
+
+    <i class="bi bi-check-circle me-2"></i>
+
+    Save Changes
+
+</button>
+
+`;
+
+    // ===========================
+    // Update Profile Header
+    // ===========================
+
+    $("#profileName").text(user.FullName);
+    $("#profileEmail").text(user.Email);
+
+    const initials = user.FullName
+        .split(" ")
+        .map(x => x.charAt(0))
+        .join("")
+        .substring(0, 2)
+        .toUpperCase();
+
+    $("#profileAvatar").text(initials);
+
+    // ===========================
+    // Render
+    // ===========================
 
     $("#editModalContent").html(html);
     $("#editModalFooter").html(footerHtml);
