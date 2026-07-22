@@ -6,7 +6,7 @@
     <link href="~/css/view.css" rel="stylesheet" />
 }
 @section Scripts {
-    <script src="~/js/editusers.js"></script>
+    <script src="~/js/edituser.js"></script>
 }
 @model List<RiskManagement.Account.Models.User>
 
@@ -83,28 +83,54 @@
 </div>
 
 
-<!-- Modal Body -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-top-safe">
-        <div class="modal-content">
+<!-- ================= Edit User Profile Modal ================= -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
 
-            <!-- Header -->
-            <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Edit Information</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <div class="modal-content profile-modal">
+
+            <!-- Close -->
+            <button type="button"
+                    class="btn-close profile-close"
+                    data-bs-dismiss="modal"></button>
+
+            <!-- Profile Header -->
+            <div class="profile-header">
+
+                <div class="profile-avatar" id="profileAvatar">
+                    NA
+                </div>
+
+                <h3 id="profileName">User Name</h3>
+
+                <p id="profileEmail">
+                    user@email.com
+                </p>
+
+                <small>
+                    Update profile information and account settings
+                </small>
+
             </div>
 
             <!-- Body -->
             <div class="modal-body">
-                <div class="row" id="editModalContent"></div>
+
+                <div class="row g-4"
+                     id="editModalContent">
+
+                </div>
+
             </div>
 
-            <!-- Dynamic Footer -->
-            <div class="modal-footer justify-content-center" id="editModalFooter">
-                <!-- Buttons will be added by JavaScript -->
+            <!-- Footer -->
+            <div class="modal-footer profile-footer"
+                 id="editModalFooter">
+
             </div>
 
         </div>
+
     </div>
 </div>
       

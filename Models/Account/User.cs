@@ -21,7 +21,6 @@ namespace RiskManagement.Account.Models
 
         [Required]
         public string Role { get; set; } = "124451";
-
         public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
     }
 }

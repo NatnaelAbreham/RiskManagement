@@ -1,10 +1,11 @@
 const fieldsToShow = [
-    
+
+    { key: "Id", label: "User Id" },
     { key: "FullName", label: "Full Name" },
     { key: "Email", label: "Email" },
     { key: "Phone", label: "Phone" },
-    { key: "Status", label: "User Status" },
     { key: "Role", label: "Role" },
+    { key: "Status", label: "User Status" },
     { key: "CreatedOn", label: "Created On" },
 ];
 
@@ -31,9 +32,14 @@ $(document).on('click', '.edit-btn', function () {
 
         const value = user[field.key] ?? "";
 
+        let inputType = "text";
+        let inputValue = value;
+        let extra = "";
+
         if (!["CreatedOn"].includes(field.key)) {
 
-            if (field.key === "userRoles") {
+            if (field.key === "Role") {
+
 
                 html += `
                 <div class="col-md-6">
@@ -44,7 +50,36 @@ $(document).on('click', '.edit-btn', function () {
                 </div>`;
 
                 return;
+            } if (field.key === "Id") {
+
+                return;
+            } if (field.key === "Status") {
+
+                const isChecked = Number(value) === 1 ? "checked" : "";
+
+                html += `
+    <div class="col-md-6">
+        <div class="border-bottom py-2 px-1">
+            <label class="fw-semibold">${field.label}</label>
+
+            <div class="form-check form-switch mt-2">
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="statusToggle"
+                    name="Status"
+                    value="1"
+                    ${isChecked}>
+                <label class="form-check-label" for="statusToggle">
+                    <span id="statusText">${Number(value) === 1 ? "On" : "Off"}</span>
+                </label>
+            </div>
+        </div>
+    </div>`;
+
+                return;
             }
+
 
             html += `
             <div class="col-md-6">
@@ -67,7 +102,7 @@ $(document).on('click', '.edit-btn', function () {
 
             // Format Dates
             if (
-                field.key === "CreatedOn" 
+                field.key === "CreatedOn"
             ) {
 
                 if (value) {
@@ -88,9 +123,9 @@ $(document).on('click', '.edit-btn', function () {
 
     let footerHtml = "";
 
-    if (isEditable) {
 
-        footerHtml = `
+
+    footerHtml = `
             <button
                 type="button"
                 class="btn btn-danger"
@@ -102,27 +137,11 @@ $(document).on('click', '.edit-btn', function () {
                 type="button"
                 class="btn btn-success"
                 id="saveChangesBtn"
-                data-id="${user.RiskId}">
+                data-id="${user.Id}">
                 Save Changes
             </button>`;
 
-    } else {
 
-        html += `
-        <div class="col-12">
-            <div class="alert alert-warning text-center mb-0">
-                 Approved records cannot be edited.
-            </div>
-        </div>`;
-
-        footerHtml = `
-            <button
-                type="button"
-                class="btn btn-success"
-                data-bs-dismiss="modal">
-                OK
-            </button>`;
-    }
 
     $("#editModalContent").html(html);
     $("#editModalFooter").html(footerHtml);
@@ -135,7 +154,7 @@ document.addEventListener('click', function (event) {
 
     if (event.target && event.target.id === 'saveChangesBtn') {
 
-        const RiskId = event.target.getAttribute('data-id');
+        const Id = event.target.getAttribute('data-id');
 
         Swal.fire({
             title: 'Are you sure?',
@@ -152,29 +171,10 @@ document.addEventListener('click', function (event) {
                 return;
 
             const updatedData = {
-                RiskId: RiskId
+                Id: Id
             };
 
-            // Read all editable controls
-            fieldsToShow.forEach(field => {
 
-                if (field.key === "RiskId" || field.key === "RegisteredDate")
-                    return;
-
-                const element = document.querySelector(`[name="${field.key}"]`);
-
-                if (!element)
-                    return;
-
-                let value = element.value;
-
-                // Convert decimal fields
-                if (field.key === "Probability" || field.key === "RiskScore") {
-                    value = value === "" ? 0 : parseFloat(value);
-                }
-
-                updatedData[field.key] = value;
-            });
 
             console.log("Sending to backend:", updatedData);
 
@@ -229,10 +229,14 @@ document.addEventListener('click', function (event) {
 
 });
 
+$(document).on("change", "#statusToggle", function () {
+    $("#statusText").text(this.checked ? "On" : "Off");
+});
+
 function roleSelect(name, value) {
     return `
         <select class="form-control mt-1" name="${name}">
-            ${riskCategories.map(c => `
+            ${userRoles.map(c => `
                 <option value="${c.value}" ${value === c.value ? 'selected' : ''}>
                     ${c.text}
                 </option>
