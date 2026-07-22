@@ -1,70 +1,17 @@
 const fieldsToShow = [
-    // SECTION 1: RISK INFORMATION
-    { key: "RiskId", label: "Risk ID" },
-    { key: "RegisteredDate", label: "Registered Date" },
-    { key: "RiskDate", label: "Risk Date" },
-    /*{ key: "IdentifiedRisk", label: "Identified Risk" },*/
-    { key: "SourceOfRisk", label: "Source of Risk" },
-    { key: "RiskCategory", label: "Risk Category" },
-    { key: "RiskEventDescription", label: "Risk Event Description" },
-
-    // SECTION 2: RISK ASSESSMENT
-    { key: "Effect", label: "Effect" },
-    { key: "Probability", label: "Probability" },
-    { key: "ImpactLevel", label: "Impact Level" },
-    { key: "RiskScore", label: "Risk Score" },
-    { key: "RiskRating", label: "Risk Rating" },
-    { key: "ResidualRiskLevel", label: "Residual Risk Level" },
-
-    // SECTION 3: MITIGATION & CONTROLS
-    { key: "ExistingRiskMitigation", label: "Existing Risk Mitigation" },
-    { key: "MitigationRating", label: "Mitigation Rating" },
-    { key: "Recommendation", label: "Recommendation" },
-
-    // SECTION 4: OWNERSHIP & PLANNING
-    { key: "MitigationPlannedDate", label: "Mitigation Planned Date" },
-    { key: "RiskOwner", label: "Risk Owner" },
-    { key: "Status", label: "Status" },
-
-
-
+    
+    { key: "FullName", label: "Full Name" },
+    { key: "Email", label: "Email" },
+    { key: "Phone", label: "Phone" },
+    { key: "Status", label: "User Status" },
+    { key: "Role", label: "Role" },
+    { key: "CreatedOn", label: "Created On" },
 ];
 
-const riskCategories = [
-    { value: "InternalFraud", text: "Internal Fraud" },
-    { value: "ExternalFraud", text: "External Fraud" },
-    { value: "EmploymentWorkplaceSafety", text: "Employment & Workplace Safety" },
-    { value: "PropertyDamage", text: "Property Damage" },
-    { value: "SystemFailureBusinessDisruption", text: "System Failure & Business Disruption" },
-    { value: "ProcessManagementExecution", text: "Process Management & Execution" },
-    { value: "CustomerProductRisk", text: "Customer & Product Risk" }
-];
-const impactLevels = [
-    { value: "", text: "Select Impact" },
-    { value: "Low", text: "Low" },
-    { value: "Medium", text: "Medium" },
-    { value: "High", text: "High" },
-    { value: "Critical", text: "Critical" }
-];
-const riskRatings = [
-    { value: "", text: "Select Rating" },
-    { value: "Low", text: "Low" },
-    { value: "Medium", text: "Medium" },
-    { value: "High", text: "High" },
-    { value: "Extreme", text: "Extreme" }
-];
-const mitigationRatings = [
-    { value: "", text: "Select Rating" },
-    { value: "VeryWeak", text: "Very Weak" },
-    { value: "Weak", text: "Weak" },
-    { value: "Moderate", text: "Moderate" },
-    { value: "Strong", text: "Strong" },
-    { value: "VeryStrong", text: "Very Strong" }
-];
-const statusOptions = [
-    { value: "Open", text: "Open" },
-    { value: "InProgress", text: "In Progress" },
-    { value: "Closed", text: "Closed" }
+const userRoles = [
+    { value: "Maker", text: "Maker" },
+    { value: "Checker", text: "Checker" },
+    { value: "Admin", text: "Admin" }
 ];
 
 $(document).on('click', '.edit-btn', function () {
@@ -77,7 +24,6 @@ $(document).on('click', '.edit-btn', function () {
     }
 
     const status = user.Status.trim().toLowerCase();
-    const isEditable = status === "pending" || status === "rejected";
 
     let html = "";
 
@@ -85,94 +31,19 @@ $(document).on('click', '.edit-btn', function () {
 
         const value = user[field.key] ?? "";
 
-        if (isEditable && !["RiskId", "RegisteredDate"].includes(field.key)) {
+        if (!["CreatedOn"].includes(field.key)) {
 
-            // ------------------------------
-            // Dropdowns
-            // ------------------------------
-            if (field.key === "RiskCategory") {
+            if (field.key === "userRoles") {
 
                 html += `
                 <div class="col-md-6">
                     <div class="border-bottom py-2 px-1">
                         <label class="fw-semibold">${field.label}</label>
-                        ${renderRiskCategorySelect(field.key, value)}
+                        ${roleSelect(field.key, value)}
                     </div>
                 </div>`;
 
                 return;
-            }
-
-            if (field.key === "ImpactLevel") {
-
-                html += `
-                <div class="col-md-6">
-                    <div class="border-bottom py-2 px-1">
-                        <label class="fw-semibold">${field.label}</label>
-                        ${renderSelect(impactLevels, field.key, value)}
-                    </div>
-                </div>`;
-
-                return;
-            }
-
-            if (field.key === "RiskRating") {
-
-                html += `
-                <div class="col-md-6">
-                    <div class="border-bottom py-2 px-1">
-                        <label class="fw-semibold">${field.label}</label>
-                        ${renderSelect(riskRatings, field.key, value)}
-                    </div>
-                </div>`;
-
-                return;
-            }
-
-            if (field.key === "MitigationRating") {
-
-                html += `
-                <div class="col-md-6">
-                    <div class="border-bottom py-2 px-1">
-                        <label class="fw-semibold">${field.label}</label>
-                        ${renderMitigationRatingSelect(field.key, value)}
-                    </div>
-                </div>`;
-
-                return;
-            }
-
-            if (field.key === "Status") {
-
-                return;
-            }
-
-            // ------------------------------
-            // Decide Input Type
-            // ------------------------------
-
-            let inputType = "text";
-            let inputValue = value;
-            let extra = "";
-
-            // Date Fields
-            if (field.key === "RiskDate" || field.key === "MitigationPlannedDate") {
-
-                inputType = "date";
-
-                if (value) {
-                    inputValue = new Date(value).toISOString().split("T")[0];
-                }
-                else {
-                    inputValue = "";
-                }
-            }
-
-            // Decimal Fields
-            if (field.key === "Probability" || field.key === "RiskScore") {
-
-                inputType = "number";
-                extra = 'step="0.01"';
             }
 
             html += `
@@ -196,9 +67,7 @@ $(document).on('click', '.edit-btn', function () {
 
             // Format Dates
             if (
-                field.key === "RegisteredDate" ||
-                field.key === "RiskDate" ||
-                field.key === "MitigationPlannedDate"
+                field.key === "CreatedOn" 
             ) {
 
                 if (value) {
@@ -360,19 +229,7 @@ document.addEventListener('click', function (event) {
 
 });
 
-function renderMitigationRatingSelect(name, value) {
-    return `
-        <select class="form-select modern-input" id="${name}" name="${name}" required>
-            ${mitigationRatings.map(r => `
-                <option value="${r.value}" ${value === r.value ? 'selected' : ''}>
-                    ${r.text}
-                </option>
-            `).join('')}
-        </select>
-    `;
-}
-
-function renderRiskCategorySelect(name, value) {
+function roleSelect(name, value) {
     return `
         <select class="form-control mt-1" name="${name}">
             ${riskCategories.map(c => `
@@ -383,47 +240,3 @@ function renderRiskCategorySelect(name, value) {
         </select>
     `;
 }
-function renderSelect(options, name, value, className = "form-select modern-input", required = false) {
-    return `
-        <select class="${className}" id="${name}" name="${name}" ${required ? "required" : ""}>
-            ${options.map(o => `
-                <option value="${o.value}" ${value === o.value ? 'selected' : ''}>
-                    ${o.text}
-                </option>
-            `).join('')}
-        </select>
-    `;
-}
-
-function renderSelect(options, name, value, className = "form-select modern-input", required = false) {
-    return `
-        <select class="${className}" id="${name}" name="${name}" ${required ? "required" : ""}>
-            ${options.map(o => `
-                <option value="${o.value}" ${value === o.value ? 'selected' : ''}>
-                    ${o.text}
-                </option>
-            `).join('')}
-        </select>
-    `;
-}
-function renderSelect(options, name, value, className = "form-select modern-input", required = false) {
-    return `
-        <select class="${className}" id="${name}" name="${name}" ${required ? "required" : ""}>
-            ${options.map(o => `
-                <option value="${o.value}" ${value === o.value ? 'selected' : ''}>
-                    ${o.text}
-                </option>
-            `).join('')}
-        </select>
-    `;
-}
-
-
-
-
-
-
-
-
-
-

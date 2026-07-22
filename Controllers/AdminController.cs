@@ -94,16 +94,28 @@ namespace RiskManagement.Controllers
 
 
         [HttpGet("Users")]
+
         public IActionResult Users()
         {
-
             var filteredUsers = _context.Users
-          .OrderByDescending(u => u.Id)
-          .ToList();
-
+                .OrderByDescending(u => u.Id)
+                .Select(u => new User
+                {
+                    FullName = u.FullName,
+                    Email = u.Email,
+                    Phone = u.Phone,
+                    Status = u.Status,
+                    CreatedOn = u.CreatedOn,
+                    Role = u.Role == "124451" ? "Maker" :
+                           u.Role == "125451" ? "Checker" :
+                           u.Role == "124551" ? "Admin" :
+                           "Unknown"
+                })
+                .ToList();
 
             return View("Users", filteredUsers);
         }
+
         [HttpGet("Profile")]
         public IActionResult Profile()
         {
