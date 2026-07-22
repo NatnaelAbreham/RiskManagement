@@ -91,6 +91,19 @@ namespace RiskManagement.Controllers
                 data = user
             });
         }
+
+
+        [HttpGet("Users")]
+        public IActionResult Users()
+        {
+
+            var filteredUsers = _context.Users
+          .OrderByDescending(u => u.Id)
+          .ToList();
+
+
+            return View("Users", filteredUsers);
+        }
         [HttpGet("Profile")]
         public IActionResult Profile()
         {

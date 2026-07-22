@@ -24,8 +24,6 @@ namespace RiskManagement.Controllers
           //.Where(u => u.RegisteredBy == email)
           .OrderByDescending(u => u.Id)
           .ToList();
-
-
             return View("View", filteredUsers);
         }
         [HttpGet("Record")]
