@@ -127,6 +127,44 @@ namespace RiskManagement.Controllers
         {
             return View();
         }
+        [HttpPost("edituser")]
+        public IActionResult UpdateUser([FromBody] User model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { message = "Invalid input", errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
+            }
+
+            var user = _context.Users.FirstOrDefault(a => a.Id == model.Id);
+            if (user == null)
+            {
+                return NotFound(new { message = "Record with this  ID not found" });
+            }
+
+
+                           if(model.Role == "Maker")
+                           user.Role = "124451";
+                           if(model.Role == "Checker")
+                           user.Role = "125451";
+                           if(model.Role == "Admin")
+                           user.Role = "124551";
+                           else
+                           {
+                               return BadRequest(new
+                               {
+                                   success = false,
+                                   message = "Invalid role selected."
+                               });
+                           }
+            user.Email = model.Email;
+            user.Phone = model.Phone;
+            user.Status = model.Status;
+            user.FullName = model.FullName;
+           
+            _context.SaveChanges();
+
+            return Ok(new { StatusCode = 200, success = true, message = "User profile updated successfully", data = user });
+        }
 
         private string NormalizeEmail(string email)
         {
