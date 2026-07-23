@@ -142,25 +142,25 @@ namespace RiskManagement.Controllers
             }
 
 
-                           if(model.Role == "Maker")
-                           user.Role = "124451";
-                           if(model.Role == "Checker")
-                           user.Role = "125451";
-                           if(model.Role == "Admin")
-                           user.Role = "124551";
-                           else
-                           {
-                               return BadRequest(new
-                               {
-                                   success = false,
-                                   message = "Invalid role selected."
-                               });
-                           }
+            if (model.Role == "Maker")
+                user.Role = "124451";
+            if (model.Role == "Checker")
+                user.Role = "125451";
+            if (model.Role == "Admin")
+                user.Role = "124551";
+            else
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    message = "Invalid role selected."
+                });
+            }
             user.Email = model.Email;
             user.Phone = model.Phone;
             user.Status = model.Status;
             user.FullName = model.FullName;
-           
+
             _context.SaveChanges();
 
             return Ok(new { StatusCode = 200, success = true, message = "User profile updated successfully", data = user });

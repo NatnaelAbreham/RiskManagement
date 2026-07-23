@@ -107,6 +107,18 @@ namespace RiskManagement.Controllers
                 });
             }
 
+            user = await _context.Users
+                .FirstOrDefaultAsync(x => x.Status != "1" && x.Email == email);
+
+                 if (user == null)
+            {
+                return Unauthorized(new
+                {
+                    success = false,
+                    message = "Access denied, user access deactived on the platform."
+                });
+            }
+
             // 2. Outlook validation
             /*  var result = await _mailService.ValidateOutlookCredentialsAsync(
                  email,

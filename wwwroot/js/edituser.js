@@ -255,7 +255,7 @@ document.addEventListener('click', function (event) {
 
             try {
 
-                const response = await fetch('/Maker/editrisk', {
+                const response = await fetch('/Admin/edituser', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
