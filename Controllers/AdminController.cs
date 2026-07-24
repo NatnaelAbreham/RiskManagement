@@ -144,9 +144,9 @@ namespace RiskManagement.Controllers
 
             if (model.Role == "Maker")
                 user.Role = "124451";
-            if (model.Role == "Checker")
+            else if (model.Role == "Checker")
                 user.Role = "125451";
-            if (model.Role == "Admin")
+            else if (model.Role == "Admin")
                 user.Role = "124551";
             else
             {

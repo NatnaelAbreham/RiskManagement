@@ -246,7 +246,12 @@ document.addEventListener('click', function (event) {
                 return;
 
             const updatedData = {
-                Id: Id
+                Id: Id,
+                FullName: document.querySelector('[name="FullName"]').value,
+                Email: document.querySelector('[name="Email"]').value,
+                Phone: document.querySelector('[name="Phone"]').value,
+                Role: document.querySelector('[name="Role"]').value,
+                Status: document.querySelector('#statusToggle').checked ? "1" : "0"
             };
 
 

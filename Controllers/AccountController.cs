@@ -96,26 +96,24 @@ namespace RiskManagement.Controllers
 
             // 1. Whitelist check
             var user = await _context.Users
-                .FirstOrDefaultAsync(x => x.Email == email);
+     .FirstOrDefaultAsync(x => x.Email == email);
 
             if (user == null)
             {
                 return Unauthorized(new
                 {
                     success = false,
-                    message = "Access denied, user do not have access on the platform."
+                    message = "Access denied, user does not have access on the platform."
                 });
             }
 
-            user = await _context.Users
-                .FirstOrDefaultAsync(x => x.Status != "1" && x.Email == email);
 
-                 if (user == null)
+            if (user.Status != "1")
             {
                 return Unauthorized(new
                 {
                     success = false,
-                    message = "Access denied, user access deactived on the platform."
+                    message = "Access denied, user access deactivated on the platform."
                 });
             }
 
