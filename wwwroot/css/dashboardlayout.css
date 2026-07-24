@@ -56,7 +56,8 @@ body {
 }
 
 .sidebar-menu a.active {
-    background: linear-gradient(135deg, #08aaa2, #0cb49e);
+    /* background: linear-gradient(135deg, #08aaa2, #0cb49e); */
+    background: rgba(255, 255, 255, .08);
     color: white;
     font-weight: 600;
     border-left: 4px solid white;
