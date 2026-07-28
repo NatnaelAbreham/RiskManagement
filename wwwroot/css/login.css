@@ -1,47 +1,68 @@
 body {
-    background-color: #f0f3f7;
+    background-color: #0f172a;
+    color: #e2e8f0;
     font-family: "Arial", sans-serif;
 }
 
+/* Login Container */
 .login-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background: #0f172a;
 }
 
+/* Login Card */
 .login-card {
-    background-color: white;
+    background-color: #111827;
+    color: #e2e8f0;
     padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    border: 1px solid #1f2937;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
     width: 100%;
     max-width: 400px;
 }
 
-
-
+/* Form Inputs */
 .form-control {
+    background-color: #1e293b;
+    color: #f8fafc;
+    border: 1px solid #334155;
     border-radius: 25px;
     margin-bottom: 15px;
+    padding: 10px 16px;
 }
 
+.form-control::placeholder {
+    color: #64748b;
+}
+
+.form-control:focus {
+    background-color: #1e293b;
+    color: #f8fafc;
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 0.2rem rgba(56, 189, 248, 0.15);
+}
+
+/* Login Button */
 .btn-login {
-    background: linear-gradient(to right, #181815, #0492a5);
-    /* Cyan-like gradient */
-    color: rgb(255, 255, 255);
+    background: linear-gradient(to right, #0f766e, #0891b2);
+    color: #ffffff;
     border-radius: 25px;
     padding: 10px 20px;
     width: 100%;
     border: none;
+    transition: 0.3s ease;
 }
 
 .btn-login:hover {
-    background: linear-gradient(to right, #089cb6, #161614);
+    background: linear-gradient(to right, #0891b2, #0f766e);
+    transform: translateY(-1px);
 }
 
-
-
+/* Hero Section */
 .image-hero {
     position: relative;
     height: 100vh;
@@ -51,7 +72,7 @@ body {
     justify-content: center;
 }
 
-/* background image */
+/* Background Image */
 .hero-bg {
     position: absolute;
     inset: 0;
@@ -59,62 +80,69 @@ body {
     transform: scale(1.1);
 }
 
-/* dark + blur overlay */
+/* Dark + Blur Overlay */
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(10, 15, 25, 0.55);
+    background: rgba(10, 15, 25, 0.65);
     backdrop-filter: blur(5px);
 }
 
-/* content box */
+/* Hero Content */
 .hero-content {
     position: relative;
     z-index: 2;
     text-align: center;
     max-width: 800px;
     padding: 40px;
-    color: #fff;
+    color: #f8fafc;
 }
 
-/* small badge */
+/* Hero Badge */
 .hero-badge {
     display: inline-block;
     padding: 8px 18px;
     font-size: 14px;
     letter-spacing: 1px;
     text-transform: uppercase;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 50px;
     margin-bottom: 20px;
     backdrop-filter: blur(10px);
+    color: #e2e8f0;
 }
 
-/* BIG TITLE */
+/* Hero Title */
 .hero-content h1 {
     font-size: 3.8rem;
     font-weight: 800;
     line-height: 1.1;
     margin-bottom: 25px;
     letter-spacing: 0.5px;
+    color: #f8fafc;
 }
 
-/* paragraph */
+/* Hero Paragraph */
 .hero-content p {
     font-size: 1.25rem;
     line-height: 1.7;
+    color: #cbd5e1;
     opacity: 0.9;
     max-width: 650px;
     margin: 0 auto;
 }
 
-/* subtle glow effect */
+/* Subtle Glow */
 .hero-glow {
     position: absolute;
     width: 300px;
     height: 300px;
-    background: radial-gradient(circle, rgba(0,180,255,0.25), transparent 70%);
+    background: radial-gradient(
+        circle,
+        rgba(0, 180, 255, 0.2),
+        transparent 70%
+    );
     top: -50px;
     left: 50%;
     transform: translateX(-50%);
