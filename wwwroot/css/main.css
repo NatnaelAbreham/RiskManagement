@@ -136,6 +136,12 @@ body {
     border-color: var(--border-light);
 }
 
+/* .profile-avatar {
+    background: var(--bg-surface-2);
+    color: var(--primary);
+    border: 3px solid var(--border);
+    box-shadow: var(--shadow-sm);
+} */
 p {
     color: var(--text-secondary);
 }
@@ -203,4 +209,24 @@ textarea:focus,
 .theme-toggle:hover {
     background: var(--bg-hover);
     transform: rotate(15deg);
+}
+
+.dropdown-menu {
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+    border-color: var(--border-light);
+}
+
+.dropdown-item {
+    color: var(--text-primary);
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.dropdown-divider {
+    border-color: var(--border-light);
 }

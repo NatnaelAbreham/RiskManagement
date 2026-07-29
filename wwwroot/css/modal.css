@@ -1,16 +1,18 @@
+/* =========================================
+   Profile Modal
+========================================= */
+
 .profile-modal {
-    border: 1px solid #1f2937;
     border-radius: 28px;
     overflow: hidden;
-    background: #111827;
-    color: #e2e8f0;
 
-    box-shadow:
-        0 35px 80px rgba(0, 0, 0, 0.45);
+    box-shadow: var(--shadow-xl);
 }
 
 
-/* Profile Header */
+/* =========================================
+   Profile Header
+========================================= */
 
 .profile-header {
     padding: 20px;
@@ -22,13 +24,19 @@
 
     text-align: center;
 
-    background: linear-gradient(135deg, #027965, #111827);
+    background: linear-gradient(
+        135deg,
+        var(--primary-dark),
+        var(--bg-surface)
+    );
 
-    color: #fff;
+    color: #ffffff;
 }
 
 
-/* Profile Avatar */
+/* =========================================
+   Profile Avatar
+========================================= */
 
 .profile-avatar {
     width: 60px;
@@ -36,8 +44,8 @@
 
     border-radius: 50%;
 
-    background: #1e293b;
-    color: #38bdf8;
+    background: var(--bg-surface-2);
+    color: var(--primary);
 
     font-size: 26px;
     font-weight: 700;
@@ -48,35 +56,43 @@
 
     margin: 0 auto 12px;
 
-    box-shadow:
-        0 8px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-sm);
 
-    border: 3px solid rgba(255, 255, 255, 0.2);
+    border: 3px solid var(--border);
 }
 
 
-/* Header Text */
+/* =========================================
+   Header Text
+========================================= */
 
 .profile-header h3 {
     margin-top: 5px;
     margin-bottom: 5px;
+
     font-weight: 700;
+
     color: #ffffff;
 }
 
 .profile-header p {
     margin-bottom: 4px;
+
     opacity: 0.95;
-    color: #e2e8f0;
+
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .profile-header small {
     opacity: 0.85;
-    color: #cbd5e1;
+
+    color: rgba(255, 255, 255, 0.75);
 }
 
 
-/* Close Button */
+/* =========================================
+   Close Button
+========================================= */
 
 .profile-close {
     position: absolute;
@@ -90,107 +106,80 @@
 }
 
 
-/* Profile Cards */
+/* =========================================
+   Profile Cards
+========================================= */
 
 .profile-card {
-    background: #1e293b;
-
-    color: #e2e8f0;
-
     border-radius: 18px;
 
     padding: 18px;
 
-    box-shadow:
-        0 6px 20px rgba(0, 0, 0, 0.25);
+    box-shadow: var(--shadow-md);
 
-    transition: 0.25s;
-
-    border: 1px solid #334155;
+    transition: var(--transition);
 }
-
 
 .profile-card:hover {
     transform: translateY(-3px);
 
-    box-shadow:
-        0 12px 28px rgba(0, 0, 0, 0.35);
+    box-shadow: var(--shadow-lg);
 }
 
 
-/* Profile Labels */
+/* =========================================
+   Profile Labels
+========================================= */
 
 .profile-label {
     font-size: 0.85rem;
 
-    color: #94a3b8;
+    color: var(--text-muted);
 
     margin-bottom: 8px;
 
     display: flex;
-
     align-items: center;
 
     gap: 8px;
 }
 
 
-/* Profile Inputs */
+/* =========================================
+   Profile Inputs
+========================================= */
 
 .profile-card input,
 .profile-card select {
-    border-radius: 12px;
-
     height: 48px;
 
-    background: #0f172a;
-
-    color: #f8fafc;
-
-    border: 1px solid #334155;
+    border-radius: 12px;
 }
-
 
 .profile-card input::placeholder {
-    color: #64748b;
+    color: var(--text-disabled);
 }
 
 
-.profile-card input:focus,
-.profile-card select:focus {
-    background: #0f172a;
-
-    color: #f8fafc;
-
-    border-color: #38bdf8;
-
-    box-shadow:
-        0 0 0 0.2rem rgba(56, 189, 248, 0.12);
-
-    outline: none;
-}
-
-
-/* Profile Footer */
+/* =========================================
+   Profile Footer
+========================================= */
 
 .profile-footer {
     display: flex;
 
     justify-content: center;
-
     align-items: center;
 
     gap: 15px;
 
     padding: 25px;
-
-    background: #111827;
-
-    border-top: 1px solid #1f2937;
 }
 
 
-/* Buttons */
+/* =========================================
+   Buttons
+========================================= */
 
 .btn-save,
 .btn-cancel {
@@ -202,46 +191,58 @@
 
     font-weight: 600;
 
-    transition: 0.25s;
+    transition: var(--transition);
 }
-
 
 .btn-save:hover,
 .btn-cancel:hover {
     transform: translateY(-2px);
 
-    box-shadow:
-        0 10px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-md);
 }
 
 
+/* =========================================
+   Save Button
+========================================= */
+
 .btn-save {
-    background: linear-gradient(135deg, #027965, #0891b2);
+    background: linear-gradient(
+        135deg,
+        var(--primary-dark),
+        #0891b2
+    );
 
     color: #ffffff;
 
     border: none;
 }
 
-
 .btn-save:hover {
     color: #ffffff;
 
-    background: linear-gradient(135deg, #0891b2, #027965);
+    background: linear-gradient(
+        135deg,
+        #0891b2,
+        var(--primary-dark)
+    );
 }
 
+
+/* =========================================
+   Cancel Button
+========================================= */
 
 .btn-cancel {
-    background: #1e293b;
+    background: var(--bg-surface-2);
 
-    color: #cbd5e1;
+    color: var(--text-secondary);
 
-    border: 1px solid #334155;
+    border: 1px solid var(--border);
 }
 
-
 .btn-cancel:hover {
-    background: #334155;
+    background: var(--bg-hover);
 
-    color: #ffffff;
+    color: var(--text-primary);
 }

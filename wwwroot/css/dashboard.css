@@ -1,69 +1,58 @@
-/* Cards */
+/* =========================================
+   Dashboard
+========================================= */
+
+/* Dashboard Cards */
+
 .card {
-    background: #111827;
-    color: #e2e8f0;
-    border: 1px solid #1f2937;
     border-radius: 15px;
     transition: all 0.3s ease;
 }
 
 .card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+    box-shadow: var(--shadow-lg);
 }
 
-/* Card Header */
-.card-header {
-    background: #1e293b;
-    color: #f8fafc;
-    font-weight: 600;
-    border-bottom: 1px solid #334155;
-}
-
-/* Card Body */
-.card-body {
-    background: #111827;
-    color: #e2e8f0;
-}
 
 /* KPI Cards */
+
 .card h2 {
     font-size: 2rem;
     font-weight: 700;
-    color: #f8fafc;
 }
 
-/* Tables */
+
+/* Dashboard Tables */
+
 .table {
-    color: #e2e8f0;
     --bs-table-bg: transparent;
-    --bs-table-color: #e2e8f0;
+    --bs-table-color: var(--text-primary);
 }
 
 .table th {
-    background: #1e293b;
-    color: #f8fafc;
     font-weight: 600;
-    border-color: #334155;
 }
 
 .table td {
     vertical-align: middle;
-    color: #cbd5e1;
-    border-color: #1f2937;
 }
 
 .table tbody tr:hover {
-    background: #1e293b;
+    background: var(--bg-hover);
 }
 
+
 /* Badges */
+
 .badge {
     padding: 0.55rem 0.8rem;
     font-size: 0.75rem;
 }
 
+
 /* Chart Containers */
+
 #riskTrendChart,
 #riskRatingChart,
 #categoryChart,
@@ -72,15 +61,20 @@
     min-height: 320px;
 }
 
+
 /* Page Title */
+
 h2 {
     font-weight: 700;
-    color: #f8fafc;
 }
 
+
 /* Responsive */
+
 @media (max-width: 768px) {
+
     .card h2 {
         font-size: 1.5rem;
     }
+
 }
