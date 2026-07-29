@@ -74,8 +74,17 @@
                         <i class="fas fa-search" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Source of Risk
                     </label>
-                    <input type="text" class="form-control modern-input" id="SourceOfRisk" name="SourceOfRisk"
-                           placeholder="e.g. Client feedback, Audit, Process" required />
+
+                    <select class="form-select modern-input" id="SourceOfRisk" name="SourceOfRisk" required>
+                        <option value="">Select Category</option>
+                        <option value="InternalFraud">Internal Fraud</option>
+                        <option value="ExternalFraud">External Fraud</option>
+                        <option value="EmploymentWorkplaceSafety">Employment & Workplace Safety</option>
+                        <option value="PropertyDamage">Property Damage</option>
+                        <option value="SystemFailureBusinessDisruption">System Failure & Business Disruption</option>
+                        <option value="ProcessManagementExecution">Process Management & Execution</option>
+                        <option value="CustomerProductRisk">Customer & Product Risk</option>
+                    </select>
                 </div>
 
                 <div class="col-lg-3 col-md-6">
@@ -85,8 +94,8 @@
                     </label>
                     <select class="form-select modern-input" id="RiskCategory" name="RiskCategory" required>
                         <option value="">Select Category</option>
-                        <option value="InternalFraud">Internal Fraud</option>
-                        <option value="ExternalFraud">External Fraud</option>
+                        <option value="AbsenceofInternalControl">Absence of Internal Control</option>
+                        <option value="AbuseofAuthority">External Fraud</option>
                         <option value="EmploymentWorkplaceSafety">Employment & Workplace Safety</option>
                         <option value="PropertyDamage">Property Damage</option>
                         <option value="SystemFailureBusinessDisruption">System Failure & Business Disruption</option>
@@ -171,7 +180,7 @@
                 <div class="col-lg-6 col-md-6">
                     <label class="form-label required-field" for="RiskRating">
                         <i class="fas fa-gauge-high" style="color: var(--gray-400); margin-right: 4px;"></i>
-                        Risk Rating
+                        Inherent Risk Rating
                     </label>
                     <select class="form-select modern-input" id="RiskRating" name="RiskRating" required>
                         <option value="">Select Rating</option>
@@ -286,7 +295,7 @@
                     <span class="field-helper">Person responsible for managing this risk</span>
                 </div>
 
-               @*  <div class="col-lg-4 col-md-6">
+                @* <div class="col-lg-4 col-md-6">
                     <label class="form-label" for="Status">
                         <i class="fas fa-flag" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Status
