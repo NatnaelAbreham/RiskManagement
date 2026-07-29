@@ -1,0 +1,33 @@
+.topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.theme-toggle {
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid #334155;
+    border-radius: 50%;
+
+    background: #1e293b;
+    color: #facc15;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+.theme-toggle:hover {
+    background: #334155;
+    transform: rotate(15deg);
+}
+
+.theme-toggle i {
+    font-size: 17px;
+}

@@ -1,0 +1,206 @@
+/* =========================================
+   RISK MANAGEMENT SYSTEM
+   Main Theme Variables
+========================================= */
+
+:root {
+    /* ===== Main Backgrounds ===== */
+    --bg-main: #0f172a;
+    --bg-surface: #111827;
+    --bg-surface-2: #1e293b;
+    --bg-hover: #243247;
+
+    /* ===== Borders ===== */
+    --border: #334155;
+    --border-light: #1f2937;
+
+    /* ===== Text ===== */
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --text-disabled: #64748b;
+
+    /* ===== Primary / Brand ===== */
+    --primary: #0cb49e;
+    --primary-hover: #0a9d89;
+    --primary-light: rgba(12, 180, 158, 0.12);
+    --primary-dark: #087a6b;
+
+    /* ===== Status ===== */
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --info: #38bdf8;
+
+    /* ===== Shadows ===== */
+    --shadow-sm:
+        0 1px 2px rgba(0, 0, 0, 0.25);
+
+    --shadow-md:
+        0 4px 6px -1px rgba(0, 0, 0, 0.3),
+        0 2px 4px -1px rgba(0, 0, 0, 0.2);
+
+    --shadow-lg:
+        0 10px 25px -3px rgba(0, 0, 0, 0.35),
+        0 4px 6px -2px rgba(0, 0, 0, 0.2);
+
+    --shadow-xl:
+        0 20px 50px -8px rgba(0, 0, 0, 0.45);
+
+    /* ===== Radius ===== */
+    --radius-sm: 10px;
+    --radius: 16px;
+    --radius-lg: 20px;
+
+    /* ===== Transition ===== */
+    --transition: 0.25s ease;
+}
+
+
+/* =========================================
+   Light Theme
+========================================= */
+
+body.light-mode {
+
+    /* ===== Main Backgrounds ===== */
+    --bg-main: #f0f3f7;
+    --bg-surface: #ffffff;
+    --bg-surface-2: #f8fafc;
+    --bg-hover: #f1f5f9;
+
+    /* ===== Borders ===== */
+    --border: #d1d5db;
+    --border-light: #e5e7eb;
+
+    /* ===== Text ===== */
+    --text-primary: #111827;
+    --text-secondary: #374151;
+    --text-muted: #6b7280;
+    --text-disabled: #9ca3af;
+
+    /* ===== Primary ===== */
+    --primary: #0cb49e;
+    --primary-hover: #0a9d89;
+    --primary-light: rgba(12, 180, 158, 0.1);
+    --primary-dark: #087a6b;
+
+    /* ===== Shadows ===== */
+    --shadow-sm:
+        0 1px 2px rgba(0, 0, 0, 0.05);
+
+    --shadow-md:
+        0 4px 6px -1px rgba(0, 0, 0, 0.08),
+        0 2px 4px -1px rgba(0, 0, 0, 0.04);
+
+    --shadow-lg:
+        0 10px 25px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+    --shadow-xl:
+        0 20px 50px -8px rgba(0, 0, 0, 0.15);
+}
+
+
+/* =========================================
+   Global
+========================================= */
+
+html,
+body {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg-main);
+    color: var(--text-primary);
+    font-family: Arial, sans-serif;
+
+    transition:
+        background-color var(--transition),
+        color var(--transition);
+}
+
+
+/* =========================================
+   Common Components
+========================================= */
+
+.card,
+.form-section,
+.profile-card {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    border-color: var(--border-light);
+}
+
+p {
+    color: var(--text-secondary);
+}
+
+.text-muted {
+    color: var(--text-muted) !important;
+}
+
+
+/* =========================================
+   Inputs
+========================================= */
+
+input,
+select,
+textarea,
+.form-control,
+.modern-input {
+    background-color: var(--bg-surface-2);
+    color: var(--text-primary);
+    border-color: var(--border);
+}
+
+input::placeholder,
+textarea::placeholder,
+.form-control::placeholder,
+.modern-input::placeholder {
+    color: var(--text-disabled);
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+.form-control:focus,
+.modern-input:focus {
+    background-color: var(--bg-surface-2);
+    color: var(--text-primary);
+    border-color: var(--primary);
+}
+
+
+/* =========================================
+   Theme Toggle
+========================================= */
+
+.theme-toggle {
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid var(--border);
+    border-radius: 50%;
+
+    background: var(--bg-surface-2);
+    color: var(--text-primary);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition: all var(--transition);
+}
+
+.theme-toggle:hover {
+    background: var(--bg-hover);
+    transform: rotate(15deg);
+}
