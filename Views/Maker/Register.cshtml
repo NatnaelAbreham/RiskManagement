@@ -78,10 +78,11 @@
                     <label class="form-label required-field" for="RiskDate">
                         <i class="bi bi-calendar3" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Risk Date
+                        <span class="text-danger">*</span>
                     </label>
                     <input type="date" class="form-control modern-input" id="RiskDate" name="RiskDate" required />
                 </div>
-                <div class="col-md-6">
+                <div class="col-lg-3 col-md-6">
 
                     <label for="IdentifiedRisk" class="form-label">
                         <i class="bi bi-shield-check me-1 text-muted"></i>
@@ -100,7 +101,7 @@
                     </div>
 
                 </div>
-                <div class="col-md-6">
+                <div class="col-lg-3 col-md-6">
 
                     <label for="SourceOfRisk" class="form-label">
                         <i class="bi bi-diagram-3 me-1 text-muted"></i>
@@ -130,13 +131,14 @@
 
 
 
-                <div class="col-md-6">
-
+                <div class="col-lg-3 col-md-6">
                     <label class="form-label fw-semibold">
+                        <i class="bi bi-folder" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Risk Category
+                        <span class="text-danger">*</span>
                     </label>
 
-                    <select id="RiskCategory" class="form-select form-select-lg">
+                    <select id="RiskCategory" class="form-select form-select">
 
                         <option value="">Select Category</option>
 
@@ -149,9 +151,10 @@
 
                     <label class="form-label fw-semibold">
                         Sub Category
+                        <span class="text-danger">*</span>
                     </label>
 
-                    <select id="RiskSubCategory" class="form-select form-select-lg" disabled>
+                    <select id="RiskSubCategory" class="form-select form-select" disabled>
 
                         <option value="">Select Sub Category</option>
 
@@ -160,13 +163,14 @@
                 </div>
 
 
-                <div class="col-12">
+                <div class="col-md-6">
 
                     <label class="form-label fw-semibold">
                         Risk Event
+                        <span class="text-danger">*</span>
                     </label>
 
-                    <select id="RiskEvent" class="form-select form-select-lg" disabled>
+                    <select id="RiskEvent" class="form-select form-select" disabled>
 
                         <option value="">
                             Select Risk Event
@@ -181,6 +185,7 @@
 
                     <label class="form-label fw-semibold">
                         Risk Description
+                        <span class="text-danger">*</span>
                     </label>
 
                     <textarea class="form-control" rows="6" id="RiskDescription"
