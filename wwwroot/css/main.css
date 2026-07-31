@@ -136,12 +136,7 @@ body {
     border-color: var(--border-light);
 }
 
-/* .profile-avatar {
-    background: var(--bg-surface-2);
-    color: var(--primary);
-    border: 3px solid var(--border);
-    box-shadow: var(--shadow-sm);
-} */
+
 p {
     color: var(--text-secondary);
 }

@@ -269,3 +269,97 @@ const MitigationRatings = [
     { value: "Strong", text: "Strong" },
     { value: "VeryStrong", text: "Very Strong" }
 ];
+
+
+
+// Populate Category
+
+const categorySelect = document.getElementById("RiskCategory");
+const subCategorySelect = document.getElementById("RiskSubCategory");
+const eventSelect = document.getElementById("RiskEvent");
+
+Object.keys(riskCategories).forEach(category => {
+
+    categorySelect.innerHTML += `
+        <option value="${category}">
+            ${category}
+        </option>
+    `;
+
+});
+
+categorySelect.addEventListener("change", function () {
+
+    subCategorySelect.innerHTML =
+        '<option value="">Select Sub Category</option>';
+
+    eventSelect.innerHTML =
+        '<option value="">Select Risk Event</option>';
+
+    eventSelect.disabled = true;
+
+    if (!this.value) {
+
+        subCategorySelect.disabled = true;
+        return;
+
+    }
+
+    subCategorySelect.disabled = false;
+
+    Object.keys(riskCategories[this.value]).forEach(sub => {
+
+        subCategorySelect.innerHTML += `
+            <option value="${sub}">
+                ${sub}
+            </option>
+        `;
+
+    });
+
+});
+
+subCategorySelect.addEventListener("change", function () {
+
+    eventSelect.innerHTML =
+        '<option value="">Select Risk Event</option>';
+
+    if (!this.value) {
+
+        eventSelect.disabled = true;
+        return;
+
+    }
+
+    eventSelect.disabled = false;
+
+    riskCategories[categorySelect.value][this.value].forEach(event => {
+
+        eventSelect.innerHTML += `
+            <option value="${event}">
+                ${event}
+            </option>
+        `;
+
+    });
+
+});
+
+const identifiedRiskSelect = document.getElementById("IdentifiedRisk");
+
+IdentifiedRisks.forEach(risk => {
+
+    identifiedRiskSelect.add(
+        new Option(risk.text, risk.value)
+    );
+
+});
+const sourceOfRiskSelect = document.getElementById("SourceOfRisk");
+
+RiskSources.forEach(source => {
+
+    sourceOfRiskSelect.add(
+        new Option(source.text, source.value)
+    );
+
+});
