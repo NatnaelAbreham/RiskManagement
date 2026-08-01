@@ -74,6 +74,10 @@
 
             <div class="row g-4">
 
+                <!-- ============================================================ -->
+                <!-- SECTION 1: RISK INFORMATION                                   -->
+                <!-- ============================================================ -->
+
                 <div class="col-lg-3 col-md-6">
                     <label class="form-label required-field" for="RiskDate">
                         <i class="bi bi-calendar3" style="color: var(--gray-400); margin-right: 4px;"></i>
@@ -122,15 +126,6 @@
                     </div>
 
                 </div>
-
-
-
-
-
-
-
-
-
                 <div class="col-lg-3 col-md-6">
                     <label class="form-label fw-semibold">
                         <i class="bi bi-folder" style="color: var(--gray-400); margin-right: 4px;"></i>
@@ -145,8 +140,6 @@
                     </select>
 
                 </div>
-
-
                 <div class="col-md-6">
 
                     <label class="form-label fw-semibold">
@@ -161,8 +154,6 @@
                     </select>
 
                 </div>
-
-
                 <div class="col-md-6">
 
                     <label class="form-label fw-semibold">
@@ -179,8 +170,6 @@
                     </select>
 
                 </div>
-
-
                 <div class="col-12">
 
                     <label class="form-label fw-semibold">
@@ -193,6 +182,91 @@
 
                 </div>
 
+                <!-- ============================================================ -->
+                <!-- SECTION 2: RISK ASSESSMENT                                   -->
+                <!-- ============================================================ -->
+
+                <div class="col-lg-3 col-md-6">
+
+                    <label class="form-label required-field" for="Effect">
+                        <i class="bi bi-bullseye" style="color: var(--gray-400); margin-right: 4px;"></i>
+                        Effect
+                        <span class="text-danger">*</span>
+                    </label>
+
+                    <select class="form-select modern-input" id="Effect" name="Effect" required>
+
+                        <option value="">
+                            Select Effect
+                        </option>
+
+                    </select>
+
+                    <div class="form-text">
+                        Select the potential impact area of the risk.
+                    </div>
+
+                </div>
+                <div class="col-lg-3 col-md-6">
+
+                    <label class="form-label required-field" for="Probability">
+
+                        <i class="bi bi-percent" style="color: var(--gray-400); margin-right: 4px;"></i>
+                        Probability
+                        <span class="text-danger">*</span>
+
+                    </label>
+
+
+                    <select class="form-select modern-input" id="Probability" name="Probability" required>
+
+                        <option value="">
+                            Select Probability
+                        </option>
+
+                    </select>
+
+                </div>
+                <div class="col-lg-3 col-md-6">
+
+                    <label class="form-label required-field" for="ImpactLevel">
+
+                        <i class="bi bi-graph-up-arrow me-1 text-muted"></i>
+
+                        Impact Level
+                        <span class="text-danger">*</span>
+
+                    </label>
+
+                    <select class="form-select modern-input" id="ImpactLevel" name="ImpactLevel" required>
+
+                        <option value="">
+                            Select Impact
+                        </option>
+
+                    </select>
+
+                </div>
+                <div class="col-lg-3 col-md-6">
+
+                    <label class="form-label required-field" for="RiskRating">
+
+                        <i class="bi bi-speedometer2 me-1 text-muted"></i>
+
+                        Inherent Risk Rating
+                        <span class="text-danger">*</span>
+
+                    </label>
+
+                    <select class="form-select modern-input" id="RiskRating" name="RiskRating" required>
+
+                        <option value="">
+                            Select Rating
+                        </option>
+
+                    </select>
+
+                </div>
             </div>
 
         </div>
