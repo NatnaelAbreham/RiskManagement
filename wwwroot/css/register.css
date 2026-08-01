@@ -247,7 +247,9 @@ textarea.form-control {
     background:var(--risk-very-high);
     color:#fff;
 }
-
+.risk-badge {
+    transition: all 0.6s ease;
+}
 /* =========================================
    Responsive
 ========================================= */

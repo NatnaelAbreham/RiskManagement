@@ -320,6 +320,49 @@ const RiskMatrix = {
     }
 
 };
+const ResidualRiskMatrix = {
+
+    "Very High": {
+        VeryWeak: "Very High",
+        Weak: "Very High",
+        Moderate: "Very High",
+        Strong: "High",
+        VeryStrong: "Medium"
+    },
+
+    "High": {
+        VeryWeak: "High",
+        Weak: "High",
+        Moderate: "High",
+        Strong: "Medium",
+        VeryStrong: "Low"
+    },
+
+    "Medium": {
+        VeryWeak: "Medium",
+        Weak: "Medium",
+        Moderate: "Medium",
+        Strong: "Low",
+        VeryStrong: "Very Low"
+    },
+
+    "Low": {
+        VeryWeak: "Low",
+        Weak: "Low",
+        Moderate: "Low",
+        Strong: "Very Low",
+        VeryStrong: "Very Low"
+    },
+
+    "Very Low": {
+        VeryWeak: "Very Low",
+        Weak: "Very Low",
+        Moderate: "Very Low",
+        Strong: "Very Low",
+        VeryStrong: "Very Low"
+    }
+
+};
 
 // Populate Category
 
@@ -469,9 +512,8 @@ MitigationRatings.forEach(level => {
 
 
 
-
 const badge = document.getElementById("RiskRatingBadge");
-
+let inherentRiskRating = "";
 function updateRiskRating() {
 
     const probability = probabilitySelect.value;
@@ -484,11 +526,11 @@ function updateRiskRating() {
         return;
     }
 
-    const rating = RiskMatrix[probability][impact];
+    inherentRiskRating = RiskMatrix[probability][impact];
 
     badge.className = "badge fs-6 px-4 py-3 rounded-pill risk-badge";
 
-    switch (rating) {
+    switch (inherentRiskRating) {
 
         case "Very Low":
             badge.classList.add("risk-very-low");
@@ -511,8 +553,65 @@ function updateRiskRating() {
             break;
     }
 
-    badge.textContent = rating;
+    badge.textContent = inherentRiskRating;
 }
 
+const residualBadge = document.getElementById("ResidualRiskBadge");
+function updateResidualRisk() {
+
+    const mitigation = mitigationSelect.value;
+
+    if (!inherentRiskRating || !mitigation) {
+
+        residualBadge.className =
+            "badge fs-6 px-4 py-3 rounded-pill bg-secondary";
+
+        residualBadge.textContent =
+            "Select Mitigation Rating";
+
+        return;
+    }
+
+
+    const residual =
+        ResidualRiskMatrix[inherentRiskRating][mitigation];
+
+
+    residualBadge.className =
+        "badge fs-6 px-4 py-3 rounded-pill risk-badge";
+
+
+    switch (residual) {
+
+        case "Very Low":
+            residualBadge.classList.add("risk-very-low");
+            break;
+
+        case "Low":
+            residualBadge.classList.add("risk-low");
+            break;
+
+        case "Medium":
+            residualBadge.classList.add("risk-medium");
+            break;
+
+        case "High":
+            residualBadge.classList.add("risk-high");
+            break;
+
+        case "Very High":
+            residualBadge.classList.add("risk-very-high");
+            break;
+    }
+
+
+    residualBadge.textContent = residual;
+}
+
+
+probabilitySelect.addEventListener("change", updateResidualRisk);
 probabilitySelect.addEventListener("change", updateRiskRating);
 impactSelect.addEventListener("change", updateRiskRating);
+
+
+
