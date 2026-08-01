@@ -247,7 +247,29 @@
                     </select>
 
                 </div>
-                <div class="col-lg-3 col-lg-6">
+
+                <div class="col-lg-3 col-md-6">
+
+                    <label class="form-label required-field" for="MitigationRating">
+
+                        <!-- Shield (best for mitigation/security) -->
+                        <i class="bi bi-shield-check me-1 text-muted"></i>
+                        Mitigation Rating
+                        <span class="text-danger">*</span>
+
+                    </label>
+
+                    <select class="form-select modern-input" id="MitigationRating" name="MitigationRating" required>
+
+                        <option value="">
+                            Select Rating
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-lg-6">
 
                     <label class="form-label">
                         <i class="bi bi-speedometer2 me-1 text-muted"></i>
@@ -255,9 +277,7 @@
                     </label>
 
                     <div id="RiskRatingBadge" class="badge fs-6 px-4 py-3 rounded-pill bg-secondary">
-
                         Select Probability & Impact
-
                     </div>
 
                 </div>

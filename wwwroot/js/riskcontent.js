@@ -452,43 +452,67 @@ ImpactLevels.forEach(level => {
 
 });
 
-const riskRatingSelect = document.getElementById("RiskRating");
+const mitigationSelect  = document.getElementById("MitigationRating");
 
-RiskRatings.forEach(rating => {
 
-  riskRatingSelect.add(
+MitigationRatings.forEach(level => {
+
+  mitigationSelect.add(
     new Option(
-      rating.text,
-      rating.value
+      level.text,
+      level.value
     )
   );
 
 });
-const rating =
-    RiskMatrix[probability][impact];
 
-badge.className = "risk-badge";
 
-switch (rating) {
-    case "Very Low":
-        badge.classList.add("risk-very-low");
-        break;
 
-    case "Low":
-        badge.classList.add("risk-low");
-        break;
 
-    case "Medium":
-        badge.classList.add("risk-medium");
-        break;
 
-    case "High":
-        badge.classList.add("risk-high");
-        break;
+const badge = document.getElementById("RiskRatingBadge");
 
-    case "Very High":
-        badge.classList.add("risk-very-high");
-        break;
+function updateRiskRating() {
+
+    const probability = probabilitySelect.value;
+    const impact = impactSelect.value;
+
+    if (!probability || !impact) {
+
+        badge.className = "badge fs-6 px-4 py-3 rounded-pill bg-secondary";
+        badge.textContent = "Select Probability & Impact";
+        return;
+    }
+
+    const rating = RiskMatrix[probability][impact];
+
+    badge.className = "badge fs-6 px-4 py-3 rounded-pill risk-badge";
+
+    switch (rating) {
+
+        case "Very Low":
+            badge.classList.add("risk-very-low");
+            break;
+
+        case "Low":
+            badge.classList.add("risk-low");
+            break;
+
+        case "Medium":
+            badge.classList.add("risk-medium");
+            break;
+
+        case "High":
+            badge.classList.add("risk-high");
+            break;
+
+        case "Very High":
+            badge.classList.add("risk-very-high");
+            break;
+    }
+
+    badge.textContent = rating;
 }
 
-badge.textContent = rating;
+probabilitySelect.addEventListener("change", updateRiskRating);
+impactSelect.addEventListener("change", updateRiskRating);
