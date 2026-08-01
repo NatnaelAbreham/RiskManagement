@@ -165,11 +165,11 @@ const riskCategories = {
 };
 
 const Probabilities = [
-  { value: "Rare", text: "Rare" },
-  { value: "Unlikely", text: "Unlikely" },
-  { value: "Possible", text: "Possible" },
-  { value: "Likely", text: "Likely" },
-  { value: "AlmostCertain", text: "Almost Certain" }
+    { value: "Rare", text: "Rare", score: 1 },
+    { value: "Unlikely", text: "Unlikely", score: 2 },
+    { value: "Possible", text: "Possible", score: 3 },
+    { value: "Likely", text: "Likely", score: 4 },
+    { value: "AlmostCertain", text: "Almost Certain", score: 5 }
 ];
 
 const Causes = [
@@ -245,11 +245,11 @@ const RiskCategories = [
 
 
 const ImpactLevels = [
-  { value: "VeryLow", text: "Very Low" },
-  { value: "Low", text: "Low" },
-  { value: "Medium", text: "Medium" },
-  { value: "High", text: "High" },
-  { value: "VeryHigh", text: "Very High" }
+    { value: "VeryLow", text: "Very Low", score: 1 },
+    { value: "Low", text: "Low", score: 2 },
+    { value: "Medium", text: "Medium", score: 3 },
+    { value: "High", text: "High", score: 4 },
+    { value: "VeryHigh", text: "Very High", score: 5 }
 ];
 
 
@@ -277,7 +277,62 @@ const MitigationRatings = [
   { value: "VeryStrong", text: "Very Strong" }
 ];
 
+const RiskMatrix = {
 
+    Rare: {
+        VeryLow: "Very Low",
+        Low: "Very Low",
+        Medium: "Low",
+        High: "Low",
+        VeryHigh: "Medium"
+    },
+
+    Unlikely: {
+        VeryLow: "Very Low",
+        Low: "Low",
+        Medium: "Medium",
+        High: "Medium",
+        VeryHigh: "High"
+    },
+
+    Possible: {
+        VeryLow: "Low",
+        Low: "Medium",
+        Medium: "Medium",
+        High: "High",
+        VeryHigh: "High"
+    },
+
+    Likely: {
+        VeryLow: "Low",
+        Low: "Medium",
+        Medium: "High",
+        High: "High",
+        VeryHigh: "Very High"
+    },
+
+    AlmostCertain: {
+        VeryLow: "Medium",
+        Low: "Medium",
+        Medium: "Medium",
+        High: "Very High",
+        VeryHigh: "Very High"
+    }
+
+};
+const RiskColors = {
+
+    "Very Low": "#22c55e",
+
+    "Low": "#84cc16",
+
+    "Medium": "#f59e0b",
+
+    "High": "#ef4444",
+
+    "Very High": "#991b1b"
+
+};
 
 // Populate Category
 
@@ -422,3 +477,31 @@ RiskRatings.forEach(rating => {
   );
 
 });
+const rating =
+    RiskMatrix[probability][impact];
+
+badge.className = "risk-badge";
+
+switch (rating) {
+    case "Very Low":
+        badge.classList.add("risk-very-low");
+        break;
+
+    case "Low":
+        badge.classList.add("risk-low");
+        break;
+
+    case "Medium":
+        badge.classList.add("risk-medium");
+        break;
+
+    case "High":
+        badge.classList.add("risk-high");
+        break;
+
+    case "Very High":
+        badge.classList.add("risk-very-high");
+        break;
+}
+
+badge.textContent = rating;

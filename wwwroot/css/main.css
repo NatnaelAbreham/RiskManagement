@@ -31,6 +31,12 @@
     --warning: #f59e0b;
     --danger: #ef4444;
     --info: #38bdf8;
+ /* ===== risk rating ===== */
+    --risk-very-low:#22c55e;
+    --risk-low:#84cc16;
+    --risk-medium:#f59e0b;
+    --risk-high:#ef4444;
+    --risk-very-high:#991b1b;
 
     /* ===== Shadows ===== */
     --shadow-sm:
