@@ -320,19 +320,6 @@ const RiskMatrix = {
     }
 
 };
-const RiskColors = {
-
-    "Very Low": "#22c55e",
-
-    "Low": "#84cc16",
-
-    "Medium": "#f59e0b",
-
-    "High": "#ef4444",
-
-    "Very High": "#991b1b"
-
-};
 
 // Populate Category
 
