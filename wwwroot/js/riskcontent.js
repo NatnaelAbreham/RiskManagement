@@ -613,6 +613,8 @@ function updateResidualRisk() {
 probabilitySelect.addEventListener("change", updateRiskRating);
 impactSelect.addEventListener("change", updateRiskRating);
 
+probabilitySelect.addEventListener("change", updateResidualRisk);
+impactSelect.addEventListener("change", updateResidualRisk);
 mitigationSelect.addEventListener("change", updateResidualRisk);
 inherentRiskRating.addEventListener("change", updateResidualRisk);
 
