@@ -321,9 +321,6 @@
 
                 </div>
 
-
-
-
                 <div class="col-md-6">
                     <label class="form-label required-field" for="RiskOwner">
                         <i class="fas fa-user" style="color: var(--gray-400); margin-right: 4px;"></i>
@@ -340,8 +337,8 @@
                         Risk Attachment
                     </label>
 
-                    <input type="file" class="form-control modern-input" id="RiskAttachment" name="RiskAttachment" />
-
+                    <input type="file" class="form-control modern-input" id="RiskAttachment" name="RiskAttachment"
+                           accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg" />
                     <span class="form-text">
                         Optional: Attach supporting documents, evidence, or related files.
                     </span>
@@ -351,7 +348,8 @@
             </div>
 
         </div>
-
+        <input type="hidden" id="InherentRiskRating" name="InherentRiskRating">
+        <input type="hidden" id="ResidualRiskLevel" name="ResidualRiskLevel">
 
         <div class="wizard-footer">
 

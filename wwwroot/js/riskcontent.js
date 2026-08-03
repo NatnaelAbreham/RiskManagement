@@ -5,7 +5,7 @@
 
 const riskCategories = {
 
-  InternalFraud: {
+  "Internal Fraud": {
 
     "Unauthorized Activity": [
       "Transactions not reported (intentional)",
@@ -28,7 +28,7 @@ const riskCategories = {
 
   },
 
-  ExternalFraud: {
+  "External Fraud": {
 
     "Theft and Fraud": [
       "Theft / Robbery",
@@ -43,7 +43,7 @@ const riskCategories = {
 
   },
 
-  EmploymentPractices: {
+  "Employment Practices": {
 
     "Employee Relations": [
       "Compensation, benefit, termination issues"
@@ -61,7 +61,7 @@ const riskCategories = {
 
   },
 
-  ClientsProducts: {
+   "Clients Products": {
 
     "Suitability, Disclosure & Fiduciary": [
       "Fiduciary breaches/ guideline violations",
@@ -99,7 +99,7 @@ const riskCategories = {
 
   },
 
-  DamageToPhysicalAssets: {
+  "Damage To Physical Assets": {
 
     "Disasters and Other Events": [
       "Natural disaster losses",
@@ -109,7 +109,7 @@ const riskCategories = {
 
   },
 
-  BusinessDisruption: {
+  "Business Disruption": {
 
     "Systems": [
       "Hardware",
@@ -120,7 +120,7 @@ const riskCategories = {
 
   },
 
-  ExecutionDelivery: {
+ "Execution Delivery" : {
 
     "Transaction Capture, Execution & Maintenance": [
       "Miscommunication",
@@ -448,7 +448,7 @@ IdentifiedRisks.forEach(risk => {
 });
 const sourceOfRiskSelect = document.getElementById("SourceOfRisk");
 
-RiskSources.forEach(source => {
+Causes.forEach(source => {
 
   sourceOfRiskSelect.add(
     new Option(source.text, source.value)
@@ -655,10 +655,7 @@ impactSelect.addEventListener("change", updateRiskRating);
 
 mitigationSelect.addEventListener("change", updateResidualRisk);
 
-/* probabilitySelect.addEventListener("change", updateResidualRisk);
-impactSelect.addEventListener("change", updateResidualRisk);
 
-inherentRiskRating.addEventListener("change", updateResidualRisk); */
 
 
 
