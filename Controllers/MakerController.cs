@@ -63,12 +63,15 @@ namespace RiskManagement.Controllers
                 IdentifiedRisk = dto.IdentifiedRisk,
                 SourceOfRisk = dto.SourceOfRisk,
                 RiskCategory = dto.RiskCategory,
+                RiskSubCategory = dto.RiskSubCategory,
+                RiskEvent = dto.RiskEvent,
+
                 RiskEventDescription = dto.RiskEventDescription,
                 Effect = dto.Effect,
                 Probability = dto.Probability,
                 ImpactLevel = dto.ImpactLevel,
-                RiskScore = dto.RiskScore,
-                RiskRating = dto.RiskRating,
+                
+                InherentRiskRating = dto.InherentRiskRating,
                 ResidualRiskLevel = dto.ResidualRiskLevel,
                 ExistingRiskMitigation = dto.ExistingRiskMitigation,
                 MitigationRating = dto.MitigationRating,
@@ -77,7 +80,10 @@ namespace RiskManagement.Controllers
                 RiskOwner = dto.RiskOwner,
                 Status = "pending",
                 RegisteredBy = email,   // 👈 secure source
-                RegisteredDate = DateTime.UtcNow
+                RegisteredDate = DateTime.UtcNow,
+                BranchId = "0101",
+                BranchName = "Head Office",
+              
             };
 
             _context.RiskRegistrations.Add(risk);

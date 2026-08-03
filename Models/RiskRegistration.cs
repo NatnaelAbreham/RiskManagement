@@ -40,6 +40,8 @@ namespace RiskManagement.Models
         // AUDIT FIELDS
         public string? RegisteredBy { get; set; }
         public DateTime? RegisteredDate { get; set; }
+        public string BranchId { get; set; }
+        public string BranchName { get; set; }
 
         public string? ApprovedBy { get; set; }
         public DateTime? ApprovedDate { get; set; }

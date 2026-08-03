@@ -14,7 +14,7 @@ namespace RiskManagement.Data
             protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
                   base.OnModelCreating(modelBuilder);
-                  
+
                   modelBuilder.Entity<User>(entity =>
                  {
                        entity.ToTable("Users");
@@ -60,6 +60,14 @@ namespace RiskManagement.Data
                        entity.Property(e => e.RiskCategory)
                        .IsRequired()
                        .HasColumnType("nvarchar(1000)");
+                       entity.Property(e => e.RiskSubCategory)
+                       .IsRequired()
+                       .HasColumnType("nvarchar(500)");
+
+                       entity.Property(e => e.RiskEvent)
+                                              .IsRequired()
+                                              .HasColumnType("nvarchar(255)");
+
 
                        entity.Property(e => e.RiskEventDescription)
                        .IsRequired()
@@ -78,11 +86,8 @@ namespace RiskManagement.Data
                        .IsRequired()
                        .HasColumnType("nvarchar(50)");
 
-                       entity.Property(e => e.RiskScore)
-                       .IsRequired()
-                       .HasPrecision(18, 2);
 
-                       entity.Property(e => e.RiskRating)
+                       entity.Property(e => e.InherentRiskRating)
                        .IsRequired()
                        .HasColumnType("nvarchar(1000)");
 
@@ -127,11 +132,21 @@ namespace RiskManagement.Data
                        .IsRequired()
                        .HasColumnType("datetime2");
 
+                       entity.Property(e => e.BranchId)
+                       .IsRequired()
+                       .HasColumnType("nvarchar(25)");
+
+                       entity.Property(e => e.BranchName)
+                       .IsRequired()
+                       .HasColumnType("nvarchar(255)");
+
                        entity.Property(e => e.ApprovedBy)
                        .HasColumnType("nvarchar(150)");
 
                        entity.Property(e => e.ApprovedDate)
                        .HasColumnType("datetime2");
+                       entity.Property(e => e.FilePath)
+                       .HasColumnType("nvarchar(500)");
                  });
                   modelBuilder.Entity<RejectedRisk>(entity =>
                   {
