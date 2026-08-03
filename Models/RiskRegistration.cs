@@ -36,7 +36,7 @@ namespace RiskManagement.Models
         public DateTime? MitigationPlannedDate { get; set; }
         public string RiskOwner { get; set; }
         public string Status { get; set; } = "Open";
-
+        public string? FilePath { get; set; }
         // AUDIT FIELDS
         public string? RegisteredBy { get; set; }
         public DateTime? RegisteredDate { get; set; }
