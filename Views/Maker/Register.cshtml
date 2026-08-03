@@ -324,7 +324,7 @@
 
 
 
-                <div class="col-lg-4 col-md-6">
+                <div class="col-md-6">
                     <label class="form-label required-field" for="RiskOwner">
                         <i class="fas fa-user" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Risk Owner
@@ -332,6 +332,20 @@
                     <input type="text" class="form-control modern-input" id="RiskOwner" name="RiskOwner"
                            placeholder="Full name or role" required />
                     <span class="form-text">Person responsible for managing this risk</span>
+                </div>
+                <div class="col-md-6">
+
+                    <label class="form-label" for="RiskAttachment">
+                        <i class="bi bi-paperclip me-1 text-muted"></i>
+                        Risk Attachment
+                    </label>
+
+                    <input type="file" class="form-control modern-input" id="RiskAttachment" name="RiskAttachment" />
+
+                    <span class="form-text">
+                        Optional: Attach supporting documents, evidence, or related files.
+                    </span>
+
                 </div>
 
             </div>
