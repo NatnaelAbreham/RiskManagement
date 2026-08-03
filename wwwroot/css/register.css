@@ -251,7 +251,14 @@ textarea.form-control {
     transition: all 0.6s ease;
 }
 
+.wizard-page {
+    display: none;
+}
 
+
+.wizard-page.active {
+    display: block;
+}
 
 /* =========================================
    Responsive

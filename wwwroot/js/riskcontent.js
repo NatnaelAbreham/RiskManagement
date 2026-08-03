@@ -656,7 +656,59 @@ impactSelect.addEventListener("change", updateRiskRating);
 mitigationSelect.addEventListener("change", updateResidualRisk);
 
 
+let currentStep = 1;
 
+const pages = document.querySelectorAll(".wizard-page");
+
+const nextBtn = document.querySelector(".btn-primary");
+
+const previousBtn = document.querySelector(".btn-outline-secondary");
+
+
+function showStep(step){
+
+    pages.forEach(page=>{
+
+        page.classList.remove("active");
+
+    });
+
+
+    document
+    .querySelector(`[data-step="${step}"]`)
+    .classList.add("active");
+
+
+}
+
+
+nextBtn.addEventListener("click", function(e){
+
+    e.preventDefault();
+
+
+    if(currentStep < pages.length){
+
+        currentStep++;
+
+        showStep(currentStep);
+
+    }
+
+});
+
+
+previousBtn.addEventListener("click", function(){
+
+    if(currentStep > 1){
+
+        currentStep--;
+
+        showStep(currentStep);
+
+    }
+
+});
 
 
 
