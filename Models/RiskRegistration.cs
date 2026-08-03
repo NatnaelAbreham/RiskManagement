@@ -13,23 +13,27 @@ namespace RiskManagement.Models
         public string? IdentifiedRisk { get; set; }
         public string SourceOfRisk { get; set; }
         public string RiskCategory { get; set; }
+
+        public string RiskSubCategory { get; set; }
+        public string RiskEvent { get; set; }
+
         public string RiskEventDescription { get; set; }
 
         // SECTION 2: RISK ASSESSMENT
         public string Effect { get; set; }
         public decimal Probability { get; set; }
         public string ImpactLevel { get; set; }
-        public decimal RiskScore { get; set; }
-        public string RiskRating { get; set; }
+       /*  public decimal RiskScore { get; set; } */
+        public string InherentRiskRating { get; set; }
         public string ResidualRiskLevel { get; set; }
 
         // SECTION 3: MITIGATION & CONTROLS
         public string ExistingRiskMitigation { get; set; }
         public string MitigationRating { get; set; }
-        public string Recommendation { get; set; }
+        public string? Recommendation { get; set; }
 
         // SECTION 4: OWNERSHIP & PLANNING
-        public DateTime MitigationPlannedDate { get; set; }
+        public DateTime? MitigationPlannedDate { get; set; }
         public string RiskOwner { get; set; }
         public string Status { get; set; } = "Open";
 

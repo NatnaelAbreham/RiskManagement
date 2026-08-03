@@ -47,13 +47,14 @@ namespace RiskManagement.Controllers
         }
 
         [HttpPost("createrisk")]
-        public async Task<IActionResult> CreateRisk([FromBody] RiskRegistrationDto dto)
+        public async Task<IActionResult> CreateRisk([FromBody] RiskRegistrationDto dto, IFormFile image)
         {
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
             var riskId = await GenerateRiskId(dto.IdentifiedRisk);
 
             if (string.IsNullOrEmpty(email))
                 return Unauthorized();
+
 
             var risk = new RiskRegistration
             {

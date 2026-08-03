@@ -35,111 +35,111 @@
                 <!-- ============================================================ -->
                 <!-- SECTION 1: RISK INFORMATION                                   -->
                 <!-- ============================================================ -->
-                
-                    <div class="col-lg-3 col-md-6">
-                        <label class="form-label required-field" for="RiskDate">
-                            <i class="bi bi-calendar3" style="color: var(--gray-400); margin-right: 4px;"></i>
-                            Risk Date
-                            <span class="text-danger">*</span>
-                        </label>
-                        <input type="date" class="form-control modern-input" id="RiskDate" name="RiskDate" required />
+
+                <div class="col-lg-3 col-md-6">
+                    <label class="form-label required-field" for="RiskDate">
+                        <i class="bi bi-calendar3" style="color: var(--gray-400); margin-right: 4px;"></i>
+                        Risk Date
+                        <span class="text-danger">*</span>
+                    </label>
+                    <input type="date" class="form-control modern-input" id="RiskDate" name="RiskDate" required />
+                </div>
+                <div class="col-lg-3 col-md-6">
+
+                    <label for="IdentifiedRisk" class="form-label">
+                        <i class="bi bi-shield-check me-1 text-muted"></i>
+                        Identified Risk
+                        <span class="text-danger">*</span>
+                    </label>
+
+                    <select id="IdentifiedRisk" name="IdentifiedRisk" class="form-select" required>
+
+                        <option value="">Choose an identified risk...</option>
+
+                    </select>
+
+                    <div class="form-text">
+                        Select the business area where the risk was identified.
                     </div>
-                    <div class="col-lg-3 col-md-6">
 
-                        <label for="IdentifiedRisk" class="form-label">
-                            <i class="bi bi-shield-check me-1 text-muted"></i>
-                            Identified Risk
-                            <span class="text-danger">*</span>
-                        </label>
+                </div>
+                <div class="col-lg-3 col-md-6">
 
-                        <select id="IdentifiedRisk" name="IdentifiedRisk" class="form-select" required>
+                    <label for="SourceOfRisk" class="form-label">
+                        <i class="bi bi-diagram-3 me-1 text-muted"></i>
+                        Source of Risk
+                        <span class="text-danger">*</span>
+                    </label>
 
-                            <option value="">Choose an identified risk...</option>
+                    <select id="SourceOfRisk" name="SourceOfRisk" class="form-select" required>
 
-                        </select>
+                        <option value="">
+                            Choose the source of risk...
+                        </option>
 
-                        <div class="form-text">
-                            Select the business area where the risk was identified.
-                        </div>
+                    </select>
 
+                    <div class="form-text">
+                        Select the primary source from which the identified risk originates.
                     </div>
-                    <div class="col-lg-3 col-md-6">
 
-                        <label for="SourceOfRisk" class="form-label">
-                            <i class="bi bi-diagram-3 me-1 text-muted"></i>
-                            Source of Risk
-                            <span class="text-danger">*</span>
-                        </label>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <label class="form-label fw-semibold">
+                        <i class="bi bi-folder" style="color: var(--gray-400); margin-right: 4px;"></i>
+                        Risk Category
+                        <span class="text-danger">*</span>
+                    </label>
 
-                        <select id="SourceOfRisk" name="SourceOfRisk" class="form-select" required>
+                    <select id="RiskCategory" class="form-select form-select">
 
-                            <option value="">
-                                Choose the source of risk...
-                            </option>
+                        <option value="">Select Category</option>
 
-                        </select>
+                    </select>
 
-                        <div class="form-text">
-                            Select the primary source from which the identified risk originates.
-                        </div>
+                </div>
+                <div class="col-md-6">
 
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <label class="form-label fw-semibold">
-                            <i class="bi bi-folder" style="color: var(--gray-400); margin-right: 4px;"></i>
-                            Risk Category
-                            <span class="text-danger">*</span>
-                        </label>
+                    <label class="form-label fw-semibold">
+                        Sub Category
+                        <span class="text-danger">*</span>
+                    </label>
 
-                        <select id="RiskCategory" class="form-select form-select">
+                    <select id="RiskSubCategory" class="form-select form-select" disabled>
 
-                            <option value="">Select Category</option>
+                        <option value="">Select Sub Category</option>
 
-                        </select>
+                    </select>
 
-                    </div>
-                    <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
 
-                        <label class="form-label fw-semibold">
-                            Sub Category
-                            <span class="text-danger">*</span>
-                        </label>
+                    <label class="form-label fw-semibold">
+                        Risk Event
+                        <span class="text-danger">*</span>
+                    </label>
 
-                        <select id="RiskSubCategory" class="form-select form-select" disabled>
+                    <select id="RiskEvent" class="form-select form-select" disabled>
 
-                            <option value="">Select Sub Category</option>
+                        <option value="">
+                            Select Risk Event
+                        </option>
 
-                        </select>
+                    </select>
 
-                    </div>
-                    <div class="col-md-6">
+                </div>
+                <div class="col-12">
 
-                        <label class="form-label fw-semibold">
-                            Risk Event
-                            <span class="text-danger">*</span>
-                        </label>
+                    <label class="form-label fw-semibold">
+                        Risk Description
+                        <span class="text-danger">*</span>
+                    </label>
 
-                        <select id="RiskEvent" class="form-select form-select" disabled>
+                    <textarea class="form-control" rows="6" id="RiskDescription"
+                              placeholder="Describe the identified risk..."></textarea>
 
-                            <option value="">
-                                Select Risk Event
-                            </option>
+                </div>
 
-                        </select>
-
-                    </div>
-                    <div class="col-12">
-
-                        <label class="form-label fw-semibold">
-                            Risk Description
-                            <span class="text-danger">*</span>
-                        </label>
-
-                        <textarea class="form-control" rows="6" id="RiskDescription"
-                                  placeholder="Describe the identified risk..."></textarea>
-
-                    </div>
-                
                 <!-- ============================================================ -->
                 <!-- SECTION 2: RISK ASSESSMENT                                   -->
                 <!-- ============================================================ -->
@@ -225,13 +225,13 @@
                     </select>
 
                 </div>
-               
 
+               
                 <!-- ============================================================ -->
                 <!-- SECTION 3: RISK ASSESSMENT                                   -->
                 <!-- ============================================================ -->
-                
-                 <div class="col-lg-6">
+
+                <div class="col-lg-6">
 
                     <label class="form-label">
                         <i class="bi bi-speedometer2 me-1 text-muted"></i>
@@ -283,12 +283,22 @@
                     </div>
 
                 </div>
-
+                <div class="col-12">
+                    <label class="form-label required-field" for="ExistingMitigation">
+                        <i class="fas fa-check-circle" style="color: var(--gray-400); margin-right: 4px;"></i>
+                        Existing Risk Mitigation
+                        <span class="text-danger">*</span>
+                    </label>
+                    <textarea class="form-control modern-input" id="ExistingMitigation" name="ExistingMitigation"
+                              placeholder="Describe all existing controls, safeguards, and mitigation measures currently in place…"
+                              required></textarea>
+                    <span class="field-helper">Include both preventive and detective controls.</span>
+                </div>
                 <div class="col-md-6">
                     <label class="form-label required-field" for="RiskOwner">
                         <i class="fas fa-user" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Risk Owner
-                         <span class="text-danger">*</span>
+                        <span class="text-danger">*</span>
                     </label>
                     <input type="text" class="form-control modern-input" id="RiskOwner" name="RiskOwner"
                            placeholder="Full name or role" required />
@@ -324,8 +334,8 @@
                 <i class="bi bi-floppy me-2"></i>Register Risk
             </button>
         </div>
-   
 
+   
     </form>
 
 </div>
