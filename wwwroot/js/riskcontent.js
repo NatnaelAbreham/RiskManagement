@@ -61,7 +61,7 @@ const riskCategories = {
 
   },
 
-   "Clients Products": {
+  "Clients Products": {
 
     "Suitability, Disclosure & Fiduciary": [
       "Fiduciary breaches/ guideline violations",
@@ -120,7 +120,7 @@ const riskCategories = {
 
   },
 
- "Execution Delivery" : {
+  "Execution Delivery": {
 
     "Transaction Capture, Execution & Maintenance": [
       "Miscommunication",
@@ -524,52 +524,54 @@ const badge = document.getElementById("RiskRatingBadge");
 let inherentRiskRating = "";
 function updateRiskRating() {
 
-    const probability = probabilitySelect.value;
-    const impact = impactSelect.value;
+  const probability = probabilitySelect.value;
+  const impact = impactSelect.value;
 
-    if (!probability || !impact) {
+  if (!probability || !impact) {
 
-        badge.className = "badge fs-6 px-4 py-3 rounded-pill bg-secondary";
-        badge.textContent = "Select Probability & Impact";
+    badge.className = "badge fs-6 px-4 py-3 rounded-pill bg-secondary";
+    badge.textContent = "Select Probability & Impact";
 
-        inherentRiskRating = "";
+    inherentRiskRating = "";
+    document.getElementById("InherentRiskRating").value = "";
+    document.getElementById("ResidualRiskLevel").value = "";
 
-        updateResidualRisk();   // Reset residual badge too
+    updateResidualRisk();   // Reset residual badge too
 
-        return;
-    }
+    return;
+  }
 
-    inherentRiskRating = RiskMatrix[probability][impact];
+  inherentRiskRating = RiskMatrix[probability][impact];
 
-    badge.className = "badge fs-6 px-4 py-3 rounded-pill risk-badge";
+  badge.className = "badge fs-6 px-4 py-3 rounded-pill risk-badge";
 
-    switch (inherentRiskRating) {
+  switch (inherentRiskRating) {
 
-        case "Very Low":
-            badge.classList.add("risk-very-low");
-            break;
+    case "Very Low":
+      badge.classList.add("risk-very-low");
+      break;
 
-        case "Low":
-            badge.classList.add("risk-low");
-            break;
+    case "Low":
+      badge.classList.add("risk-low");
+      break;
 
-        case "Medium":
-            badge.classList.add("risk-medium");
-            break;
+    case "Medium":
+      badge.classList.add("risk-medium");
+      break;
 
-        case "High":
-            badge.classList.add("risk-high");
-            break;
+    case "High":
+      badge.classList.add("risk-high");
+      break;
 
-        case "Very High":
-            badge.classList.add("risk-very-high");
-            break;
-    }
+    case "Very High":
+      badge.classList.add("risk-very-high");
+      break;
+  }
 
-    badge.textContent = inherentRiskRating;
-
-    // Update residual risk whenever inherent risk changes
-    updateResidualRisk();
+  badge.textContent = inherentRiskRating;
+  document.getElementById("InherentRiskRating").value = inherentRiskRating;
+  // Update residual risk whenever inherent risk changes
+  updateResidualRisk();
 }
 
 const residualBadge = document.getElementById("ResidualRiskBadge");
@@ -622,6 +624,7 @@ function updateResidualRisk() {
 
 
   residualBadge.textContent = residual;
+  document.getElementById("ResidualRiskLevel").value = residual;
 
   if (
     residual === "Medium" ||

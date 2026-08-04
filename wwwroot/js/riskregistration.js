@@ -5,40 +5,51 @@ form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const data = {
-        riskDate: document.getElementById("RiskDate").value,
-        identifiedRisk: document.getElementById("IdentifiedRisk").value,
-        sourceOfRisk: document.getElementById("SourceOfRisk").value,
-        riskCategory: document.getElementById("RiskCategory").value,
+        RiskDate: document.getElementById("RiskDate").value,
+        IdentifiedRisk: document.getElementById("IdentifiedRisk").value,
+        SourceOfRisk: document.getElementById("SourceOfRisk").value,
+        RiskCategory: document.getElementById("RiskCategory").value,
 
         RiskSubCategory: document.getElementById("RiskSubCategory").value,
         RiskEvent: document.getElementById("RiskEvent").value,
 
-        riskEventDescription: document.getElementById("RiskDescription").value,
+        RiskEventDescription: document.getElementById("RiskDescription").value,
 
-        effect: document.getElementById("Effect").value,
-        probability: parseFloat(document.getElementById("Probability").value),
-        impactLevel: document.getElementById("ImpactLevel").value,
+        Effect: document.getElementById("Effect").value,
+        Probability: parseFloat(document.getElementById("Probability").value),
+        ImpactLevel: document.getElementById("ImpactLevel").value,
 
         InherentRiskRating: document.getElementById("InherentRiskRating").value,
-        residualRiskLevel: document.getElementById("ResidualRiskLevel").value,
+        ResidualRiskLevel: document.getElementById("ResidualRiskLevel").value,
 
-        existingRiskMitigation: document.getElementById("ExistingMitigation").value,
-        mitigationRating: document.getElementById("MitigationRating").value,
-        recommendation: document.getElementById("Recommendation").value,
+        ExistingRiskMitigation: document.getElementById("ExistingMitigation").value,
+        MitigationRating: document.getElementById("MitigationRating").value,
+        Recommendation: document.getElementById("Recommendation").value,
 
-        mitigationPlannedDate: document.getElementById("MitigationPlannedDate").value,
-        riskOwner: document.getElementById("RiskOwner").value,
+        MitigationPlannedDate: document.getElementById("MitigationPlannedDate").value,
+        RiskOwner: document.getElementById("RiskOwner").value,
 
-        RiskAttachment: document.getElementById("RiskAttachment").value
+
     };
+console.log(data);
+    const formData = new FormData();
+
+    Object.entries(data).forEach(([key, value]) => {
+        formData.append(key, value ?? "");
+    });
+
+    const fileInput = document.getElementById("RiskAttachment");
+
+    if (fileInput.files.length > 0) {
+        formData.append("file", fileInput.files[0]);
+    }
+
 
     const response = await fetch("/Maker/createrisk", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
+        body: formData
     });
+
     const result = await response.json();
     const modalElement = new bootstrap.Modal(modalDiv);
     const modalTitle = document.getElementById("modalTitle");

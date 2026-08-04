@@ -22,6 +22,6 @@ namespace RiskManagement.Models
 
         public DateTime? MitigationPlannedDate { get; set; }
         public string RiskOwner { get; set; }
-        public string? FilePath { get; set; }
+       
     }
 }

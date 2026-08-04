@@ -56,6 +56,9 @@ namespace RiskManagement.Controllers
         [HttpPost("createrisk")]
         public async Task<IActionResult> CreateRisk([FromForm] RiskRegistrationDto dto, [FromForm] IFormFile? file)
         {
+
+            Console.WriteLine($"IdentifiedRisk: '{dto.IdentifiedRisk}'");
+
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
             var riskId = await GenerateRiskId(dto.IdentifiedRisk);
 
@@ -97,7 +100,7 @@ namespace RiskManagement.Controllers
                 Status = "pending",
                 RegisteredBy = email,   // 👈 secure source
                 RegisteredDate = DateTime.UtcNow,
-                FilePath = dto.FilePath,
+                FilePath = filePath,
                 BranchId = "0101",
                 BranchName = "Head Office",
 
