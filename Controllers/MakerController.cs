@@ -4,6 +4,7 @@ using RiskManagement.Data;
 using RiskManagement.Models;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using RiskManagement.Services;
 
 
 namespace RiskManagement.Controllers
@@ -12,8 +13,14 @@ namespace RiskManagement.Controllers
     [Authorize(Roles = "Maker")]
     public class MakerController : Controller
     {
-        public MakerController(AppDBContext context) => _context = context;
         private readonly AppDBContext _context;
+        private readonly FileStorageService _fileStorageService;
+        public MakerController(AppDBContext context, FileStorageService fileStorageService)
+        {
+            _context = context;
+            _fileStorageService = fileStorageService;
+        }
+        // private readonly AppDBContext _context;
 
         [HttpGet("View")]
         public IActionResult ViewRecord()
@@ -47,7 +54,7 @@ namespace RiskManagement.Controllers
         }
 
         [HttpPost("createrisk")]
-        public async Task<IActionResult> CreateRisk([FromBody] RiskRegistrationDto dto, IFormFile image)
+        public async Task<IActionResult> CreateRisk([FromForm] RiskRegistrationDto dto, [FromForm] IFormFile? file)
         {
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
             var riskId = await GenerateRiskId(dto.IdentifiedRisk);
@@ -55,6 +62,15 @@ namespace RiskManagement.Controllers
             if (string.IsNullOrEmpty(email))
                 return Unauthorized();
 
+            string? filePath = null;
+
+            if (file != null)
+            {
+                filePath = await _fileStorageService.SaveFileAsync(
+                    file,
+                    "RiskDocuments",
+                    true);
+            }
 
             var risk = new RiskRegistration
             {
@@ -70,7 +86,7 @@ namespace RiskManagement.Controllers
                 Effect = dto.Effect,
                 Probability = dto.Probability,
                 ImpactLevel = dto.ImpactLevel,
-                
+
                 InherentRiskRating = dto.InherentRiskRating,
                 ResidualRiskLevel = dto.ResidualRiskLevel,
                 ExistingRiskMitigation = dto.ExistingRiskMitigation,
@@ -81,9 +97,10 @@ namespace RiskManagement.Controllers
                 Status = "pending",
                 RegisteredBy = email,   // 👈 secure source
                 RegisteredDate = DateTime.UtcNow,
+                FilePath = dto.FilePath,
                 BranchId = "0101",
                 BranchName = "Head Office",
-              
+
             };
 
             _context.RiskRegistrations.Add(risk);
@@ -114,8 +131,8 @@ namespace RiskManagement.Controllers
             risk.Effect = model.Effect;
             risk.Probability = model.Probability;
             risk.ImpactLevel = model.ImpactLevel;
-            risk.RiskScore = model.RiskScore;
-            risk.RiskRating = model.RiskRating;
+            /*  risk.RiskScore = model.RiskScore;
+             risk.RiskRating = model.RiskRating; */
             risk.ResidualRiskLevel = model.ResidualRiskLevel;
 
             // SECTION 3: MITIGATION & CONTROLS
@@ -131,11 +148,11 @@ namespace RiskManagement.Controllers
 
             return Ok(new { StatusCode = 200, success = true, message = "Status updated successfully", data = risk });
         }
-              
+
         [HttpGet("RejectedRecords")]
         public IActionResult RejectedRecords()
         {
-           
+
 
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
 
@@ -167,7 +184,7 @@ namespace RiskManagement.Controllers
         }
 
 
-private string GetRiskPrefix(string identifiedRisk)
+        private string GetRiskPrefix(string identifiedRisk)
         {
             return identifiedRisk switch
             {

@@ -57,7 +57,7 @@ namespace RiskManagement.Controllers
                 .Count(x => x.Status == "Closed");
 
             model.HighRisk = _context.RiskRegistrations
-                .Count(x => x.RiskRating == "High");
+                .Count(x => x.InherentRiskRating == "High");
 
             model.DueSoon = _context.RiskRegistrations
                 .Count(x => x.MitigationPlannedDate <= DateTime.Today.AddDays(7));
@@ -67,10 +67,10 @@ namespace RiskManagement.Controllers
                 .Take(10)
                 .ToList();
 
-            model.TopRisk = _context.RiskRegistrations
-                .OrderByDescending(x => x.RiskScore)
-                .Take(10)
-                .ToList();
+            /*    model.TopRisk = _context.RiskRegistrations
+                   .OrderByDescending(x => x.RiskScore)
+                   .Take(10)
+                   .ToList(); */
 
             return View(model);
         }
@@ -113,7 +113,7 @@ namespace RiskManagement.Controllers
         public JsonResult GetRiskRating()
         {
             var data = _context.RiskRegistrations
-                .GroupBy(r => r.RiskRating)
+                .GroupBy(r => r.InherentRiskRating)
                 .Select(g => new
                 {
                     Rating = g.Key,
@@ -156,7 +156,7 @@ namespace RiskManagement.Controllers
 
             return Json(data);
         }
-        [HttpGet("GetUpcomingDeadlines")]
+       /*  [HttpGet("GetUpcomingDeadlines")]
         public JsonResult GetUpcomingDeadlines()
         {
             var today = DateTime.Today;
@@ -182,7 +182,7 @@ namespace RiskManagement.Controllers
 
             return Json(data);
         }
-
+ */
         [HttpPost("approve")]
         public IActionResult Approve([FromBody] ApproveRequest model)
         {
@@ -271,7 +271,7 @@ namespace RiskManagement.Controllers
             // Rating
             if (!string.IsNullOrWhiteSpace(rating))
             {
-                query = query.Where(x => x.RiskRating == rating);
+                query = query.Where(x => x.InherentRiskRating == rating);
             }
 
             // From Date

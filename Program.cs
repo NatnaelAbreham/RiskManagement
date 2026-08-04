@@ -25,7 +25,7 @@ builder.Services.AddDbContext<AppDBContext>(options =>
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 builder.Services.AddTransient<IMailService, MailService>();
 builder.Services.AddHttpClient();
-
+builder.Services.AddScoped<FileStorageService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
