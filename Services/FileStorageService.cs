@@ -1,4 +1,4 @@
-namespace   RiskManagement.Services
+namespace RiskManagement.Services
 {
     public class FileStorageService
     {
@@ -15,7 +15,17 @@ namespace   RiskManagement.Services
                 throw new Exception("Invalid file");
 
             //  file type validation (images only)
-            var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".webp" };
+            var allowedExtensions = new[]
+{
+    ".pdf",
+    ".doc",
+    ".docx",
+    ".xls",
+    ".xlsx",
+    ".jpg",
+    ".jpeg",
+    ".png"
+};
             var extension = Path.GetExtension(file.FileName).ToLower();
 
             if (!allowedExtensions.Contains(extension))
