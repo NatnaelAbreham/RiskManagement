@@ -232,3 +232,43 @@ textarea:focus,
 .dropdown-divider {
     border-color: var(--border-light);
 }
+
+/* =========================================
+   Bootstrap Modal Theme
+========================================= */
+
+.modal-content {
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-xl);
+}
+
+.modal-header,
+.modal-footer {
+    border-color: var(--border-light);
+}
+
+.modal-content h5 {
+    color: var(--text-primary);
+}
+
+.modal-content p {
+    color: var(--text-secondary);
+}
+
+
+/* Close button */
+.modal-content .btn-close {
+    filter: invert(1);
+}
+
+body.light-mode .modal-content .btn-close {
+    filter: none;
+}
+
+
+/* Modal background overlay */
+.modal-backdrop {
+    background-color: rgba(0,0,0,0.65);
+}

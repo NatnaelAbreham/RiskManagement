@@ -78,9 +78,9 @@ namespace RiskManagement.Data
                        .IsRequired()
                        .HasColumnType("nvarchar(1000)");
 
-                       entity.Property(e => e.Probability)
+                        entity.Property(e => e.Probability)
                        .IsRequired()
-                       .HasPrecision(18, 2);
+                       .HasColumnType("nvarchar(50)");
 
                        entity.Property(e => e.ImpactLevel)
                        .IsRequired()

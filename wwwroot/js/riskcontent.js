@@ -581,6 +581,7 @@ function updateResidualRisk() {
 
   if (!inherentRiskRating || !mitigation) {
 
+    document.getElementById("ResidualRiskLevel").value = "";
     residualBadge.className =
       "badge fs-6 px-4 py-3 rounded-pill bg-secondary";
 

@@ -21,7 +21,7 @@ namespace RiskManagement.Models
 
         // SECTION 2: RISK ASSESSMENT
         public string Effect { get; set; }
-        public decimal Probability { get; set; }
+        public string Probability { get; set; }
         public string ImpactLevel { get; set; }
        /*  public decimal RiskScore { get; set; } */
         public string InherentRiskRating { get; set; }
