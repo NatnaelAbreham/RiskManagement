@@ -9,13 +9,17 @@ form.addEventListener("submit", async function (e) {
         identifiedRisk: document.getElementById("IdentifiedRisk").value,
         sourceOfRisk: document.getElementById("SourceOfRisk").value,
         riskCategory: document.getElementById("RiskCategory").value,
+
+        RiskSubCategory: document.getElementById("RiskSubCategory").value,
+        RiskEvent: document.getElementById("RiskEvent").value,
+
         riskEventDescription: document.getElementById("RiskDescription").value,
 
         effect: document.getElementById("Effect").value,
         probability: parseFloat(document.getElementById("Probability").value),
         impactLevel: document.getElementById("ImpactLevel").value,
-        riskScore: parseFloat(document.getElementById("RiskScore").value),
-        riskRating: document.getElementById("RiskRating").value,
+
+        InherentRiskRating: document.getElementById("InherentRiskRating").value,
         residualRiskLevel: document.getElementById("ResidualRiskLevel").value,
 
         existingRiskMitigation: document.getElementById("ExistingMitigation").value,
@@ -25,7 +29,7 @@ form.addEventListener("submit", async function (e) {
         mitigationPlannedDate: document.getElementById("MitigationPlannedDate").value,
         riskOwner: document.getElementById("RiskOwner").value,
 
-        /* status: document.getElementById("Status").value */
+        RiskAttachment: document.getElementById("RiskAttachment").value
     };
 
     const response = await fetch("/Maker/createrisk", {
