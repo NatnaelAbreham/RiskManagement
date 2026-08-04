@@ -104,13 +104,11 @@ namespace RiskManagement.Data
                        .IsRequired()
                        .HasColumnType("nvarchar(1000)");
 
-                       entity.Property(e => e.Recommendation)
-                       .IsRequired()
+                       entity.Property(e => e.Recommendation)                  
                        .HasColumnType("nvarchar(max)");
 
                        // Ownership & Planning
-                       entity.Property(e => e.MitigationPlannedDate)
-                       .IsRequired()
+                       entity.Property(e => e.MitigationPlannedDate)                    
                        .HasColumnType("date");
 
                        entity.Property(e => e.RiskOwner)

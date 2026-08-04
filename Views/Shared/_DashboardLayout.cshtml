@@ -35,7 +35,11 @@
                 <i class="bi bi-pencil-square"></i>
                 Register
             </a>
-
+            <a asp-controller="Maker" asp-action="IncidentRecord"
+               class="@(currentController == "Maker" && currentAction == "IncidentRecord" ? "active" : "")">
+                <i class="bi bi-exclamation-triangle"></i>
+                Incident Record
+            </a>
             <a asp-controller="Maker" asp-action="View"
                class="@(currentController == "Maker" && currentAction == "ViewRecord" ? "active" : "")">
                 <i class="bi bi-eye"></i>
@@ -88,9 +92,9 @@
                 <i class="bi bi-person-plus"></i>
                 Add User
             </a>
-             <a asp-controller="Admin" asp-action="users"
+            <a asp-controller="Admin" asp-action="users"
                class="@(currentController == "Admin" && currentAction == "Users" ? "active" : "")">
-                <i class="bi bi-people"></i> 
+                <i class="bi bi-people"></i>
                 Users
             </a>
         }
@@ -106,7 +110,7 @@
         <h5 class="mb-0">
             @ViewBag.Title
         </h5>
-         <!-- Theme Toggle -->
+        <!-- Theme Toggle -->
         <button type="button" class="theme-toggle" id="themeToggle" title="Toggle theme">
             <i class="bi bi-sun-fill" id="themeIcon"></i>
         </button>

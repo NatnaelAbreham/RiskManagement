@@ -58,6 +58,7 @@ namespace RiskManagement.Controllers
         {
 
             Console.WriteLine($"IdentifiedRisk: '{dto.IdentifiedRisk}'");
+            Console.WriteLine($"Probability: '{dto.Probability}'");
 
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
             var riskId = await GenerateRiskId(dto.IdentifiedRisk);

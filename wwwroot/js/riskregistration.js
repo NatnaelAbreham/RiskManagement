@@ -16,7 +16,7 @@ form.addEventListener("submit", async function (e) {
         RiskEventDescription: document.getElementById("RiskDescription").value,
 
         Effect: document.getElementById("Effect").value,
-        Probability: parseFloat(document.getElementById("Probability").value),
+        Probability: document.getElementById("Probability").value,
         ImpactLevel: document.getElementById("ImpactLevel").value,
 
         InherentRiskRating: document.getElementById("InherentRiskRating").value,
