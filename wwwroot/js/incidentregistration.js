@@ -20,7 +20,7 @@ IdentifiedRisks.forEach(risk => {
 
 
 
-const form = document.getElementById("createRiskIncident");
+const form = document.getElementById("createIncidentForm");
 const modalDiv = document.getElementById("responseModal");
 
 form.addEventListener("submit", async function (e) {
@@ -79,10 +79,10 @@ form.addEventListener("submit", async function (e) {
     </p>
 
     <div class="alert alert-info mt-2">
-        <strong>Risk ID:</strong> ${result.riskId}
+        <strong>Incident ID:</strong> ${result.incidentId}
     </div>
 `;
-        console.log(result.riskId);
+        console.log(result.incidentId);
         modalElement.show();
 
         function handleModalClose() {
