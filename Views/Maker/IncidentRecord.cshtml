@@ -1,0 +1,193 @@
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    ViewBag.Title = "Incident Record";
+}
+
+@section Styles {
+    <link href="~/css/register.css" rel="stylesheet" />
+}
+
+
+
+<div class="card border-0 shadow-sm p-4">
+
+    <!-- ========== PAGE HEADER ========== -->
+    <div class="page-header">
+        <h2>
+            <i class="bi bi-card-checklist" style="color: var(--primary);"></i>
+            Incident Record
+            <span class="badge">New</span>
+        </h2>
+        <p>
+            Register and document identified incident for comprehensive assessment, monitoring, and mitigation planning.
+        </p>
+    </div>
+
+    <form id="createRiskForm">
+
+        <div class="p-4">
+            <div class="row g-4">
+
+                <div class="col-lg-3 col-md-6">
+
+                    <label for="IdentifiedRisk" class="form-label">
+                        <i class="bi bi-shield-check me-1 text-muted"></i>
+                        Identified Risk
+                        <span class="text-danger">*</span>
+                    </label>
+
+                    <select id="IdentifiedRisk" name="IdentifiedRisk" class="form-select" required>
+
+                        <option value="">Choose an identified risk...</option>
+
+                    </select>
+
+                    <div class="form-text">
+                        Select the business area where the risk was identified.
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <label class="form-label required-field" for="IncidentName">
+                        <i class="fas fa-user" style="color: var(--gray-400); margin-right: 4px;"></i>
+                        Incident Name
+                    </label>
+                    <input type="text" class="form-control modern-input" id="IncidentName" name="IncidentName"
+                           placeholder="Full name or role" required />
+
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <label class="form-label required-field" for="IncidentOwner">
+                        <i class="fas fa-user" style="color: var(--gray-400); margin-right: 4px;"></i>
+                        Incident Owner
+                    </label>
+                    <input type="text" class="form-control modern-input" id="IncidentOwner" name="IncidentOwner"
+                           placeholder="Full name or role" required />
+
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <label class="form-label required-field" for="EventOccurredDate">
+                        <i class="bi bi-calendar3" style="color: var(--gray-400); margin-right: 4px;"></i>
+                        Event Occurred dDate
+                        <span class="text-danger">*</span>
+                    </label>
+                    <input type="date" class="form-control modern-input" id="EventOccurredDate" name="EventOccurredDate"
+                           required />
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <label class="form-label required-field" for="EventEndedDate">
+                        <i class="bi bi-calendar3" style="color: var(--gray-400); margin-right: 4px;"></i>
+                        Event Ended dDate
+                        <span class="text-danger">*</span>
+                    </label>
+                    <input type="date" class="form-control modern-input" id="EventEndedDate" name="EventEndedDate"
+                           required />
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <label class="form-label required-field" for="Priority">
+                        <i class="fas fa-user" style="color: var(--gray-400); margin-right: 4px;"></i>
+                        Priority
+                    </label>
+                    <input type="text" class="form-control modern-input" id="Priority" name="Priority"
+                           placeholder="Full name or role" required />
+
+                </div>
+                <div class="col-lg-3 col-md-6">
+
+                    <label for="SourceOfIncident" class="form-label">
+                        <i class="bi bi-diagram-3 me-1 text-muted"></i>
+                        Source of Incident
+                        <span class="text-danger">*</span>
+                    </label>
+
+                    <select id="SourceOfIncident" name="SourceOfIncident" class="form-select" required>
+
+                        <option value="">
+                            Choose the source of Incident...
+                        </option>
+
+                    </select>
+
+                    <div class="form-text">
+                        Select the primary source from which the identified Incident originates.
+                    </div>
+
+                </div>
+                <div class="col-12">
+
+                    <label class="form-label fw-semibold">
+                        Event Description
+                        <span class="text-danger">*</span>
+                    </label>
+
+                    <textarea class="form-control" rows="6" id="EventDescription"
+                              placeholder="Describe the identified Incident..."></textarea>
+
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <label class="form-label required-field" for="EventType">
+                        <i class="fas fa-user" style="color: var(--gray-400); margin-right: 4px;"></i>
+                        Event Type
+                    </label>
+                    <input type="text" class="form-control modern-input" id="EventType" name="EventType"
+                           placeholder="add event type" required />
+
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <label class="form-label required-field" for="BusinessLine">
+                        <i class="fas fa-user" style="color: var(--gray-400); margin-right: 4px;"></i>
+                        Business Line
+                    </label>
+                    <input type="text" class="form-control modern-input" id="BusinessLine" name="BusinessLine"
+                           placeholder="Full name or role" required />
+
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <label class="form-label required-field" for="BusinessActivity">
+                        <i class="fas fa-user" style="color: var(--gray-400); margin-right: 4px;"></i>
+                        BusinessActivity
+                    </label>
+                    <input type="text" class="form-control modern-input" id="BusinessActivity" name="BusinessActivity"
+                           placeholder="Full name or role" required />
+
+                </div>
+                
+            </div>
+        </div>
+
+       
+        <div class="wizard-footer">
+
+            <button type="reset" class="btn btn-outline-secondary" id="clearFormBtn">
+                <i class="bi bi-arrow-counterclockwise me-2"></i>Clear Form
+            </button>
+            <button type="submit" class="btn btn-success" id="submitRiskBtn">
+                <i class="bi bi-floppy me-2"></i>Record Incident
+            </button>
+        </div>
+
+   
+    </form>
+
+</div>
+
+<!-- Response Modal -->
+<div class="modal fade" id="responseModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center p-4 rounded-4 shadow-lg">
+            <div id="modalIcon" class="mb-3" style="font-size: 60px;"></div>
+            <h5 id="modalTitle" class="fw-bold"></h5>
+            <p id="modalMessage" class="mt-2"></p>
+            <button id="okButton" type="button"
+                    class="btn btn-success mt-3 px-5 py-2 rounded-pill shadow-lg btn-animated" data-bs-dismiss="modal">
+                OK
+            </button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @* <script src="~/js/riskregistration.js"></script> *@
+    <script src="~/js/riskcontent.js"></script>
+}

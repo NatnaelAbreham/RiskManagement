@@ -52,6 +52,11 @@ namespace RiskManagement.Controllers
         {
             return View();
         }
+        [HttpGet("IncidentRecord")]
+        public IActionResult IncidentRecord()
+        {
+            return View();
+        }
 
         [HttpPost("createrisk")]
         public async Task<IActionResult> CreateRisk([FromForm] RiskRegistrationDto dto, [FromForm] IFormFile? file)
