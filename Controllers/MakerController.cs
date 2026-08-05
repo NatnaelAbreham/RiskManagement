@@ -117,70 +117,63 @@ namespace RiskManagement.Controllers
 
             return Ok(risk);
         }
-        
-         [HttpPost("createrisk")]
-        public async Task<IActionResult> CreateRisk([FromForm] RiskRegistrationDto dto, [FromForm] IFormFile? file)
+
+        [HttpPost("createincident")]
+        public async Task<IActionResult> CreateIncident([FromBody] IncidentRegistrationDto dto)
         {
 
-            Console.WriteLine($"IdentifiedRisk: '{dto.IdentifiedRisk}'");
-            Console.WriteLine($"Probability: '{dto.Probability}'");
-
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
-            var riskId = await GenerateRiskId(dto.IdentifiedRisk);
+            var IncidentId = await GenerateRiskId(dto.IdentifiedRisk);
 
             if (string.IsNullOrEmpty(email))
                 return Unauthorized();
 
-            string? filePath = null;
 
-            if (file != null)
-            {
-                filePath = await _fileStorageService.SaveFileAsync(
-                    file,
-                    "RiskDocuments",
-                    true);
-            }
 
-            var risk = new RiskRegistration
+            var incident = new IncidentRegistration
             {
-                RiskId = riskId,
-                RiskDate = dto.RiskDate,
+                IncidentId = IncidentId,
+
                 IdentifiedRisk = dto.IdentifiedRisk,
-                SourceOfRisk = dto.SourceOfRisk,
-                RiskCategory = dto.RiskCategory,
-                RiskSubCategory = dto.RiskSubCategory,
-                RiskEvent = dto.RiskEvent,
 
-                RiskEventDescription = dto.RiskEventDescription,
-                Effect = dto.Effect,
-                Probability = dto.Probability,
-                ImpactLevel = dto.ImpactLevel,
+                IncidentName = dto.IncidentName,
 
-                InherentRiskRating = dto.InherentRiskRating,
-                ResidualRiskLevel = dto.ResidualRiskLevel,
-                ExistingRiskMitigation = dto.ExistingRiskMitigation,
-                MitigationRating = dto.MitigationRating,
-                Recommendation = dto.Recommendation,
-                MitigationPlannedDate = dto.MitigationPlannedDate,
-                RiskOwner = dto.RiskOwner,
-                Status = "pending",
-                RegisteredBy = email,   // 👈 secure source
+                IncidentOwner = dto.IncidentOwner,
+
+                EventOccurredDate = dto.EventOccurredDate,
+
+                EventEndedDate = dto.EventEndedDate,
+
+                Priority = dto.Priority,
+
+                SourceOfIncident = dto.SourceOfIncident,
+
+                EventDescription = dto.EventDescription,
+
+                EventType = dto.EventType,
+
+                BusinessLine = dto.BusinessLine,
+
+                BusinessActivity = dto.BusinessActivity,
+
+                RegisteredBy = email, // secure source
                 RegisteredDate = DateTime.UtcNow,
-                FilePath = filePath,
+
                 BranchId = "0101",
                 BranchName = "Head Office",
 
+                ApprovedBy = null,
+                ApprovedDate = null
             };
-
-            _context.RiskRegistrations.Add(risk);
+            _context.IncidentRecords.Add(incident);
             await _context.SaveChangesAsync();
 
-            return Ok(risk);
+            return Ok(incident);
         }
- 
-        
-        
-        
+
+
+
+
         [HttpPost("editrisk")]
         public IActionResult Updaterisk([FromBody] RiskRegistration model)
         {

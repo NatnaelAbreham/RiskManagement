@@ -176,6 +176,9 @@ namespace RiskManagement.Data
               entity.ToTable("IncidentRecords");
 
               entity.HasKey(e => e.Id);
+              entity.Property(e => e.IncidentId)
+       .HasMaxLength(100)
+       .IsRequired();
 
               entity.Property(e => e.IdentifiedRisk)
           .HasMaxLength(200)
