@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Risk Registration</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 60px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        .field {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: 600;
+        }
+
+        select,
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        select:focus,
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 7px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #ecfdf5;
+            border: 1px solid #10b981;
+            border-radius: 7px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Register New Risk</h2>
+
+    <!-- Risk Title -->
+    <div class="field">
+        <label>Risk Title</label>
+        <input
+            type="text"
+            id="riskTitle"
+            placeholder="Enter risk title">
+    </div>
+
+
+    <!-- CATEGORY -->
+    <div class="field">
+
+        <label>Risk Category</label>
+
+        <select id="category">
+            <option value="">Select category</option>
+
+            <option value="financial">
+                Financial Risk
+            </option>
+
+            <option value="operational">
+                Operational Risk
+            </option>
+
+            <option value="strategic">
+                Strategic Risk
+            </option>
+
+            <option value="technology">
+                Technology Risk
+            </option>
+
+            <option value="compliance">
+                Compliance Risk
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- SUBCATEGORY -->
+    <div
+        class="field hidden"
+        id="subcategoryContainer">
+
+        <label>Risk Subcategory</label>
+
+        <select id="subcategory">
+
+            <option value="">
+                Select subcategory
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- SUB-SUBCATEGORY -->
+    <div
+        class="field hidden"
+        id="subSubcategoryContainer">
+
+        <label>Risk Type</label>
+
+        <select id="subSubcategory">
+
+            <option value="">
+                Select risk type
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- DESCRIPTION -->
+    <div class="field">
+
+        <label>Risk Description</label>
+
+        <textarea
+            id="description"
+            rows="4"
+            placeholder="Describe the risk">
+        </textarea>
+
+    </div>
+
+
+    <button onclick="registerRisk()">
+        Register Risk
+    </button>
+
+
+    <div
+        id="result"
+        class="hidden">
+    </div>
+
+</div>
+
+
+<script>
+
+const riskData = {
+
+    financial: {
+
+        "Market Risk": [
+            "Foreign Exchange Risk",
+            "Interest Rate Risk",
+            "Commodity Price Risk",
+            "Equity Price Risk",
+            "Market Volatility Risk",
+            "Inflation Risk",
+            "Liquidity Market Risk",
+            "Asset Price Risk",
+            "Economic Condition Risk"
+        ],
+
+        "Credit Risk": [
+            "Customer Default Risk",
+            "Supplier Default Risk",
+            "Loan Default Risk",
+            "Counterparty Risk",
+            "Bad Debt Risk"
+        ],
+
+        "Liquidity Risk": [
+            "Cash Flow Risk",
+            "Funding Risk",
+            "Working Capital Risk",
+            "Asset Liquidity Risk",
+            "Emergency Funding Risk"
+        ],
+
+        "Investment Risk": [
+            "Investment Loss Risk",
+            "Portfolio Risk",
+            "Return Risk",
+            "Capital Loss Risk",
+            "Investment Concentration Risk"
+        ],
+
+        "Financial Reporting Risk": [
+            "Incorrect Reporting",
+            "Fraudulent Reporting",
+            "Accounting Error",
+            "Late Reporting",
+            "Data Accuracy Risk"
+        ]
+
+    },
+
+    compliance: {
+
+        "Legal Compliance": [
+            "Regulatory Violation",
+            "Contract Violation",
+            "Legal Dispute",
+            "Licence Violation",
+            "Legal Penalty"
+        ],
+
+        "Regulatory Compliance": [
+            "Regulatory Change",
+            "Non Compliance",
+            "Reporting Failure",
+            "Regulatory Penalty",
+            "Audit Failure"
+        ],
+
+        "Data Privacy": [
+            "Privacy Violation",
+            "Personal Data Exposure",
+            "Consent Failure",
+            "Data Retention Failure",
+            "Privacy Complaint"
+        ],
+
+        "Internal Policy": [
+            "Policy Violation",
+            "Procedure Violation",
+            "Approval Failure",
+            "Internal Control Failure",
+            "Governance Failure"
+        ],
+
+        "Ethics": [
+            "Conflict of Interest",
+            "Fraud",
+            "Bribery",
+            "Corruption",
+            "Unethical Behaviour"
+        ]
+
+    }
+
+};
+
+
+const category =
+    document.getElementById("category");
+
+const subcategory =
+    document.getElementById("subcategory");
+
+const subSubcategory =
+    document.getElementById("subSubcategory");
+
+const subcategoryContainer =
+    document.getElementById("subcategoryContainer");
+
+const subSubcategoryContainer =
+    document.getElementById("subSubcategoryContainer");
+
+
+// CATEGORY CHANGED
+category.addEventListener("change", function () {
+
+    const selectedCategory = this.value;
+
+    subcategory.innerHTML =
+        '<option value="">Select subcategory</option>';
+
+    subSubcategory.innerHTML =
+        '<option value="">Select risk type</option>';
+
+    subSubcategoryContainer.classList.add("hidden");
+
+
+    if (!selectedCategory) {
+
+        subcategoryContainer.classList.add("hidden");
+
+        return;
+    }
+
+
+    const subcategories =
+        riskData[selectedCategory];
+
+
+    Object.keys(subcategories).forEach(function (item) {
+
+        const option =
+            document.createElement("option");
+
+        option.value = item;
+
+        option.textContent = item;
+
+        subcategory.appendChild(option);
+
+    });
+
+
+    subcategoryContainer.classList.remove("hidden");
+
+});
+
+
+// SUBCATEGORY CHANGED
+subcategory.addEventListener("change", function () {
+
+    const selectedCategory =
+        category.value;
+
+    const selectedSubcategory =
+        this.value;
+
+
+    subSubcategory.innerHTML =
+        '<option value="">Select risk type</option>';
+
+
+    if (!selectedSubcategory) {
+
+        subSubcategoryContainer.classList.add("hidden");
+
+        return;
+    }
+
+
+    const riskTypes =
+        riskData[selectedCategory][selectedSubcategory];
+
+
+    riskTypes.forEach(function (item) {
+
+        const option =
+            document.createElement("option");
+
+        option.value = item;
+
+        option.textContent = item;
+
+        subSubcategory.appendChild(option);
+
+    });
+
+
+    subSubcategoryContainer.classList.remove("hidden");
+
+});
+
+
+// REGISTER
+function registerRisk() {
+
+    const title =
+        document.getElementById("riskTitle").value;
+
+    const selectedCategory =
+        category.options[category.selectedIndex].text;
+
+    const selectedSubcategory =
+        subcategory.options[subcategory.selectedIndex].text;
+
+    const selectedRiskType =
+        subSubcategory.options[
+            subSubcategory.selectedIndex
+        ].text;
+
+
+    if (
+        !title ||
+        !category.value ||
+        !subcategory.value ||
+        !subSubcategory.value
+    ) {
+
+        alert("Please complete the risk classification.");
+
+        return;
+    }
+
+
+    const result =
+        document.getElementById("result");
+
+
+    result.classList.remove("hidden");
+
+
+    result.innerHTML = `
+
+        <strong>Risk Registered Successfully</strong>
+
+        <hr>
+
+        <b>Risk:</b> ${title}<br>
+
+        <b>Category:</b> ${selectedCategory}<br>
+
+        <b>Subcategory:</b> ${selectedSubcategory}<br>
+
+        <b>Risk Type:</b> ${selectedRiskType}
+
+    `;
+
+}
+
+</script>
+
+</body>
+</html>

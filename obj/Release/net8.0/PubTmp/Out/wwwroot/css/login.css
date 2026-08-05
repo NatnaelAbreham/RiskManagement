@@ -1,0 +1,239 @@
+/* =========================================
+   Login Page
+========================================= */
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100vh;
+
+    background: var(--bg-main);
+}
+
+
+/* =========================================
+   Login Card
+========================================= */
+
+.login-card {
+    width: 100%;
+    max-width: 400px;
+
+    padding: 2rem;
+
+    border-radius: 15px;
+
+    box-shadow: var(--shadow-xl);
+}
+
+
+/* =========================================
+   Login Form
+========================================= */
+
+.login-card .form-control {
+    border-radius: 25px;
+
+    margin-bottom: 15px;
+
+    padding: 10px 16px;
+}
+
+
+/* =========================================
+   Login Button
+========================================= */
+
+.btn-login {
+    width: 100%;
+
+    padding: 10px 20px;
+
+    border: none;
+    border-radius: 25px;
+
+    background: linear-gradient(
+        to right,
+        var(--primary-dark),
+        #0891b2
+    );
+
+    color: #ffffff;
+
+    transition: var(--transition);
+}
+
+.btn-login:hover {
+    background: linear-gradient(
+        to right,
+        #0891b2,
+        var(--primary-dark)
+    );
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================
+   Hero Section
+========================================= */
+
+.image-hero {
+    position: relative;
+
+    height: 100vh;
+
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* =========================================
+   Hero Background
+========================================= */
+
+.hero-bg {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        url("/images/risk.png")
+        center center / cover no-repeat;
+
+    transform: scale(1.1);
+}
+
+
+/* =========================================
+   Hero Overlay
+========================================= */
+
+.hero-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background: rgba(10, 15, 25, 0.65);
+
+    backdrop-filter: blur(5px);
+}
+
+
+/* =========================================
+   Hero Content
+========================================= */
+
+.hero-content {
+    position: relative;
+
+    z-index: 2;
+
+    text-align: center;
+
+    max-width: 800px;
+
+    padding: 40px;
+
+    color: #ffffff;
+}
+
+
+/* =========================================
+   Hero Badge
+========================================= */
+
+.hero-badge {
+    display: inline-block;
+
+    padding: 8px 18px;
+
+    font-size: 14px;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    border-radius: 50px;
+
+    margin-bottom: 20px;
+
+    backdrop-filter: blur(10px);
+
+    color: #e2e8f0;
+}
+
+
+/* =========================================
+   Hero Title
+========================================= */
+
+.hero-content h1 {
+    font-size: 3.8rem;
+
+    font-weight: 800;
+
+    line-height: 1.1;
+
+    margin-bottom: 25px;
+
+    letter-spacing: 0.5px;
+
+    color: #ffffff;
+}
+
+
+/* =========================================
+   Hero Paragraph
+========================================= */
+
+.hero-content p {
+    font-size: 1.25rem;
+
+    line-height: 1.7;
+
+    color: #cbd5e1;
+
+    opacity: 0.9;
+
+    max-width: 650px;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   Hero Glow
+========================================= */
+
+.hero-glow {
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0, 180, 255, 0.2),
+            transparent 70%
+        );
+
+    top: -50px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    filter: blur(40px);
+
+    z-index: -1;
+}

@@ -1,0 +1,44 @@
+/* =========================================
+   Topbar Actions
+========================================= */
+
+.topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+
+/* =========================================
+   Theme Toggle
+========================================= */
+
+.theme-toggle {
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 50%;
+
+    background: var(--bg-surface-2);
+    color: var(--primary);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition: var(--transition);
+}
+
+.theme-toggle:hover {
+    background: var(--bg-hover);
+
+    transform: rotate(15deg);
+}
+
+.theme-toggle i {
+    font-size: 17px;
+}

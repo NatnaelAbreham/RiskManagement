@@ -1,0 +1,106 @@
+/* =========================================
+   Add User Page
+========================================= */
+
+.page-title {
+    font-weight: 600;
+}
+
+.page-subtitle {
+    font-size: 14px;
+}
+
+
+/* =========================================
+   Form
+========================================= */
+
+.form-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.55rem;
+}
+
+
+/* =========================================
+   Form Controls
+========================================= */
+
+.form-control,
+.form-select {
+    height: 50px;
+    border-radius: 12px;
+    box-shadow: none;
+    transition: 0.25s;
+    padding-left: 16px;
+    font-size: 15px;
+}
+
+.form-control:hover,
+.form-select:hover {
+    border-color: var(--border);
+}
+
+
+/* =========================================
+   Card
+========================================= */
+
+.card {
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 1.4rem 1.8rem;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+
+/* =========================================
+   Buttons
+========================================= */
+
+.btn {
+    border-radius: 10px;
+    height: 46px;
+    padding: 0 22px;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   Validation
+========================================= */
+
+.text-danger {
+    font-size: 13px;
+}
+
+
+/* =========================================
+   Input Groups
+========================================= */
+
+.input-group-text {
+    width: 52px;
+    justify-content: center;
+
+    border-radius: 12px 0 0 12px;
+    border-right: none;
+
+    color: var(--text-muted);
+}
+
+.input-group .form-control,
+.input-group .form-select {
+    border-left: none;
+    border-radius: 0 12px 12px 0;
+}
+
+.input-group:focus-within .input-group-text {
+    color: var(--primary);
+}

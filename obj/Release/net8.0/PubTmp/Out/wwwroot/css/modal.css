@@ -1,0 +1,248 @@
+/* =========================================
+   Profile Modal
+========================================= */
+
+.profile-modal {
+    border-radius: 28px;
+    overflow: hidden;
+
+    box-shadow: var(--shadow-xl);
+}
+
+
+/* =========================================
+   Profile Header
+========================================= */
+
+.profile-header {
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background: linear-gradient(
+        135deg,
+        var(--primary-dark),
+        var(--bg-surface)
+    );
+
+    color: #ffffff;
+}
+
+
+/* =========================================
+   Profile Avatar
+========================================= */
+
+.profile-avatar {
+    width: 60px;
+    height: 60px;
+
+    border-radius: 50%;
+
+    background: var(--bg-surface-2);
+    color: var(--primary);
+
+    font-size: 26px;
+    font-weight: 700;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 12px;
+
+    box-shadow: var(--shadow-sm);
+
+    border: 3px solid var(--border);
+}
+
+
+/* =========================================
+   Header Text
+========================================= */
+
+.profile-header h3 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    font-weight: 700;
+
+    color: #ffffff;
+}
+
+.profile-header p {
+    margin-bottom: 4px;
+
+    opacity: 0.95;
+
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.profile-header small {
+    opacity: 0.85;
+
+    color: rgba(255, 255, 255, 0.75);
+}
+
+
+/* =========================================
+   Close Button
+========================================= */
+
+.profile-close {
+    position: absolute;
+
+    right: 20px;
+    top: 20px;
+
+    z-index: 20;
+
+    filter: invert(1);
+}
+
+
+/* =========================================
+   Profile Cards
+========================================= */
+
+.profile-card {
+    border-radius: 18px;
+
+    padding: 18px;
+
+    box-shadow: var(--shadow-md);
+
+    transition: var(--transition);
+}
+
+.profile-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow: var(--shadow-lg);
+}
+
+
+/* =========================================
+   Profile Labels
+========================================= */
+
+.profile-label {
+    font-size: 0.85rem;
+
+    color: var(--text-muted);
+
+    margin-bottom: 8px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+/* =========================================
+   Profile Inputs
+========================================= */
+
+.profile-card input,
+.profile-card select {
+    height: 48px;
+
+    border-radius: 12px;
+}
+
+.profile-card input::placeholder {
+    color: var(--text-disabled);
+}
+
+
+/* =========================================
+   Profile Footer
+========================================= */
+
+.profile-footer {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 25px;
+}
+
+
+/* =========================================
+   Buttons
+========================================= */
+
+.btn-save,
+.btn-cancel {
+    min-width: 170px;
+
+    height: 48px;
+
+    border-radius: 14px;
+
+    font-weight: 600;
+
+    transition: var(--transition);
+}
+
+.btn-save:hover,
+.btn-cancel:hover {
+    transform: translateY(-2px);
+
+    box-shadow: var(--shadow-md);
+}
+
+
+/* =========================================
+   Save Button
+========================================= */
+
+.btn-save {
+    background: linear-gradient(
+        135deg,
+        var(--primary-dark),
+        #0891b2
+    );
+
+    color: #ffffff;
+
+    border: none;
+}
+
+.btn-save:hover {
+    color: #ffffff;
+
+    background: linear-gradient(
+        135deg,
+        #0891b2,
+        var(--primary-dark)
+    );
+}
+
+
+/* =========================================
+   Cancel Button
+========================================= */
+
+.btn-cancel {
+    background: var(--bg-surface-2);
+
+    color: var(--text-secondary);
+
+    border: 1px solid var(--border);
+}
+
+.btn-cancel:hover {
+    background: var(--bg-hover);
+
+    color: var(--text-primary);
+}
