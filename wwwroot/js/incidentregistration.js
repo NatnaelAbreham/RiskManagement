@@ -7,3 +7,13 @@ Causes.forEach(source => {
   );
 
 });
+
+const identifiedRiskSelect = document.getElementById("IdentifiedRisk");
+
+IdentifiedRisks.forEach(risk => {
+
+  identifiedRiskSelect.add(
+    new Option(risk.text, risk.value)
+  );
+
+});
