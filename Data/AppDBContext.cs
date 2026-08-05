@@ -11,6 +11,7 @@ namespace RiskManagement.Data
             public DbSet<RejectedRisk> RejectedRisks { get; set; }
             public DbSet<RiskRegistration> RiskRegistrations { get; set; }
             public DbSet<RiskSequence> RiskSequences { get; set; }
+            public DbSet<IncidentRegistration> IncidentRecords { get; set; }
             protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
                   base.OnModelCreating(modelBuilder);
@@ -78,9 +79,9 @@ namespace RiskManagement.Data
                        .IsRequired()
                        .HasColumnType("nvarchar(1000)");
 
-                        entity.Property(e => e.Probability)
-                       .IsRequired()
-                       .HasColumnType("nvarchar(50)");
+                       entity.Property(e => e.Probability)
+                      .IsRequired()
+                      .HasColumnType("nvarchar(50)");
 
                        entity.Property(e => e.ImpactLevel)
                        .IsRequired()
@@ -104,11 +105,11 @@ namespace RiskManagement.Data
                        .IsRequired()
                        .HasColumnType("nvarchar(1000)");
 
-                       entity.Property(e => e.Recommendation)                  
+                       entity.Property(e => e.Recommendation)
                        .HasColumnType("nvarchar(max)");
 
                        // Ownership & Planning
-                       entity.Property(e => e.MitigationPlannedDate)                    
+                       entity.Property(e => e.MitigationPlannedDate)
                        .HasColumnType("date");
 
                        entity.Property(e => e.RiskOwner)
@@ -170,6 +171,76 @@ namespace RiskManagement.Data
                         entity.Property(e => e.Reason)
                         .IsRequired();
                   });
+                  modelBuilder.Entity<IncidentRegistration>(entity =>
+        {
+              entity.ToTable("IncidentRecords");
+
+              entity.HasKey(e => e.Id);
+
+              entity.Property(e => e.IdentifiedRisk)
+          .HasMaxLength(200)
+          .IsRequired();
+
+              entity.Property(e => e.IncidentName)
+          .HasMaxLength(200)
+          .IsRequired();
+
+              entity.Property(e => e.IncidentOwner)
+          .HasMaxLength(200)
+          .IsRequired();
+
+              entity.Property(e => e.EventOccurredDate)
+          .IsRequired();
+
+              entity.Property(e => e.EventEndedDate)
+          .IsRequired();
+
+              entity.Property(e => e.Priority)
+          .HasMaxLength(50)
+          .IsRequired();
+
+              entity.Property(e => e.SourceOfIncident)
+          .HasMaxLength(200)
+          .IsRequired();
+
+              entity.Property(e => e.EventDescription)
+          .IsRequired();
+
+              entity.Property(e => e.EventType)
+          .HasMaxLength(200)
+          .IsRequired();
+
+              entity.Property(e => e.BusinessLine)
+          .HasMaxLength(200)
+          .IsRequired();
+
+              entity.Property(e => e.BusinessActivity)
+          .HasMaxLength(200)
+          .IsRequired();
+
+              entity.Property(e => e.RegisteredBy)
+          .HasMaxLength(100)
+          .IsRequired();
+
+              entity.Property(e => e.RegisteredDate)
+          .IsRequired()
+          .HasDefaultValueSql("SYSUTCDATETIME()");
+
+              entity.Property(e => e.BranchId)
+          .HasMaxLength(50)
+          .IsRequired();
+
+              entity.Property(e => e.BranchName)
+          .HasMaxLength(200)
+          .IsRequired();
+
+              entity.Property(e => e.ApprovedBy)
+          .HasMaxLength(100)
+          .IsRequired(false);
+
+              entity.Property(e => e.ApprovedDate)
+          .IsRequired(false);
+        });
             }
       }
 }

@@ -8,9 +8,9 @@
 }
 
 @section Scripts {
-     <script src="~/js/riskcontent.js"></script>
-     <script src="~/js/incidentregistration.js"></script> 
-   
+    <script src="~/js/riskcontent.js"></script>
+    <script src="~/js/incidentregistration.js"></script>
+
 }
 
 <div class="card border-0 shadow-sm p-4">
@@ -35,7 +35,6 @@
                 <div class="col-lg-4 col-md-6">
 
                     <label for="IdentifiedRisk" class="form-label">
-                        <i class="bi bi-shield-check me-1 text-muted"></i>
                         Identified Risk
                         <span class="text-danger">*</span>
                     </label>
@@ -54,8 +53,8 @@
 
                 <div class="col-lg-4 col-md-6">
                     <label class="form-label required-field" for="IncidentName">
-                        <i class="fas fa-user" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Incident Name
+                        <span class="text-danger">*</span>
                     </label>
                     <input type="text" class="form-control modern-input" id="IncidentName" name="IncidentName"
                            placeholder="Full name or role" required />
@@ -63,8 +62,8 @@
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <label class="form-label required-field" for="IncidentOwner">
-                        <i class="fas fa-user" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Incident Owner
+                        <span class="text-danger">*</span>
                     </label>
                     <input type="text" class="form-control modern-input" id="IncidentOwner" name="IncidentOwner"
                            placeholder="Full name or role" required />
@@ -73,8 +72,7 @@
 
                 <div class="col-lg-4 col-md-6">
                     <label class="form-label required-field" for="EventOccurredDate">
-                        <i class="bi bi-calendar3" style="color: var(--gray-400); margin-right: 4px;"></i>
-                        Event Occurred dDate
+                        Event Occurred Date
                         <span class="text-danger">*</span>
                     </label>
                     <input type="date" class="form-control modern-input" id="EventOccurredDate" name="EventOccurredDate"
@@ -82,7 +80,6 @@
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <label class="form-label required-field" for="EventEndedDate">
-                        <i class="bi bi-calendar3" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Event Ended dDate
                         <span class="text-danger">*</span>
                     </label>
@@ -91,8 +88,8 @@
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <label class="form-label required-field" for="Priority">
-                        <i class="fas fa-user" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Priority
+                        <span class="text-danger">*</span>
                     </label>
                     <input type="text" class="form-control modern-input" id="Priority" name="Priority"
                            placeholder="Full name or role" required />
@@ -101,7 +98,7 @@
                 <div class="col-lg-3 col-md-6">
 
                     <label for="SourceOfIncident" class="form-label">
-                        <i class="bi bi-diagram-3 me-1 text-muted"></i>
+
                         Source of Incident
                         <span class="text-danger">*</span>
                     </label>
@@ -132,8 +129,8 @@
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <label class="form-label required-field" for="EventType">
-                        <i class="fas fa-user" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Event Type
+                        <span class="text-danger">*</span>
                     </label>
                     <input type="text" class="form-control modern-input" id="EventType" name="EventType"
                            placeholder="add event type" required />
@@ -141,8 +138,8 @@
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <label class="form-label required-field" for="BusinessLine">
-                        <i class="fas fa-user" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Business Line
+                        <span class="text-danger">*</span>
                     </label>
                     <input type="text" class="form-control modern-input" id="BusinessLine" name="BusinessLine"
                            placeholder="Full name or role" required />
@@ -150,14 +147,14 @@
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <label class="form-label required-field" for="BusinessActivity">
-                        <i class="fas fa-user" style="color: var(--gray-400); margin-right: 4px;"></i>
                         BusinessActivity
+                        <span class="text-danger">*</span>
                     </label>
                     <input type="text" class="form-control modern-input" id="BusinessActivity" name="BusinessActivity"
                            placeholder="Full name or role" required />
 
                 </div>
-                
+
             </div>
         </div>
 

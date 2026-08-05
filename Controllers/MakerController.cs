@@ -117,6 +117,70 @@ namespace RiskManagement.Controllers
 
             return Ok(risk);
         }
+        
+         [HttpPost("createrisk")]
+        public async Task<IActionResult> CreateRisk([FromForm] RiskRegistrationDto dto, [FromForm] IFormFile? file)
+        {
+
+            Console.WriteLine($"IdentifiedRisk: '{dto.IdentifiedRisk}'");
+            Console.WriteLine($"Probability: '{dto.Probability}'");
+
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
+            var riskId = await GenerateRiskId(dto.IdentifiedRisk);
+
+            if (string.IsNullOrEmpty(email))
+                return Unauthorized();
+
+            string? filePath = null;
+
+            if (file != null)
+            {
+                filePath = await _fileStorageService.SaveFileAsync(
+                    file,
+                    "RiskDocuments",
+                    true);
+            }
+
+            var risk = new RiskRegistration
+            {
+                RiskId = riskId,
+                RiskDate = dto.RiskDate,
+                IdentifiedRisk = dto.IdentifiedRisk,
+                SourceOfRisk = dto.SourceOfRisk,
+                RiskCategory = dto.RiskCategory,
+                RiskSubCategory = dto.RiskSubCategory,
+                RiskEvent = dto.RiskEvent,
+
+                RiskEventDescription = dto.RiskEventDescription,
+                Effect = dto.Effect,
+                Probability = dto.Probability,
+                ImpactLevel = dto.ImpactLevel,
+
+                InherentRiskRating = dto.InherentRiskRating,
+                ResidualRiskLevel = dto.ResidualRiskLevel,
+                ExistingRiskMitigation = dto.ExistingRiskMitigation,
+                MitigationRating = dto.MitigationRating,
+                Recommendation = dto.Recommendation,
+                MitigationPlannedDate = dto.MitigationPlannedDate,
+                RiskOwner = dto.RiskOwner,
+                Status = "pending",
+                RegisteredBy = email,   // 👈 secure source
+                RegisteredDate = DateTime.UtcNow,
+                FilePath = filePath,
+                BranchId = "0101",
+                BranchName = "Head Office",
+
+            };
+
+            _context.RiskRegistrations.Add(risk);
+            await _context.SaveChangesAsync();
+
+            return Ok(risk);
+        }
+ 
+        
+        
+        
         [HttpPost("editrisk")]
         public IActionResult Updaterisk([FromBody] RiskRegistration model)
         {
