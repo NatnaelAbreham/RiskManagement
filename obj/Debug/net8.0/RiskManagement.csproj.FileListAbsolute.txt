@@ -142,4 +142,3 @@ C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\obj\Debug\ne
 C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\obj\Debug\net8.0\RiskManagement.pdb
 C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\obj\Debug\net8.0\RiskManagement.genruntimeconfig.cache
 C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\obj\Debug\net8.0\ref\RiskManagement.dll
-C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

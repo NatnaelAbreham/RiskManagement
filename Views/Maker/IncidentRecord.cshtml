@@ -33,22 +33,18 @@
             <div class="row g-4">
 
                 <div class="col-lg-4 col-md-6">
-
                     <label for="IdentifiedRisk" class="form-label">
                         Identified Risk
                         <span class="text-danger">*</span>
                     </label>
 
                     <select id="IdentifiedRisk" name="IdentifiedRisk" class="form-select" required>
-
                         <option value="">Choose an identified risk...</option>
-
                     </select>
 
                     <div class="form-text">
                         Select the business area where the risk was identified.
                     </div>
-
                 </div>
 
                 <div class="col-lg-4 col-md-6">
@@ -56,18 +52,19 @@
                         Incident Name
                         <span class="text-danger">*</span>
                     </label>
-                    <input type="text" class="form-control modern-input" id="IncidentName" name="IncidentName"
-                           placeholder="Full name or role" required />
 
+                    <input type="text" class="form-control modern-input" id="IncidentName" name="IncidentName"
+                           placeholder="Enter incident name" required />
                 </div>
+
                 <div class="col-lg-4 col-md-6">
                     <label class="form-label required-field" for="IncidentOwner">
                         Incident Owner
                         <span class="text-danger">*</span>
                     </label>
-                    <input type="text" class="form-control modern-input" id="IncidentOwner" name="IncidentOwner"
-                           placeholder="Full name or role" required />
 
+                    <input type="text" class="form-control modern-input" id="IncidentOwner" name="IncidentOwner"
+                           placeholder="Enter incident owner" required />
                 </div>
 
                 <div class="col-lg-4 col-md-6">
@@ -75,101 +72,103 @@
                         Event Occurred Date
                         <span class="text-danger">*</span>
                     </label>
+
                     <input type="date" class="form-control modern-input" id="EventOccurredDate" name="EventOccurredDate"
                            required />
                 </div>
+
                 <div class="col-lg-4 col-md-6">
                     <label class="form-label required-field" for="EventEndedDate">
-                        Event Ended dDate
+                        Event Ended Date
                         <span class="text-danger">*</span>
                     </label>
+
                     <input type="date" class="form-control modern-input" id="EventEndedDate" name="EventEndedDate"
                            required />
                 </div>
+
                 <div class="col-lg-4 col-md-6">
                     <label class="form-label required-field" for="Priority">
                         Priority
                         <span class="text-danger">*</span>
                     </label>
+
                     <input type="text" class="form-control modern-input" id="Priority" name="Priority"
-                           placeholder="Full name or role" required />
-
+                           placeholder="Enter priority" required />
                 </div>
-                <div class="col-lg-3 col-md-6">
 
+                <div class="col-lg-4 col-md-6">
                     <label for="SourceOfIncident" class="form-label">
-
                         Source of Incident
                         <span class="text-danger">*</span>
                     </label>
 
                     <select id="SourceOfIncident" name="SourceOfIncident" class="form-select" required>
-
-                        <option value="">
-                            Choose the source of Incident...
-                        </option>
-
+                        <option value="">Choose the source of incident...</option>
                     </select>
 
                     <div class="form-text">
-                        Select the primary source from which the identified Incident originates.
+                        Select the primary source from which the incident originates.
                     </div>
-
                 </div>
-                <div class="col-12">
 
-                    <label class="form-label fw-semibold">
-                        Event Description
-                        <span class="text-danger">*</span>
-                    </label>
-
-                    <textarea class="form-control" rows="6" id="EventDescription"
-                              placeholder="Describe the identified Incident..."></textarea>
-
-                </div>
                 <div class="col-lg-4 col-md-6">
                     <label class="form-label required-field" for="EventType">
                         Event Type
                         <span class="text-danger">*</span>
                     </label>
-                    <input type="text" class="form-control modern-input" id="EventType" name="EventType"
-                           placeholder="add event type" required />
 
+                    <input type="text" class="form-control modern-input" id="EventType" name="EventType"
+                           placeholder="Enter event type" required />
                 </div>
+
                 <div class="col-lg-4 col-md-6">
                     <label class="form-label required-field" for="BusinessLine">
                         Business Line
                         <span class="text-danger">*</span>
                     </label>
-                    <input type="text" class="form-control modern-input" id="BusinessLine" name="BusinessLine"
-                           placeholder="Full name or role" required />
 
+                    <input type="text" class="form-control modern-input" id="BusinessLine" name="BusinessLine"
+                           placeholder="Enter business line" required />
                 </div>
+
                 <div class="col-lg-4 col-md-6">
                     <label class="form-label required-field" for="BusinessActivity">
-                        BusinessActivity
+                        Business Activity
                         <span class="text-danger">*</span>
                     </label>
-                    <input type="text" class="form-control modern-input" id="BusinessActivity" name="BusinessActivity"
-                           placeholder="Full name or role" required />
 
+                    <input type="text" class="form-control modern-input" id="BusinessActivity" name="BusinessActivity"
+                           placeholder="Enter business activity" required />
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label fw-semibold" for="EventDescription">
+                        Event Description
+                        <span class="text-danger">*</span>
+                    </label>
+
+                    <textarea class="form-control modern-input" rows="6" id="EventDescription" name="EventDescription"
+                              placeholder="Describe the incident in detail..." required></textarea>
                 </div>
 
             </div>
         </div>
 
-       
         <div class="wizard-footer">
 
             <button type="reset" class="btn btn-outline-secondary" id="clearFormBtn">
-                <i class="bi bi-arrow-counterclockwise me-2"></i>Clear Form
+                <i class="bi bi-arrow-counterclockwise me-2"></i>
+                Clear Form
             </button>
+
             <button type="submit" class="btn btn-success" id="submitRiskBtn">
-                <i class="bi bi-floppy me-2"></i>Record Incident
+                <i class="bi bi-floppy me-2"></i>
+                Record Incident
             </button>
+
         </div>
 
-   
     </form>
 
 </div>
