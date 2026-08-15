@@ -34,7 +34,7 @@
 
                 <div class="col-lg-4 col-md-6">
                     <label for="IdentifiedRisk" class="form-label">
-                        Identified Risk
+                        Business Area of Incident
                         <span class="text-danger">*</span>
                     </label>
 
@@ -92,9 +92,17 @@
                         Priority
                         <span class="text-danger">*</span>
                     </label>
+  <select id="priority" name="priority" class="form-select" required>
+                        <option value="">Choose priority...</option>
+                        <option value="Open">Open</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
 
-                    <input type="text" class="form-control modern-input" id="Priority" name="Priority"
-                           placeholder="Enter priority" required />
+                    <div class="form-text">
+                        Select priority.
+                    </div>
+                    
                 </div>
 
                 <div class="col-lg-4 col-md-6">
@@ -103,13 +111,10 @@
                         <span class="text-danger">*</span>
                     </label>
 
-                    <select id="SourceOfIncident" name="SourceOfIncident" class="form-select" required>
-                        <option value="">Choose the source of incident...</option>
-                    </select>
-
-                    <div class="form-text">
-                        Select the primary source from which the incident originates.
-                    </div>
+                  
+                    <input type="text" class="form-control modern-input" id="SourceOfIncident" name="SourceOfIncident"
+                           placeholder="Enter Event Cause" required />
+              
                 </div>
 
                 <div class="col-lg-4 col-md-6">
@@ -150,6 +155,18 @@
 
                     <textarea class="form-control modern-input" rows="6" id="EventDescription" name="EventDescription"
                               placeholder="Describe the incident in detail..." required></textarea>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <label class="form-label" for="Status">
+                        <i class="fas fa-flag" style="color: var(--gray-400); margin-right: 4px;"></i>
+                        Status
+                    </label>
+                    <select class="form-select modern-input" id="Status" name="Status">
+                        <option value="Open">Open</option>
+                        <option value="InProgress">In Progress</option>
+                        <option value="Closed">Closed</option>
+                    </select>
                 </div>
 
             </div>
