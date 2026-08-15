@@ -23,6 +23,23 @@ IdentifiedRisks.forEach(risk => {
 const form = document.getElementById("createIncidentForm");
 const modalDiv = document.getElementById("responseModal");
 
+const lossAmount = document.getElementById("LossAmount");
+const recoveryAmount = document.getElementById("RecoveryAmount");
+const netLossAmount = document.getElementById("NetLossAmount");
+
+function calculateNetLoss() {
+    const loss = parseFloat(lossAmount.value) || 0;
+    const recovery = parseFloat(recoveryAmount.value) || 0;
+
+    const netLoss = Math.max(0, loss - recovery);
+
+    netLossAmount.value = netLoss.toFixed(2);
+}
+
+lossAmount.addEventListener("input", calculateNetLoss);
+recoveryAmount.addEventListener("input", calculateNetLoss);
+
+
 form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
