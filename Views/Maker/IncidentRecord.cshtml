@@ -92,7 +92,7 @@
                         Priority
                         <span class="text-danger">*</span>
                     </label>
-  <select id="priority" name="priority" class="form-select" required>
+                    <select id="priority" name="priority" class="form-select" required>
                         <option value="">Choose priority...</option>
                         <option value="Open">Open</option>
                         <option value="Medium">Medium</option>
@@ -102,7 +102,7 @@
                     <div class="form-text">
                         Select priority.
                     </div>
-                    
+
                 </div>
 
                 <div class="col-lg-4 col-md-6">
@@ -114,7 +114,7 @@
                   
                     <input type="text" class="form-control modern-input" id="SourceOfIncident" name="SourceOfIncident"
                            placeholder="Enter Event Cause" required />
-              
+
                 </div>
 
                 <div class="col-lg-4 col-md-6">
@@ -157,12 +157,78 @@
                               placeholder="Describe the incident in detail..." required></textarea>
                 </div>
 
+
+                <!-- Loss Type -->
+                <div class="col-lg-4 col-md-6">
+                    <label class="form-label required-field" for="LossType">
+                        Loss Type
+                        <span class="text-danger">*</span>
+                    </label>
+
+                    <input type="text" class="form-control modern-input" id="LossType" name="LossType"
+                           placeholder="Enter loss type" required />
+                </div>
+
+                <!-- Loss Date -->
+                <div class="col-lg-4 col-md-6">
+                    <label class="form-label required-field" for="LossDate">
+                        Loss Date
+                        <span class="text-danger">*</span>
+                    </label>
+
+                    <input type="date" class="form-control modern-input" id="LossDate" name="LossDate" required />
+                </div>
+
+                <!-- Insurance -->
+                <div class="col-lg-4 col-md-6">
+                    <label class="form-label required-field" for="Insurance">
+                        Insurance
+                        <span class="text-danger">*</span>
+                    </label>
+
+                    <input type="text" class="form-control modern-input" id="Insurance" name="Insurance"
+                           placeholder="Enter insurance details" required />
+                </div>
+
+                <!-- Loss Amount -->
+                <div class="col-lg-4 col-md-6">
+                    <label class="form-label required-field" for="LossAmount">
+                        Loss Amount
+                        <span class="text-danger">*</span>
+                    </label>
+
+                    <input type="number" class="form-control modern-input" id="LossAmount" name="LossAmount"
+                           placeholder="Enter loss amount" min="0" step="0.01" required />
+                </div>
+
+                <!-- Recovery Amount -->
+                <div class="col-lg-4 col-md-6">
+                    <label class="form-label required-field" for="RecoveryAmount">
+                        Recovery Amount
+                        <span class="text-danger">*</span>
+                    </label>
+
+                    <input type="number" class="form-control modern-input" id="RecoveryAmount" name="RecoveryAmount"
+                           placeholder="Enter recovery amount" min="0" step="0.01" required />
+                </div>
+
+                <!-- Net Loss Amount -->
+                <div class="col-lg-4 col-md-6">
+                    <label class="form-label required-field" for="NetLossAmount">
+                        Net Loss Amount
+                    </label>
+
+                    <input type="number" class="form-control modern-input" id="NetLossAmount" name="NetLossAmount"
+                           placeholder="Calculated automatically" step="0.01" readonly />
+                </div>
+
                 <div class="col-lg-4 col-md-6">
                     <label class="form-label" for="Status">
                         <i class="fas fa-flag" style="color: var(--gray-400); margin-right: 4px;"></i>
                         Status
                     </label>
                     <select class="form-select modern-input" id="Status" name="Status">
+                        <option value="">Choose Status...</option>
                         <option value="Open">Open</option>
                         <option value="InProgress">In Progress</option>
                         <option value="Closed">Closed</option>
