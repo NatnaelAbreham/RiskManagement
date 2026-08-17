@@ -45,6 +45,10 @@ form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const data = {
+        // =========================
+        // Incident Information
+        // =========================
+
         IdentifiedRisk: document.getElementById("IdentifiedRisk").value,
 
         IncidentName: document.getElementById("IncidentName").value,
@@ -65,7 +69,48 @@ form.addEventListener("submit", async function (e) {
 
         BusinessLine: document.getElementById("BusinessLine").value,
 
-        BusinessActivity: document.getElementById("BusinessActivity").value
+        BusinessActivity: document.getElementById("BusinessActivity").value,
+
+
+        // =========================
+        // Impact Parameters
+        // =========================
+
+        LossType: document.getElementById("LossType").value,
+
+        LossDate: document.getElementById("LossDate").value,
+
+        Insurance: document.getElementById("Insurance").value,
+
+        LossAmount: document.getElementById("LossAmount").value,
+
+        RecoveryAmount: document.getElementById("RecoveryAmount").value,
+
+        NetLossAmount: document.getElementById("NetLossAmount").value,
+
+
+        // =========================
+        // Mitigation
+        // =========================
+
+        MitigationAction: document.getElementById("MitigationAction").value,
+
+        ActionType: document.getElementById("ActionType").value,
+
+        ResponsiblePerson: document.getElementById("ResponsiblePerson").value,
+
+        MitigationDescription: document.getElementById("MitigationDescription").value,
+
+        MitigationStartDate: document.getElementById("MitigationStartDate").value,
+
+        MitigationEndDate: document.getElementById("MitigationEndDate").value,
+
+
+        // =========================
+        // Status
+        // =========================
+
+        Status: document.getElementById("Status").value
     };
     console.log(data);
     const response = await fetch("/Maker/createincident", {

@@ -119,20 +119,23 @@ namespace RiskManagement.Controllers
         }
 
         [HttpPost("createincident")]
-        public async Task<IActionResult> CreateIncident([FromBody] IncidentRegistrationDto dto)
+        public async Task<IActionResult> CreateIncident(
+        [FromBody] IncidentRegistrationDto dto)
         {
-
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
-            var IncidentId = await GenerateRiskId(dto.IdentifiedRisk);
 
             if (string.IsNullOrEmpty(email))
                 return Unauthorized();
 
-
+            var incidentId = await GenerateRiskId(dto.IdentifiedRisk);
 
             var incident = new IncidentRegistration
             {
-                IncidentId = IncidentId,
+                // =========================
+                // Incident Information
+                // =========================
+
+                IncidentId = incidentId,
 
                 IdentifiedRisk = dto.IdentifiedRisk,
 
@@ -156,21 +159,72 @@ namespace RiskManagement.Controllers
 
                 BusinessActivity = dto.BusinessActivity,
 
-                RegisteredBy = email, // secure source
+
+                // =========================
+                // Impact Parameters
+                // =========================
+
+                LossType = dto.LossType,
+
+                LossDate = dto.LossDate,
+
+                Insurance = dto.Insurance,
+
+                LossAmount = dto.LossAmount,
+
+                RecoveryAmount = dto.RecoveryAmount,
+
+                // Calculate on the server
+                NetLossAmount = (dto.LossAmount ?? 0) - (dto.RecoveryAmount ?? 0),
+
+
+                // =========================
+                // Mitigation
+                // =========================
+
+                MitigationAction = dto.MitigationAction,
+
+                ActionType = dto.ActionType,
+
+                ResponsiblePerson = dto.ResponsiblePerson,
+
+                MitigationDescription = dto.MitigationDescription,
+
+                MitigationStartDate = dto.MitigationStartDate,
+
+                MitigationEndDate = dto.MitigationEndDate,
+
+
+                // =========================
+                // Status
+                // =========================
+
+                Status = dto.Status,
+
+
+                // =========================
+                // Registration Information
+                // =========================
+
+                RegisteredBy = email,
+
                 RegisteredDate = DateTime.UtcNow,
 
                 BranchId = "0101",
+
                 BranchName = "Head Office",
 
                 ApprovedBy = null,
+
                 ApprovedDate = null
             };
+
             _context.IncidentRecords.Add(incident);
+
             await _context.SaveChangesAsync();
 
             return Ok(incident);
         }
-
 
 
 
