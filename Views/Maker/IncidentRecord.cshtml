@@ -241,20 +241,109 @@
 
                     </div>
                 </div>
+                <!-- Mitigation -->
+                <div class="mt-4">
 
-                <div class="col-lg-4 col-md-6">
-                    <label class="form-label" for="Status">
-                        <i class="fas fa-flag" style="color: var(--gray-400); margin-right: 4px;"></i>
-                        Status
-                    </label>
-                    <select class="form-select modern-input" id="Status" name="Status">
-                        <option value="">Choose Status...</option>
-                        <option value="Open">Open</option>
-                        <option value="InProgress">In Progress</option>
-                        <option value="Closed">Closed</option>
-                    </select>
+                    <div class="section-header mb-3">
+                        <h5 class="mb-0">
+                            <i class="bi bi-shield-check me-2"></i>
+                            Mitigation
+                        </h5>
+                        <div class="text-muted small">
+                            Define the actions required to address and reduce the impact of the incident.
+                        </div>
+                    </div>
+
+                    <div class="row g-4">
+
+                        <!-- Mitigation Action -->
+                        <div class="col-lg-4 col-md-6">
+                            <label for="MitigationAction" class="form-label required-field">
+                                Mitigation Action
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <select id="MitigationAction" name="MitigationAction" class="form-select" required>
+                                <option value="">Choose mitigation action...</option>
+                                <option value="No Action">No Action</option>
+                                <option value="Corrective">Corrective</option>
+                                <option value="Preventive">Preventive</option>
+                            </select>
+                        </div>
+
+                        <!-- Action Type -->
+                        <div class="col-lg-4 col-md-6">
+                            <label class="form-label required-field" for="ActionType">
+                                Action Type
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <input type="text" class="form-control modern-input" id="ActionType" name="ActionType"
+                                   placeholder="Enter action type" required />
+                        </div>
+
+                        <!-- Responsible Person -->
+                        <div class="col-lg-4 col-md-6">
+                            <label class="form-label required-field" for="ResponsiblePerson">
+                                Responsible Person
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <input type="text" class="form-control modern-input" id="ResponsiblePerson"
+                                   name="ResponsiblePerson" placeholder="Enter responsible person" required />
+                        </div>
+
+                        <!-- Start Date -->
+                        <div class="col-lg-4 col-md-6">
+                            <label class="form-label required-field" for="MitigationStartDate">
+                                Start Date
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <input type="date" class="form-control modern-input" id="MitigationStartDate"
+                                   name="MitigationStartDate" required />
+                        </div>
+
+                        <!-- End Date -->
+                        <div class="col-lg-4 col-md-6">
+                            <label class="form-label required-field" for="MitigationEndDate">
+                                End Date
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <input type="date" class="form-control modern-input" id="MitigationEndDate"
+                                   name="MitigationEndDate" required />
+                        </div>
+
+                        <!-- Description -->
+                        <div class="col-12">
+                            <label class="form-label required-field" for="MitigationDescription">
+                                Description
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <textarea class="form-control modern-input" rows="5" id="MitigationDescription"
+                                      name="MitigationDescription" placeholder="Describe the mitigation action in detail..."
+                                      required></textarea>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6">
+                            <label class="form-label" for="Status">
+                                <i class="fas fa-flag" style="color: var(--gray-400); margin-right: 4px;"></i>
+                                Status
+                            </label>
+                            <select class="form-select modern-input" id="Status" name="Status">
+                                <option value="">Choose Status...</option>
+                                <option value="Open">Open</option>
+                                <option value="InProgress">In Progress</option>
+                                <option value="Closed">Closed</option>
+                            </select>
+                        </div>
+
+                    </div>
                 </div>
 
+                
             </div>
         </div>
 
