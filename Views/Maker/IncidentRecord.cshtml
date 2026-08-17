@@ -158,68 +158,88 @@
                 </div>
 
 
-                <!-- Loss Type -->
-                <div class="col-lg-4 col-md-6">
-                    <label class="form-label required-field" for="LossType">
-                        Loss Type
-                        <span class="text-danger">*</span>
-                    </label>
+                <!-- Impact Parameters -->
+                <div class="mt-4">
 
-                    <input type="text" class="form-control modern-input" id="LossType" name="LossType"
-                           placeholder="Enter loss type" required />
-                </div>
+                    <div class="section-header mb-3">
+                        <h5 class="mb-0">
+                            <i class="bi bi-bar-chart-line me-2"></i>
+                            Impact Parameters
+                        </h5>
+                        <div class="text-muted small">
+                            Record the financial and insurance impact of the incident.
+                        </div>
+                    </div>
 
-                <!-- Loss Date -->
-                <div class="col-lg-4 col-md-6">
-                    <label class="form-label required-field" for="LossDate">
-                        Loss Date
-                        <span class="text-danger">*</span>
-                    </label>
+                    <div class="row g-4">
 
-                    <input type="date" class="form-control modern-input" id="LossDate" name="LossDate" required />
-                </div>
+                        <!-- Loss Type -->
+                        <div class="col-lg-4 col-md-6">
+                            <label class="form-label required-field" for="LossType">
+                                Loss Type
+                                <span class="text-danger">*</span>
+                            </label>
 
-                <!-- Insurance -->
-                <div class="col-lg-4 col-md-6">
-                    <label class="form-label required-field" for="Insurance">
-                        Insurance
-                        <span class="text-danger">*</span>
-                    </label>
+                            <input type="text" class="form-control modern-input" id="LossType" name="LossType"
+                                   placeholder="Enter loss type" required />
+                        </div>
 
-                    <input type="text" class="form-control modern-input" id="Insurance" name="Insurance"
-                           placeholder="Enter insurance details" required />
-                </div>
+                        <!-- Loss Date -->
+                        <div class="col-lg-4 col-md-6">
+                            <label class="form-label required-field" for="LossDate">
+                                Loss Date
+                                <span class="text-danger">*</span>
+                            </label>
 
-                <!-- Loss Amount -->
-                <div class="col-lg-4 col-md-6">
-                    <label class="form-label required-field" for="LossAmount">
-                        Loss Amount
-                        <span class="text-danger">*</span>
-                    </label>
+                            <input type="date" class="form-control modern-input" id="LossDate" name="LossDate"
+                                   required />
+                        </div>
 
-                    <input type="number" class="form-control modern-input" id="LossAmount" name="LossAmount"
-                           placeholder="Enter loss amount" min="0" step="0.01" required />
-                </div>
+                        <!-- Insurance -->
+                        <div class="col-lg-4 col-md-6">
+                            <label class="form-label required-field" for="Insurance">
+                                Insurance
+                                <span class="text-danger">*</span>
+                            </label>
 
-                <!-- Recovery Amount -->
-                <div class="col-lg-4 col-md-6">
-                    <label class="form-label required-field" for="RecoveryAmount">
-                        Recovery Amount
-                        <span class="text-danger">*</span>
-                    </label>
+                            <input type="text" class="form-control modern-input" id="Insurance" name="Insurance"
+                                   placeholder="Enter insurance details" required />
+                        </div>
 
-                    <input type="number" class="form-control modern-input" id="RecoveryAmount" name="RecoveryAmount"
-                           placeholder="Enter recovery amount" min="0" step="0.01" required />
-                </div>
+                        <!-- Loss Amount -->
+                        <div class="col-lg-4 col-md-6">
+                            <label class="form-label required-field" for="LossAmount">
+                                Loss Amount
+                                <span class="text-danger">*</span>
+                            </label>
 
-                <!-- Net Loss Amount -->
-                <div class="col-lg-4 col-md-6">
-                    <label class="form-label required-field" for="NetLossAmount">
-                        Net Loss Amount
-                    </label>
+                            <input type="number" class="form-control modern-input" id="LossAmount" name="LossAmount"
+                                   placeholder="Enter loss amount" min="0" step="0.01" required />
+                        </div>
 
-                    <input type="number" class="form-control modern-input" id="NetLossAmount" name="NetLossAmount"
-                           placeholder="Calculated automatically" step="0.01" readonly />
+                        <!-- Recovery Amount -->
+                        <div class="col-lg-4 col-md-6">
+                            <label class="form-label required-field" for="RecoveryAmount">
+                                Recovery Amount
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <input type="number" class="form-control modern-input" id="RecoveryAmount"
+                                   name="RecoveryAmount" placeholder="Enter recovery amount" min="0" step="0.01"
+                                   required />
+                        </div>
+
+                        <!-- Net Loss Amount -->
+                        <div class="col-lg-4 col-md-6">
+                            <label class="form-label" for="NetLossAmount">
+                                Net Loss Amount
+                            </label>
+
+                            <input type="number" class="form-control modern-input" id="NetLossAmount"
+                                   name="NetLossAmount" placeholder="Calculated automatically" step="0.01" readonly />
+                        </div>
+
+                    </div>
                 </div>
 
                 <div class="col-lg-4 col-md-6">

@@ -251,7 +251,14 @@ textarea.form-control {
     transition: all 0.6s ease;
 }
 
+.section-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
 
+.section-header h5 {
+    font-weight: 600;
+}
 
 /* =========================================
    Responsive
