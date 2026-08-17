@@ -1,12 +1,12 @@
 const sourceOfIncidentSelect = document.getElementById("SourceOfIncident");
 
-Causes.forEach(source => {
+/* Causes.forEach(source => {
 
     sourceOfIncidentSelect.add(
         new Option(source.text, source.value)
     );
 
-});
+}); */
 
 const identifiedRiskSelect = document.getElementById("IdentifiedRisk");
 
@@ -26,6 +26,7 @@ const modalDiv = document.getElementById("responseModal");
 const lossAmount = document.getElementById("LossAmount");
 const recoveryAmount = document.getElementById("RecoveryAmount");
 const netLossAmount = document.getElementById("NetLossAmount");
+
 
 function calculateNetLoss() {
     const loss = parseFloat(lossAmount.value) || 0;
