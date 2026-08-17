@@ -112,7 +112,7 @@ form.addEventListener("submit", async function (e) {
 
         Status: document.getElementById("Status").value
     };
-    console.log(data);
+    console.log("daa",data);
     const response = await fetch("/Maker/createincident", {
         method: "POST",
         headers: {
