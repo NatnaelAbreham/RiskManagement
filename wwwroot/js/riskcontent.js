@@ -164,13 +164,13 @@ const riskCategories = {
 
 };
 
-const Probabilities = [
+/* const Probabilities = [
   { value: "Rare", text: "Rare", score: 1 },
   { value: "Unlikely", text: "Unlikely", score: 2 },
   { value: "Possible", text: "Possible", score: 3 },
   { value: "Likely", text: "Likely", score: 4 },
   { value: "AlmostCertain", text: "Almost Certain", score: 5 }
-];
+]; */
 
 const Causes = [
   { value: "AbsenceOfInternalControl", text: "Absence Of Internal Control" },
@@ -244,13 +244,13 @@ const RiskCategories = [
 ];
 
 
-const ImpactLevels = [
+/* const ImpactLevels = [
   { value: "VeryLow", text: "Very Low", score: 1 },
   { value: "Low", text: "Low", score: 2 },
   { value: "Medium", text: "Medium", score: 3 },
   { value: "High", text: "High", score: 4 },
   { value: "VeryHigh", text: "Very High", score: 5 }
-];
+]; */
 
 
 const RiskRatings = [
@@ -277,7 +277,7 @@ const MitigationRatings = [
   { value: "VeryStrong", text: "Very Strong" }
 ];
 
-const RiskMatrix = {
+/* const RiskMatrix = {
 
   Rare: {
     VeryLow: "Very Low",
@@ -319,7 +319,7 @@ const RiskMatrix = {
     VeryHigh: "Very High"
   }
 
-};
+}; */
 const ResidualRiskMatrix = {
 
   "Very High": {
@@ -363,5 +363,26 @@ const ResidualRiskMatrix = {
   }
 
 };
+
+
+
+
+/* new inherent risk calculation */
+
+const Probabilities = [
+  { value: "Rare", text: "Rare /1/", score: 1 },
+  { value: "Unlikely", text: "Unlikely /2/", score: 2 },
+  { value: "Possible", text: "Possible /3/", score: 3 },
+  { value: "Likely", text: "Likely /4/", score: 4 },
+  { value: "AlmostCertain", text: "Almost Certain /5/", score: 5 }
+];
+
+const ImpactLevels = [
+  { value: "VeryLow", text: "Very Low /1/", score: 1 },
+  { value: "Low", text: "Low /2/", score: 2 },
+  { value: "Medium", text: "Medium /3/", score: 3 },
+  { value: "High", text: "High /4/", score: 4 },
+  { value: "VeryHigh", text: "Very High /5/", score: 5 }
+];
 
 

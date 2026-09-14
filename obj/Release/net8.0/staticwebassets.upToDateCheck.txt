@@ -4,7 +4,7 @@ wwwroot\css\dashboardlayout.css
 wwwroot\css\login.css
 wwwroot\css\main.css
 wwwroot\css\modal.css
-wwwroot\css\register.css
+wwwroot\js\incidentregistration.js
 wwwroot\css\register1.css
 wwwroot\css\toggle.css
 wwwroot\css\view.css
@@ -20,7 +20,7 @@ wwwroot\js\buttons.print.min.js
 wwwroot\js\dashboard.js
 wwwroot\js\editrisk.js
 wwwroot\js\edituser.js
-wwwroot\js\incidentregistration.js
+wwwroot\css\register.css
 wwwroot\js\login.js
 wwwroot\js\pdfmake.min.js
 wwwroot\js\reason.js
