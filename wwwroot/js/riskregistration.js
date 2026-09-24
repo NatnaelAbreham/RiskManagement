@@ -223,6 +223,9 @@ function updateRiskRating() {
   // Apply rating color
   switch (inherentRiskRating) {
 
+    case "VeryLow":
+      badge.classList.add("risk-Very-low");
+      break;
     case "Low":
       badge.classList.add("risk-low");
       break;
