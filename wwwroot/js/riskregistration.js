@@ -200,7 +200,10 @@ function updateRiskRating() {
     probabilityScore * impactScore;
 
   // Determine risk rating
-  if (inherentRiskScore >= 1 && inherentRiskScore <= 4) {
+  if (inherentRiskScore == 1 ) {
+    inherentRiskRating = "Very Low";
+  }
+  else if (inherentRiskScore > 1 && inherentRiskScore <= 4) {
     inherentRiskRating = "Low";
   }
   else if (inherentRiskScore >= 5 && inherentRiskScore <= 9) {
