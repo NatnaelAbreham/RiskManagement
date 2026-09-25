@@ -223,25 +223,26 @@ function updateRiskRating() {
   // Apply rating color
   switch (inherentRiskRating) {
 
-    case "VeryLow":
-      badge.classList.add("risk-Very-low");
-      break;
-    case "Low":
-      badge.classList.add("risk-low");
-      break;
+  case "Very Low":
+    badge.classList.add("risk-very-low");
+    break;
 
-    case "Moderate":
-      badge.classList.add("risk-medium");
-      break;
+  case "Low":
+    badge.classList.add("risk-low");
+    break;
 
-    case "High":
-      badge.classList.add("risk-high");
-      break;
+  case "Moderate":
+    badge.classList.add("risk-medium");
+    break;
 
-    case "Very High":
-      badge.classList.add("risk-very-high");
-      break;
-  }
+  case "High":
+    badge.classList.add("risk-high");
+    break;
+
+  case "Very High":
+    badge.classList.add("risk-very-high");
+    break;
+}
 
   // Display rating and score
   badge.textContent =

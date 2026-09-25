@@ -321,7 +321,6 @@ const MitigationRatings = [
 
 }; */
 const ResidualRiskMatrix = {
-
   "Very High": {
     VeryWeak: "Very High",
     Weak: "Very High",
@@ -338,10 +337,10 @@ const ResidualRiskMatrix = {
     VeryStrong: "Low"
   },
 
-  "Medium": {
-    VeryWeak: "Medium",
-    Weak: "Medium",
-    Moderate: "Medium",
+  "Moderate": {
+    VeryWeak: "Moderate",
+    Weak: "Moderate",
+    Moderate: "Moderate",
     Strong: "Low",
     VeryStrong: "Very Low"
   },
@@ -361,7 +360,6 @@ const ResidualRiskMatrix = {
     Strong: "Very Low",
     VeryStrong: "Very Low"
   }
-
 };
 
 
