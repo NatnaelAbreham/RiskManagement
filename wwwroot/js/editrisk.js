@@ -3,46 +3,6 @@ const fieldsToShow = [
     { key: "RiskId", label: "Risk ID" },
     { key: "RegisteredDate", label: "Registered Date" },
     { key: "RiskDate", label: "Risk Date" },
-    { key: "IdentifiedRisk", label: "Identified Risk" },
-    { key: "SourceOfRisk", label: "Source of Risk" },
-    { key: "RiskCategory", label: "Risk Category" },
-    { key: "RiskSubCategory", label: "Risk Sub Category" },
-    { key: "RiskEvent", label: "Risk Event" },
-    { key: "RiskEventDescription", label: "Risk Event Description" },
-
-    // SECTION 2: RISK ASSESSMENT
-    { key: "Effect", label: "Effect" },
-    { key: "Probability", label: "Probability" },
-    { key: "ImpactLevel", label: "Impact Level" },
-    { key: "InherentRiskRating", label: "Inherent Risk Rating" },
-    { key: "ResidualRiskLevel", label: "Residual Risk Level" },
-
-    // SECTION 3: MITIGATION & CONTROLS
-    { key: "ExistingRiskMitigation", label: "Existing Risk Mitigation" },
-    { key: "MitigationRating", label: "Mitigation Rating" },
-    { key: "Recommendation", label: "Recommendation" },
-    { key: "MitigationPlannedDate", label: "Mitigation Planned Date" },
-
-    // SECTION 4: OWNERSHIP & STATUS
-    { key: "RiskOwner", label: "Risk Owner" },
-    { key: "Status", label: "Status" },
-
-    // SECTION 5: APPROVAL & REGISTRATION
-    { key: "RegisteredBy", label: "Registered By" },
-    { key: "ApprovedBy", label: "Approved By" },
-    { key: "ApprovedDate", label: "Approved Date" },
-
-    // SECTION 6: BRANCH INFORMATION
-    { key: "BranchId", label: "Branch ID" },
-    { key: "BranchName", label: "Branch Name" },
-
-    // SECTION 7: ATTACHMENT
-    { key: "FilePath", label: "File Path" },
-];const fieldsToShow1 = [
-    // SECTION 1: RISK INFORMATION
-    { key: "RiskId", label: "Risk ID" },
-    { key: "RegisteredDate", label: "Registered Date" },
-    { key: "RiskDate", label: "Risk Date" },
     /*{ key: "IdentifiedRisk", label: "Identified Risk" },*/
     { key: "SourceOfRisk", label: "Source of Risk" },
     { key: "RiskCategory", label: "Risk Category" },
