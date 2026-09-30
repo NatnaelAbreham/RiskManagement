@@ -1221,22 +1221,96 @@ function initializeEditRiskCalculation(
         selectedMitigation;
 
 
-    // Recalculate from the actual selected values.
+    // ============================================================
+    // INITIALIZE WITH EXISTING VALUES
+    // ============================================================
+
+    probabilitySelect.value = selectedProbability;
+    impactSelect.value = selectedImpact;
+    mitigationSelect.value = selectedMitigation;
+
+
+    // Recalculate using the actual selected values.
     updateRiskRating();
 
-    // If calculation cannot be reproduced for some reason,
-    // preserve the existing backend values.
+
+    // ============================================================
+    // FALLBACK TO EXISTING BACKEND VALUES
+    // ============================================================
+
     if (!inherentInput.value && existingInherent) {
-        inherentInput.value =
-            existingInherent;
+
+        inherentInput.value = existingInherent;
+
+        // Apply the same badge color used by registration
+        badge.className =
+            "badge fs-6 px-4 py-3 rounded-pill risk-badge";
+
+        switch (existingInherent) {
+
+            case "Very Low":
+                badge.classList.add("risk-very-low");
+                break;
+
+            case "Low":
+                badge.classList.add("risk-low");
+                break;
+
+            case "Moderate":
+                badge.classList.add("risk-medium");
+                break;
+
+            case "High":
+                badge.classList.add("risk-high");
+                break;
+
+            case "Very High":
+                badge.classList.add("risk-very-high");
+                break;
+        }
+
+        badge.textContent = existingInherent;
     }
+
 
     if (!residualInput.value && existingResidual) {
-        residualInput.value =
-            existingResidual;
+
+        residualInput.value = existingResidual;
+
+        // Apply the same badge color used by registration
+        residualBadge.className =
+            "badge fs-6 px-4 py-3 rounded-pill risk-badge";
+
+        switch (existingResidual) {
+
+            case "Very Low":
+                residualBadge.classList.add("risk-very-low");
+                break;
+
+            case "Low":
+                residualBadge.classList.add("risk-low");
+                break;
+
+            case "Medium":
+                residualBadge.classList.add("risk-medium");
+                break;
+
+            case "High":
+                residualBadge.classList.add("risk-high");
+                break;
+
+            case "Very High":
+                residualBadge.classList.add("risk-very-high");
+                break;
+        }
+
+        residualBadge.textContent = existingResidual;
     }
 
+
+    // Update recommendation section
     if (residualInput.value) {
+
         updateRecommendationVisibility(
             residualInput.value
         );
