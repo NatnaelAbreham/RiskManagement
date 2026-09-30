@@ -228,7 +228,7 @@ namespace RiskManagement.Controllers
 
 
 
-        [HttpPost("editrisk")]
+         [HttpPost("editrisk")]
         public IActionResult Updaterisk([FromBody] RiskRegistration model)
         {
             if (!ModelState.IsValid)
