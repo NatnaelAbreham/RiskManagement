@@ -5,6 +5,7 @@
 @section Styles {
     <link href="~/css/register.css" rel="stylesheet" />
     <link href="~/css/view.css" rel="stylesheet" />
+    <link href="~/css/editmodal.css" rel="stylesheet" />
 }
 @section Scripts {
     <script src="~/js/riskcontent.js"></script>
@@ -145,24 +146,45 @@
 
 
 <!-- Modal Body -->
+<!-- Edit Risk Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+
     <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-top-safe">
-        <div class="modal-content">
+
+        <div class="modal-content risk-edit-modal">
 
             <!-- Header -->
-            <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Edit Information</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <div class="modal-header risk-edit-header">
+
+                <div class="risk-edit-title">
+                    <div class="risk-edit-icon">
+                        <i class="bi bi-pencil-square"></i>
+                    </div>
+
+                    <div>
+                        <h5 class="modal-title" id="editModalLabel">
+                            Edit Risk Information
+                        </h5>
+
+                        <small>
+                            Update the risk details and assessment
+                        </small>
+                    </div>
+                </div>
+
+                <button type="button" class="btn-close risk-edit-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+
             </div>
 
             <!-- Body -->
-            <div class="modal-body">
+            <div class="modal-body risk-edit-body">
                 <div class="row" id="editModalContent"></div>
             </div>
 
-            <!-- Dynamic Footer -->
-           <div class="modal-footer justify-content-center" id="editModalFooter">
-                <!-- Buttons will be added by JavaScript -->
+            <!-- Footer -->
+            <div class="modal-footer risk-edit-footer" id="editModalFooter">
+                <!-- Buttons added by JavaScript -->
             </div>
 
         </div>
