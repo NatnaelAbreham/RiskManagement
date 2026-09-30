@@ -1468,7 +1468,7 @@ document.addEventListener(
                 MitigationPlannedDate:
                     document.getElementById(
                         "EditMitigationPlannedDate"
-                    ).value,
+                    ).value || null,
 
                 RiskOwner:
                     document.getElementById(
