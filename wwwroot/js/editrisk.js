@@ -1386,94 +1386,63 @@ document.addEventListener(
             // BUILD COMPLETE OBJECT
             // ====================================================
 
+            const mitigationDateElement =
+                document.getElementById("EditMitigationPlannedDate");
+
             const updatedData = {
 
                 RiskId: riskId,
 
                 RiskDate:
-                    document.getElementById(
-                        "EditRiskDate"
-                    ).value,
+                    document.getElementById("EditRiskDate").value,
 
                 IdentifiedRisk:
-                    document.getElementById(
-                        "EditIdentifiedRisk"
-                    ).value,
+                    document.getElementById("EditIdentifiedRisk").value,
 
                 SourceOfRisk:
-                    document.getElementById(
-                        "EditSourceOfRisk"
-                    ).value,
+                    document.getElementById("EditSourceOfRisk").value,
 
                 RiskCategory:
-                    document.getElementById(
-                        "EditRiskCategory"
-                    ).value,
+                    document.getElementById("EditRiskCategory").value,
 
                 RiskSubCategory:
-                    document.getElementById(
-                        "EditRiskSubCategory"
-                    ).value,
+                    document.getElementById("EditRiskSubCategory").value,
 
                 RiskEvent:
-                    document.getElementById(
-                        "EditRiskEvent"
-                    ).value,
+                    document.getElementById("EditRiskEvent").value,
 
                 RiskEventDescription:
-                    document.getElementById(
-                        "EditRiskDescription"
-                    ).value,
+                    document.getElementById("EditRiskDescription").value,
 
                 Effect:
-                    document.getElementById(
-                        "EditEffect"
-                    ).value,
+                    document.getElementById("EditEffect").value,
 
                 Probability:
-                    document.getElementById(
-                        "EditProbability"
-                    ).value,
+                    document.getElementById("EditProbability").value,
 
                 ImpactLevel:
-                    document.getElementById(
-                        "EditImpactLevel"
-                    ).value,
+                    document.getElementById("EditImpactLevel").value,
 
                 InherentRiskRating:
-                    document.getElementById(
-                        "EditInherentRiskRating"
-                    ).value,
+                    document.getElementById("EditInherentRiskRating").value,
 
                 ResidualRiskLevel:
-                    document.getElementById(
-                        "EditResidualRiskLevel"
-                    ).value,
+                    document.getElementById("EditResidualRiskLevel").value,
 
                 ExistingRiskMitigation:
-                    document.getElementById(
-                        "EditExistingMitigation"
-                    ).value,
+                    document.getElementById("EditExistingMitigation").value,
 
                 MitigationRating:
-                    document.getElementById(
-                        "EditMitigationRating"
-                    ).value,
+                    document.getElementById("EditMitigationRating").value,
 
                 Recommendation:
-                    document.getElementById(
-                        "EditRecommendation"
-                    ).value,
+                    document.getElementById("EditRecommendation").value || null,
 
                 MitigationPlannedDate:
-                    document.getElementById(
-                        "EditMitigationPlannedDate"
-                    ).value || null,
+                    mitigationDateElement.value || null,
 
                 RiskOwner:
-                    document.getElementById(
-                        "EditRiskOwner"
-                    ).value
+                    document.getElementById("EditRiskOwner").value
             };
 
 
@@ -1510,22 +1479,25 @@ document.addEventListener(
 
                 if (!response.ok) {
 
+                    console.error("Backend error:", result);
+
                     console.error(
-                        "Backend error:",
-                        result
+                        "ModelState errors:",
+                        result.errors
                     );
 
                     Swal.fire({
-
                         icon: 'error',
-
-                        title:
-                            'Request Failed',
-
-                        text:
-                            result.message ||
-                            'Unable to update risk.'
-
+                        title: 'Request Failed',
+                        html: `
+            <div style="text-align:left">
+                ${result.errors
+                                ?.map(error => `<div>• ${error}</div>`)
+                                .join("")
+                            || result.message
+                            }
+            </div>
+        `
                     });
 
                     return;

@@ -227,48 +227,91 @@ namespace RiskManagement.Controllers
         }
 
 
-
-         [HttpPost("editrisk")]
+        [HttpPost("editrisk")]
         public IActionResult Updaterisk([FromBody] RiskRegistration model)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(new { message = "Invalid input", errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
+                return BadRequest(new
+                {
+                    message = "Invalid input",
+                    errors = ModelState.Values
+                        .SelectMany(v => v.Errors)
+                        .Select(e => e.ErrorMessage)
+                });
             }
 
-            var risk = _context.RiskRegistrations.FirstOrDefault(a => a.RiskId == model.RiskId);
+            var risk = _context.RiskRegistrations
+                .FirstOrDefault(a => a.RiskId == model.RiskId);
+
             if (risk == null)
             {
-                return NotFound(new { message = "Record with this Risk ID not found" });
+                return NotFound(new
+                {
+                    message = "Record with this Risk ID not found"
+                });
             }
 
+            // ============================================================
+            // SECTION 1: RISK INFORMATION
+            // ============================================================
+
             risk.RiskDate = model.RiskDate;
+            risk.IdentifiedRisk = model.IdentifiedRisk;
             risk.SourceOfRisk = model.SourceOfRisk;
             risk.RiskCategory = model.RiskCategory;
+            risk.RiskSubCategory = model.RiskSubCategory;
+            risk.RiskEvent = model.RiskEvent;
             risk.RiskEventDescription = model.RiskEventDescription;
 
+
+            // ============================================================
             // SECTION 2: RISK ASSESSMENT
+            // ============================================================
+
             risk.Effect = model.Effect;
             risk.Probability = model.Probability;
             risk.ImpactLevel = model.ImpactLevel;
-            /*  risk.RiskScore = model.RiskScore;
-             risk.RiskRating = model.RiskRating; */
+            risk.InherentRiskRating = model.InherentRiskRating;
             risk.ResidualRiskLevel = model.ResidualRiskLevel;
 
+
+            // ============================================================
             // SECTION 3: MITIGATION & CONTROLS
+            // ============================================================
+
             risk.ExistingRiskMitigation = model.ExistingRiskMitigation;
             risk.MitigationRating = model.MitigationRating;
             risk.Recommendation = model.Recommendation;
 
+
+            // ============================================================
             // SECTION 4: OWNERSHIP & PLANNING
+            // ============================================================
+
             risk.MitigationPlannedDate = model.MitigationPlannedDate;
             risk.RiskOwner = model.RiskOwner;
+
+
+            // ============================================================
+            // WORKFLOW
+            // ============================================================
+
             risk.Status = "pending";
+            risk.BranchId = "0101";
+            risk.BranchName = "Head Office";
+
+
             _context.SaveChanges();
 
-            return Ok(new { StatusCode = 200, success = true, message = "Status updated successfully", data = risk });
+            return Ok(new
+            {
+                StatusCode = 200,
+                success = true,
+                message = "Risk updated successfully",
+                data = risk
+            });
         }
-
         [HttpGet("RejectedRecords")]
         public IActionResult RejectedRecords()
         {

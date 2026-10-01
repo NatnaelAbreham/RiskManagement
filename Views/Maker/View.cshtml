@@ -6,6 +6,7 @@
     <link href="~/css/register.css" rel="stylesheet" />
     <link href="~/css/view.css" rel="stylesheet" />
     <link href="~/css/editmodal.css" rel="stylesheet" />
+    <link href="~/css/table.css" rel="stylesheet" />
 }
 @section Scripts {
     <script src="~/js/riskcontent.js"></script>
@@ -28,7 +29,7 @@
         @if (Model != null && Model.Any())
         {
             <table class="table table-hover table-bordered text-center align-middle" id="dataTable">
-                <thead class="table-primary">
+                <thead>
                     <tr>
                         <th>Risk ID</th>
 
