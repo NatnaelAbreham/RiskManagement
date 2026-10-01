@@ -162,7 +162,7 @@ namespace RiskManagement.Controllers
 
             string redirectUrl = roleName switch
             {
-                "Maker" => "/Maker/Dashboard",
+                "Maker" => "/Maker/Register",
                 "Checker" => "/Checker/Dashboard",
                 "Admin" => "/Admin/Dashboard",
                 _ => "/Account/Login"

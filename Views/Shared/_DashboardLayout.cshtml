@@ -24,11 +24,11 @@
         <!-- MAKER -->
         @if (User.IsInRole("Maker"))
         {
-            <a asp-controller="Maker" asp-action="Dashboard"
+            @* <a asp-controller="Maker" asp-action="Dashboard"
                class="@(currentController == "Maker" && currentAction == "Dashboard" ? "active" : "")">
                 <i class="bi bi-speedometer2"></i>
                 Dashboard
-            </a>
+            </a> *@
 
             <a asp-controller="Maker" asp-action="Register"
                class="@(currentController == "Maker" && currentAction == "Register" ? "active" : "")">
