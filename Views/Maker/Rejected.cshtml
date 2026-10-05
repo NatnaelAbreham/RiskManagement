@@ -4,8 +4,11 @@
 }
 @section Styles {
     <link href="~/css/view.css" rel="stylesheet" />
+    <link href="~/css/editmodal.css" rel="stylesheet" />
+    <link href="~/css/table.css" rel="stylesheet" />
 }
 @section Scripts {
+    <script src="~/js/riskcontent.js"></script>
     <script src="~/js/editrisk.js"></script>
     <script src="~/js/reason.js"></script>
 }
@@ -29,8 +32,8 @@
         }
         @if (rejectedUsers != null && rejectedUsers.Any())
         {
-            <table class="table table-hover table-bordered text-center align-middle" id="dataTable">
-                <thead class="table-primary">
+           <table class="table table-hover table-bordered text-center align-middle" id="dataTable">
+                  <thead>
                     <tr>
                         <th>Risk ID</th>
 
@@ -146,10 +149,28 @@
     <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-top-safe">
         <div class="modal-content">
 
-            <!-- Header -->
-            <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Edit Information</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+             <!-- Header -->
+            <div class="modal-header risk-edit-header">
+
+                <div class="risk-edit-title">
+                    <div class="risk-edit-icon">
+                        <i class="bi bi-pencil-square"></i>
+                    </div>
+
+                    <div>
+                        <h5 class="modal-title" id="editModalLabel">
+                            Edit Risk Information
+                        </h5>
+
+                        <small>
+                            Update the risk details and assessment
+                        </small>
+                    </div>
+                </div>
+
+                <button type="button" class="btn-close risk-edit-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+
             </div>
 
             <!-- Body -->
