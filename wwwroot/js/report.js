@@ -1,581 +1,869 @@
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
     loadFilterOptions();
     loadReport();
 
-});
 
+    // =========================================================
+    // FILTER
+    // =========================================================
 
-/* =========================================================
-   FILTER BUTTON
-   ========================================================= */
+    const btnFilter = document.getElementById("btnFilter");
 
-document.getElementById("btnFilter")
-    .addEventListener("click", () => {
+    if (btnFilter) {
 
-        loadReport();
+        btnFilter.addEventListener("click", function () {
 
-    });
-
-
-/* =========================================================
-   RESET BUTTON
-   ========================================================= */
-
-document.getElementById("btnReset")
-    .addEventListener("click", () => {
-
-        document.querySelectorAll(
-            "#identifiedRisk, #sourceOfRisk, #riskCategory, " +
-            "#riskSubCategory, #riskEvent, #effect, #probability, " +
-            "#impactLevel, #inherentRiskRating, #residualRiskLevel, " +
-            "#mitigationRating, #riskOwner, #status, #registeredBy, " +
-            "#branchId, #branchName"
-        ).forEach(select => {
-
-            select.value = "";
+            loadReport();
 
         });
 
-
-        document.getElementById("fromDate").value = "";
-        document.getElementById("toDate").value = "";
-
-        loadReport();
-
-    });
-
-
-/* =========================================================
-   LOAD ALL FILTER OPTIONS
-   ========================================================= */
-
-function loadFilterOptions() {
-
-    fetch("/Checker/GetReportFilterOptions")
-
-        .then(response => {
-
-            if (!response.ok) {
-                throw new Error("Failed to load filter options.");
-            }
-
-            return response.json();
-
-        })
-
-        .then(data => {
-
-            populateDropdown(
-                "identifiedRisk",
-                data.identifiedRisks
-            );
-
-            populateDropdown(
-                "sourceOfRisk",
-                data.sourceOfRisks
-            );
-
-            populateDropdown(
-                "riskCategory",
-                data.riskCategories
-            );
-
-            populateDropdown(
-                "riskSubCategory",
-                data.riskSubCategories
-            );
-
-            populateDropdown(
-                "riskEvent",
-                data.riskEvents
-            );
-
-            populateDropdown(
-                "effect",
-                data.effects
-            );
-
-            populateDropdown(
-                "probability",
-                data.probabilities
-            );
-
-            populateDropdown(
-                "impactLevel",
-                data.impactLevels
-            );
-
-            populateDropdown(
-                "residualRiskLevel",
-                data.residualRiskLevels
-            );
-
-            populateDropdown(
-                "mitigationRating",
-                data.mitigationRatings
-            );
-
-            populateDropdown(
-                "riskOwner",
-                data.riskOwners
-            );
-
-            populateDropdown(
-                "registeredBy",
-                data.registeredBys
-            );
-
-            populateDropdown(
-                "branchId",
-                data.branchIds
-            );
-
-            populateDropdown(
-                "branchName",
-                data.branchNames
-            );
-
-        })
-
-        .catch(error => {
-
-            console.error(
-                "Error loading report filters:",
-                error
-            );
-
-        });
-
-}
-
-
-/* =========================================================
-   POPULATE DROPDOWN
-   ========================================================= */
-
-function populateDropdown(elementId, values) {
-
-    const dropdown = document.getElementById(elementId);
-
-    if (!dropdown || !values) {
-        return;
-    }
-
-    dropdown.innerHTML =
-        '<option value="">All</option>';
-
-    values.forEach(value => {
-
-        if (value !== null &&
-            value !== undefined &&
-            value !== "") {
-
-            dropdown.innerHTML += `
-                <option value="${escapeHtml(value)}">
-                    ${escapeHtml(value)}
-                </option>
-            `;
-
-        }
-
-    });
-
-}
-
-
-/* =========================================================
-   LOAD REPORT
-   ========================================================= */
-
-function loadReport() {
-
-    const params = new URLSearchParams();
-
-
-    addFilter(params, "identifiedRisk");
-    addFilter(params, "sourceOfRisk");
-    addFilter(params, "riskCategory");
-    addFilter(params, "riskSubCategory");
-    addFilter(params, "riskEvent");
-    addFilter(params, "effect");
-    addFilter(params, "probability");
-    addFilter(params, "impactLevel");
-    addFilter(params, "inherentRiskRating");
-    addFilter(params, "residualRiskLevel");
-    addFilter(params, "mitigationRating");
-    addFilter(params, "riskOwner");
-    addFilter(params, "status");
-    addFilter(params, "registeredBy");
-    addFilter(params, "branchId");
-    addFilter(params, "branchName");
-
-
-    const fromDate =
-        document.getElementById("fromDate").value;
-
-    const toDate =
-        document.getElementById("toDate").value;
-
-
-    if (fromDate) {
-        params.append("fromDate", fromDate);
-    }
-
-    if (toDate) {
-        params.append("toDate", toDate);
     }
 
 
-    /* =====================================================
-       DESTROY EXISTING DATATABLE
-       ===================================================== */
+    // =========================================================
+    // RESET
+    // =========================================================
 
-    if ($.fn.DataTable.isDataTable("#dataTable")) {
+    const btnReset = document.getElementById("btnReset");
 
-        $("#dataTable")
-            .DataTable()
-            .destroy();
+    if (btnReset) {
 
-    }
+        btnReset.addEventListener("click", function () {
 
+            document.querySelectorAll(
+                "#identifiedRisk, #sourceOfRisk, #riskCategory, " +
+                "#riskSubCategory, #riskEvent, #effect, #probability, " +
+                "#impactLevel, #inherentRiskRating, #residualRiskLevel, " +
+                "#mitigationRating, #riskOwner, #status, #registeredBy, " +
+                "#branchId, #branchName"
+            ).forEach(function (select) {
 
-    const tbody =
-        document.querySelector("#dataTable tbody");
-
-    tbody.innerHTML = `
-        <tr>
-            <td colspan="15"
-                class="text-center text-muted py-4">
-
-                <div class="spinner-border spinner-border-sm me-2">
-                </div>
-
-                Loading report...
-
-            </td>
-        </tr>
-    `;
-
-
-    /* =====================================================
-       REQUEST
-       ===================================================== */
-
-    fetch(
-        `/Checker/GetReportData?${params.toString()}`
-    )
-
-        .then(response => {
-
-            if (!response.ok) {
-                throw new Error(
-                    "Failed to load report data."
-                );
-            }
-
-            return response.json();
-
-        })
-
-        .then(data => {
-
-            tbody.innerHTML = "";
-
-
-            if (!data || data.length === 0) {
-
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="15"
-                            class="text-center text-muted py-4">
-
-                            No risk records found.
-
-                        </td>
-                    </tr>
-                `;
-
-                initializeDataTable();
-
-                return;
-
-            }
-
-
-            data.forEach(risk => {
-
-                tbody.innerHTML += `
-
-                    <tr>
-
-                        <td>
-                            ${risk.riskId ?? ""}
-                        </td>
-
-                        <td>
-                            ${formatDate(risk.riskDate)}
-                        </td>
-
-                        <td>
-                            ${risk.identifiedRisk ?? ""}
-                        </td>
-
-                        <td>
-                            ${risk.sourceOfRisk ?? ""}
-                        </td>
-
-                        <td>
-                            ${risk.riskCategory ?? ""}
-                        </td>
-
-                        <td>
-                            ${risk.riskSubCategory ?? ""}
-                        </td>
-
-                        <td>
-                            ${risk.riskEvent ?? ""}
-                        </td>
-
-                        <td>
-                            ${risk.probability ?? ""}
-                        </td>
-
-                        <td>
-                            ${risk.impactLevel ?? ""}
-                        </td>
-
-                        <td>
-                            ${risk.inherentRiskRating ?? ""}
-                        </td>
-
-                        <td>
-                            ${risk.residualRiskLevel ?? ""}
-                        </td>
-
-                        <td>
-                            ${risk.mitigationRating ?? ""}
-                        </td>
-
-                        <td>
-                            ${risk.status ?? ""}
-                        </td>
-
-                        <td>
-                            ${risk.riskOwner ?? ""}
-                        </td>
-
-                        <td>
-                            ${risk.branchName ?? ""}
-                        </td>
-
-                    </tr>
-
-                `;
+                select.value = "";
 
             });
 
 
-            initializeDataTable();
+            const fromDate = document.getElementById("fromDate");
+            const toDate = document.getElementById("toDate");
 
-        })
+            if (fromDate) {
+                fromDate.value = "";
+            }
 
-        .catch(error => {
+            if (toDate) {
+                toDate.value = "";
+            }
 
-            console.error(
-                "Error loading report:",
-                error
-            );
 
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="15"
-                        class="text-center text-danger py-4">
-
-                        Failed to load report data.
-
-                    </td>
-                </tr>
-            `;
+            loadReport();
 
         });
 
-}
-
-
-/* =========================================================
-   ADD FILTER PARAMETER
-   ========================================================= */
-
-function addFilter(params, elementId) {
-
-    const element =
-        document.getElementById(elementId);
-
-    if (!element) {
-        return;
     }
 
-    const value = element.value;
 
-    if (value !== "") {
+    // =========================================================
+    // LOAD FILTER OPTIONS
+    // =========================================================
 
-        params.append(
-            elementId,
-            value
-        );
+    function loadFilterOptions() {
 
-    }
+        fetch("/Checker/GetReportFilterOptions")
 
-}
+            .then(function (response) {
 
+                if (!response.ok) {
 
-/* =========================================================
-   DATATABLE
-   ========================================================= */
-
-function initializeDataTable() {
-
-    const table =
-        $("#dataTable").DataTable({
-
-            pageLength: 10,
-
-            lengthMenu: [
-                5,
-                10,
-                25,
-                50,
-                100
-            ],
-
-            dom: "Bfrtip",
-
-            buttons: [
-
-                {
-                    extend: "copyHtml5",
-                    className: "buttons-copy"
-                },
-
-                {
-                    extend: "excelHtml5",
-                    className: "buttons-excel",
-                    title: "Risk Management Report"
-                },
-
-                {
-                    extend: "pdfHtml5",
-                    className: "buttons-pdf",
-                    title: "Risk Management Report",
-                    orientation: "landscape",
-                    pageSize: "A3"
-                },
-
-                {
-                    extend: "print",
-                    className: "buttons-print",
-                    title: "Risk Management Report",
-
-                    customize: function (win) {
-
-                        $(win.document.body)
-                            .css("font-size", "10pt");
-
-                        $(win.document.body)
-                            .find("table")
-                            .addClass(
-                                "table table-bordered"
-                            )
-                            .css(
-                                "font-size",
-                                "inherit"
-                            );
-
-                    }
+                    throw new Error(
+                        "Failed to load filter options."
+                    );
 
                 }
 
-            ]
+                return response.json();
+
+            })
+
+            .then(function (data) {
+
+                populateDropdown(
+                    "identifiedRisk",
+                    data.identifiedRisks
+                );
+
+                populateDropdown(
+                    "sourceOfRisk",
+                    data.sourceOfRisks
+                );
+
+                populateDropdown(
+                    "riskCategory",
+                    data.riskCategories
+                );
+
+                populateDropdown(
+                    "riskSubCategory",
+                    data.riskSubCategories
+                );
+
+                populateDropdown(
+                    "riskEvent",
+                    data.riskEvents
+                );
+
+                populateDropdown(
+                    "effect",
+                    data.effects
+                );
+
+                populateDropdown(
+                    "probability",
+                    data.probabilities
+                );
+
+                populateDropdown(
+                    "impactLevel",
+                    data.impactLevels
+                );
+
+                populateDropdown(
+                    "inherentRiskRating",
+                    data.inherentRiskRatings
+                );
+
+                populateDropdown(
+                    "residualRiskLevel",
+                    data.residualRiskLevels
+                );
+
+                populateDropdown(
+                    "mitigationRating",
+                    data.mitigationRatings
+                );
+
+                populateDropdown(
+                    "riskOwner",
+                    data.riskOwners
+                );
+
+                populateDropdown(
+                    "status",
+                    data.statuses
+                );
+
+                populateDropdown(
+                    "registeredBy",
+                    data.registeredBys
+                );
+
+                populateDropdown(
+                    "branchId",
+                    data.branchIds
+                );
+
+                populateDropdown(
+                    "branchName",
+                    data.branchNames
+                );
+
+            })
+
+            .catch(function (error) {
+
+                console.error(
+                    "Filter loading error:",
+                    error
+                );
+
+            });
+
+    }
+
+
+    // =========================================================
+    // POPULATE DROPDOWN
+    // =========================================================
+
+    function populateDropdown(elementId, values) {
+
+        const dropdown =
+            document.getElementById(elementId);
+
+
+        if (!dropdown) {
+            return;
+        }
+
+
+        dropdown.innerHTML =
+            '<option value="">All</option>';
+
+
+        if (
+            !values ||
+            !Array.isArray(values)
+        ) {
+
+            return;
+
+        }
+
+
+        values.forEach(function (value) {
+
+            if (
+                value !== null &&
+                value !== undefined &&
+                value !== ""
+            ) {
+
+                const option =
+                    document.createElement("option");
+
+                option.value = value;
+                option.textContent = value;
+
+                dropdown.appendChild(option);
+
+            }
 
         });
 
-
-    table
-        .buttons()
-        .container()
-        .hide();
-
-}
-
-
-/* =========================================================
-   DATE FORMAT
-   ========================================================= */
-
-function formatDate(dateString) {
-
-    if (!dateString) {
-        return "";
     }
 
-    const date =
-        new Date(dateString);
 
-    return date.toLocaleDateString();
-
-}
+    // =========================================================
+    // LOAD REPORT
+    // =========================================================
 
 
-/* =========================================================
-   EXPORT BUTTONS
-   ========================================================= */
-
-document.getElementById("btnCopy")
-    .addEventListener("click", () => {
-
-        $(".buttons-copy").click();
-
-    });
+    let riskReportTable = null;
 
 
-document.getElementById("btnExcel")
-    .addEventListener("click", () => {
+    function loadReport() {
 
-        $(".buttons-excel").click();
-
-    });
+        const params =
+            new URLSearchParams();
 
 
-document.getElementById("btnPdf")
-    .addEventListener("click", () => {
+        // ---------------------------------------------------------
+        // FILTERS
+        // ---------------------------------------------------------
 
-        $(".buttons-pdf").click();
+        addFilter(params, "identifiedRisk");
+        addFilter(params, "sourceOfRisk");
+        addFilter(params, "riskCategory");
+        addFilter(params, "riskSubCategory");
+        addFilter(params, "riskEvent");
+        addFilter(params, "effect");
+        addFilter(params, "probability");
+        addFilter(params, "impactLevel");
+        addFilter(params, "inherentRiskRating");
+        addFilter(params, "residualRiskLevel");
+        addFilter(params, "mitigationRating");
+        addFilter(params, "riskOwner");
+        addFilter(params, "status");
+        addFilter(params, "registeredBy");
+        addFilter(params, "branchId");
+        addFilter(params, "branchName");
 
-    });
+
+        // ---------------------------------------------------------
+        // DATES
+        // ---------------------------------------------------------
+
+        const fromDateElement =
+            document.getElementById("fromDate");
+
+        const toDateElement =
+            document.getElementById("toDate");
 
 
-document.getElementById("btnPrint")
-    .addEventListener("click", () => {
-
-        $(".buttons-print").click();
-
-    });
+        const fromDate =
+            fromDateElement
+                ? fromDateElement.value
+                : "";
 
 
-/* =========================================================
-   HTML ESCAPE
-   ========================================================= */
+        const toDate =
+            toDateElement
+                ? toDateElement.value
+                : "";
 
-function escapeHtml(value) {
 
-    return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+        if (fromDate) {
 
-}
+            params.append(
+                "fromDate",
+                fromDate
+            );
+
+        }
+
+
+        if (toDate) {
+
+            params.append(
+                "toDate",
+                toDate
+            );
+
+        }
+
+
+        // ---------------------------------------------------------
+        // GET DATA
+        // ---------------------------------------------------------
+
+        fetch(
+            `/Checker/GetReportData?${params.toString()}`
+        )
+
+            .then(function (response) {
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Failed to load report data."
+                    );
+
+                }
+
+                return response.json();
+
+            })
+
+            .then(function (data) {
+
+                console.log(
+                    "Report records:",
+                    data
+                );
+
+
+                // =================================================
+                // CREATE DATATABLE ONLY ONCE
+                // =================================================
+
+                if (riskReportTable === null) {
+
+                    riskReportTable =
+                        $("#riskReportTable").DataTable({
+
+                            data: data,
+
+                            processing: true,
+
+                            pageLength: 10,
+
+                            lengthMenu: [
+                                [5, 10, 25, 50, 100],
+                                [5, 10, 25, 50, 100]
+                            ],
+
+                            scrollX: true,
+
+                            autoWidth: false,
+
+                            deferRender: true,
+
+                            language: {
+
+                                emptyTable:
+                                    "No risk records found.",
+
+                                zeroRecords:
+                                    "No matching risk records found."
+
+                            },
+
+
+                            // =================================================
+                            // 26 COLUMNS
+                            // =================================================
+
+                            columns: [
+
+                                // 1
+                                {
+                                    data: "riskId",
+                                    defaultContent: "-"
+                                },
+
+                                // 2
+                                {
+                                    data: "riskDate",
+
+                                    render: function (data) {
+
+                                        return formatDate(data);
+
+                                    }
+                                },
+
+                                // 3
+                                {
+                                    data: "identifiedRisk",
+                                    defaultContent: "-"
+                                },
+
+                                // 4
+                                {
+                                    data: "sourceOfRisk",
+                                    defaultContent: "-"
+                                },
+
+                                // 5
+                                {
+                                    data: "riskCategory",
+                                    defaultContent: "-"
+                                },
+
+                                // 6
+                                {
+                                    data: "riskSubCategory",
+                                    defaultContent: "-"
+                                },
+
+                                // 7
+                                {
+                                    data: "riskEvent",
+                                    defaultContent: "-"
+                                },
+
+                                // 8
+                                {
+                                    data: "riskEventDescription",
+                                    defaultContent: "-"
+                                },
+
+                                // 9
+                                {
+                                    data: "effect",
+                                    defaultContent: "-"
+                                },
+
+                                // 10
+                                {
+                                    data: "probability",
+                                    defaultContent: "-"
+                                },
+
+                                // 11
+                                {
+                                    data: "impactLevel",
+                                    defaultContent: "-"
+                                },
+
+                                // 12
+                                {
+                                    data: "inherentRiskRating",
+                                    defaultContent: "-"
+                                },
+
+                                // 13
+                                {
+                                    data: "residualRiskLevel",
+                                    defaultContent: "-"
+                                },
+
+                                // 14
+                                {
+                                    data: "existingRiskMitigation",
+                                    defaultContent: "-"
+                                },
+
+                                // 15
+                                {
+                                    data: "mitigationRating",
+                                    defaultContent: "-"
+                                },
+
+                                // 16
+                                {
+                                    data: "recommendation",
+                                    defaultContent: "-"
+                                },
+
+                                // 17
+                                {
+                                    data: "mitigationPlannedDate",
+
+                                    render: function (data) {
+
+                                        return formatDate(data);
+
+                                    }
+                                },
+
+                                // 18
+                                {
+                                    data: "riskOwner",
+                                    defaultContent: "-"
+                                },
+
+                                // 19
+                                {
+                                    data: "status",
+                                    defaultContent: "-"
+                                },
+
+                                // 20
+                                {
+                                    data: "registeredBy",
+                                    defaultContent: "-"
+                                },
+
+                                // 21
+                                {
+                                    data: "registeredDate",
+
+                                    render: function (data) {
+
+                                        return formatDate(data);
+
+                                    }
+                                },
+
+                                // 22
+                                {
+                                    data: "branchId",
+                                    defaultContent: "-"
+                                },
+
+                                // 23
+                                {
+                                    data: "branchName",
+                                    defaultContent: "-"
+                                },
+
+                                // 24
+                                {
+                                    data: "approvedBy",
+                                    defaultContent: "-"
+                                },
+
+                                // 25
+                                {
+                                    data: "approvedDate",
+
+                                    render: function (data) {
+
+                                        return formatDate(data);
+
+                                    }
+                                },
+
+                                // 26
+                                {
+                                    data: "filePath",
+
+                                    render: function (data) {
+
+                                        if (!data) {
+
+                                            return "-";
+
+                                        }
+
+
+                                        return `
+                                        <a href="${escapeHtml(data)}"
+                                           target="_blank"
+                                           class="btn btn-sm btn-outline-primary">
+
+                                            <i class="bi bi-paperclip"></i>
+                                            View
+
+                                        </a>
+                                    `;
+
+                                    }
+
+                                }
+
+                            ],
+
+
+                            // =================================================
+                            // EXPORT BUTTONS
+                            // =================================================
+
+                            dom: "Bfrtip",
+
+                            buttons: [
+
+                                {
+                                    extend: "copyHtml5",
+                                    className: "buttons-copy"
+                                },
+
+                                {
+                                    extend: "excelHtml5",
+                                    className: "buttons-excel",
+                                    title: "Risk Management Report"
+                                },
+
+                                {
+                                    extend: "pdfHtml5",
+                                    className: "buttons-pdf",
+                                    title: "Risk Management Report",
+                                    orientation: "landscape",
+                                    pageSize: "A3"
+                                },
+
+                                {
+                                    extend: "print",
+                                    className: "buttons-print",
+                                    title: "Risk Management Report",
+
+                                    customize: function (win) {
+
+                                        $(win.document.body)
+                                            .css(
+                                                "font-size",
+                                                "10pt"
+                                            );
+
+
+                                        $(win.document.body)
+                                            .find("table")
+                                            .addClass(
+                                                "table table-bordered"
+                                            )
+                                            .css(
+                                                "font-size",
+                                                "inherit"
+                                            );
+
+                                    }
+
+                                }
+
+                            ]
+
+                        });
+
+
+                    // Hide native DataTables buttons
+                    $(".dt-buttons").hide();
+
+                }
+
+
+                // =================================================
+                // UPDATE EXISTING DATATABLE
+                // =================================================
+
+                else {
+
+                    riskReportTable
+                        .clear()
+                        .rows
+                        .add(data)
+                        .draw();
+
+                }
+
+            })
+
+            .catch(function (error) {
+
+                console.error(
+                    "Report loading error:",
+                    error
+                );
+
+            });
+
+    }
+
+    // =========================================================
+    // FILTER HELPER
+    // =========================================================
+
+    function addFilter(params, elementId) {
+
+        const element =
+            document.getElementById(elementId);
+
+
+        if (!element) {
+            return;
+        }
+
+
+        const value =
+            element.value;
+
+
+        if (value !== "") {
+
+            params.append(
+                elementId,
+                value
+            );
+
+        }
+
+    }
+
+
+    // =========================================================
+    // DATE FORMAT
+    // =========================================================
+
+    function formatDate(dateString) {
+
+        if (!dateString) {
+            return "-";
+        }
+
+
+        const date =
+            new Date(dateString);
+
+
+        if (isNaN(date.getTime())) {
+            return "-";
+        }
+
+
+        return date.toLocaleDateString();
+
+    }
+
+
+    // =========================================================
+    // HTML ESCAPE
+    // =========================================================
+
+    function escapeHtml(value) {
+
+        if (
+            value === null ||
+            value === undefined
+        ) {
+
+            return "";
+
+        }
+
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    // =========================================================
+    // COPY
+    // =========================================================
+
+    const btnCopy =
+        document.getElementById("btnCopy");
+
+    if (btnCopy) {
+
+        btnCopy.addEventListener("click", function () {
+
+            if (
+                $.fn.DataTable.isDataTable(
+                    "#riskReportTable"
+                )
+            ) {
+
+                $(".buttons-copy").click();
+
+            }
+
+        });
+
+    }
+
+
+    // =========================================================
+    // EXCEL
+    // =========================================================
+
+    const btnExcel =
+        document.getElementById("btnExcel");
+
+    if (btnExcel) {
+
+        btnExcel.addEventListener("click", function () {
+
+            if (
+                $.fn.DataTable.isDataTable(
+                    "#riskReportTable"
+                )
+            ) {
+
+                $(".buttons-excel").click();
+
+            }
+
+        });
+
+    }
+
+
+    // =========================================================
+    // PDF
+    // =========================================================
+
+    const btnPdf =
+        document.getElementById("btnPdf");
+
+    if (btnPdf) {
+
+        btnPdf.addEventListener("click", function () {
+
+            if (
+                $.fn.DataTable.isDataTable(
+                    "#riskReportTable"
+                )
+            ) {
+
+                $(".buttons-pdf").click();
+
+            }
+
+        });
+
+    }
+
+
+    // =========================================================
+    // PRINT
+    // =========================================================
+
+    const btnPrint =
+        document.getElementById("btnPrint");
+
+    if (btnPrint) {
+
+        btnPrint.addEventListener("click", function () {
+
+            if (
+                $.fn.DataTable.isDataTable(
+                    "#riskReportTable"
+                )
+            ) {
+
+                $(".buttons-print").click();
+
+            }
+
+        });
+
+    }
+
+});
 

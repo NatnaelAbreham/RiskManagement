@@ -1,11 +1,10 @@
-```cshtml
+
 @{
     ViewBag.Title = "Risk Reports";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
 
 @section Scripts {
-    <script src="~/js/riskcontent.js"></script>
     <script src="~/js/report.js"></script>
 }
 
@@ -374,48 +373,85 @@
     <!-- REPORT TABLE -->
     <!-- ========================================================= -->
 
-    <div class="card shadow-sm">
+<div class="card shadow-sm">
 
-        <div class="card-body">
+    <div class="card-body">
 
-            <div class="table-responsive">
+        <div class="table-responsive">
 
-                <table id="dataTable"
-                       class="table table-bordered table-hover align-middle">
+            <table id="dataTable"
+                   class="table table-bordered table-hover align-middle w-100">
 
-                    <thead class="table-primary">
+                <thead class="table-primary">
 
-                        <tr>
+                    <tr>
 
-                            <th>Risk ID</th>
-                            <th>Risk Date</th>
-                            <th>Business Unit</th>
-                            <th>Source</th>
-                            <th>Category</th>
-                            <th>Sub Category</th>
-                            <th>Risk Event</th>
-                            <th>Probability</th>
-                            <th>Impact</th>
-                            <th>Inherent Rating</th>
-                            <th>Residual Level</th>
-                            <th>Mitigation</th>
-                            <th>Status</th>
-                            <th>Risk Owner</th>
-                            <th>Branch</th>
+                        <th>Risk ID</th>
 
-                        </tr>
+                        <th>Risk Date</th>
 
-                    </thead>
+                        <th>Business Unit</th>
 
-                    <tbody></tbody>
+                        <th>Source of Risk</th>
 
-                </table>
+                        <th>Risk Category</th>
 
-            </div>
+                        <th>Risk Sub Category</th>
+
+                        <th>Risk Event</th>
+
+                        <th>Risk Event Description</th>
+
+                        <th>Effect</th>
+
+                        <th>Probability</th>
+
+                        <th>Impact Level</th>
+
+                        <th>Inherent Risk Rating</th>
+
+                        <th>Residual Risk Level</th>
+
+                        <th>Existing Risk Mitigation</th>
+
+                        <th>Mitigation Rating</th>
+
+                        <th>Recommendation</th>
+
+                        <th>Mitigation Planned Date</th>
+
+                        <th>Risk Owner</th>
+
+                        <th>Status</th>
+
+                        <th>Registered By</th>
+
+                        <th>Registered Date</th>
+
+                        <th>Branch ID</th>
+
+                        <th>Branch Name</th>
+
+                        <th>Approved By</th>
+
+                        <th>Approved Date</th>
+
+                        <th>Attachment</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody></tbody>
+
+            </table>
 
         </div>
 
     </div>
+
+</div>
+
 
 </div>
 
