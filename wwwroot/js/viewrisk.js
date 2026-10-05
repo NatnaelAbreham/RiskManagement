@@ -6,7 +6,7 @@ const fieldsToShow = [
     { key: "RiskId", label: "Risk ID" },
     { key: "RegisteredDate", label: "Registered Date" },
     { key: "RiskDate", label: "Risk Date" },
-    { key: "IdentifiedRisk", label: "Identified Risk" },
+    { key: "IdentifiedRisk", label: "Bussiness unit" },
     { key: "SourceOfRisk", label: "Source of Risk" },
     { key: "RiskCategory", label: "Risk Category" },
     { key: "RiskSubCategory", label: "Risk Sub Category" },

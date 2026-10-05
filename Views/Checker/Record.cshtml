@@ -1,4 +1,3 @@
-
 @model List<RiskManagement.Models.RiskRegistration>
 
 @{
@@ -47,8 +46,7 @@
 
         @if (Model != null && Model.Any())
         {
-            <table class="table table-hover table-bordered text-center align-middle"
-                   id="dataTable">
+            <table class="table table-hover table-bordered text-center align-middle" id="dataTable">
 
                 <thead class="table-secondary">
 
@@ -57,17 +55,17 @@
                         <!-- Risk Information -->
                         <th>Risk ID</th>
                         <th>Risk Date</th>
-                        <th>Identified Risk</th>
+                        <th>Business Unit</th>
                         <th>Risk Category</th>
 
                         <!-- Risk Assessment -->
-                        <th>Probability</th>
-                        <th>Impact Level</th>
+                        @* <th>Probability</th>
+                        <th>Impact Level</th> *@
                         <th>Inherent Risk Rating</th>
                         <th>Residual Risk Level</th>
 
-                        <!-- Mitigation -->
-                        <th>Mitigation Rating</th>
+                        @* <!-- Mitigation -->
+                        <th>Mitigation Rating</th> *@
 
                         <!-- Ownership -->
                         <th>Risk Owner</th>
@@ -133,14 +131,14 @@
                             <!-- RISK ASSESSMENT -->
                             <!-- ================================================= -->
 
-                            <td>
+                           @*  <td>
                                 @user.Probability
                             </td>
 
 
                             <td>
                                 @user.ImpactLevel
-                            </td>
+                            </td> *@
 
 
                             <td>
@@ -157,9 +155,9 @@
                             <!-- MITIGATION -->
                             <!-- ================================================= -->
 
-                            <td>
+                           @*  <td>
                                 @user.MitigationRating
-                            </td>
+                            </td> *@
 
 
                             <!-- ================================================= -->
@@ -211,10 +209,7 @@
 
                             <td>
 
-                                <button type="button"
-                                        class="btn btn-outline-success approveBtn"
-                                        title="Review Risk"
-                                        data-user='@Html.Raw(
+                                <button type="button" class="btn btn-outline-success approveBtn" title="Review Risk" data-user='@Html.Raw(
                                             System.Text.Json.JsonSerializer.Serialize(user)
                                         )'>
 
@@ -258,11 +253,7 @@
 <!-- RISK REVIEW / APPROVAL MODAL -->
 <!-- ========================================================= -->
 
-<div class="modal fade"
-     id="editModal"
-     tabindex="-1"
-     aria-labelledby="editModalLabel"
-     aria-hidden="true">
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
 
     <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-top-safe">
 
@@ -275,8 +266,7 @@
 
             <div class="modal-header">
 
-                <h5 class="modal-title fw-bold"
-                    id="editModalLabel">
+                <h5 class="modal-title fw-bold" id="editModalLabel">
 
                     <i class="bi bi-shield-check text-success me-2"></i>
 
@@ -285,10 +275,7 @@
                 </h5>
 
 
-                <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
 
             </div>
@@ -300,8 +287,7 @@
 
             <div class="modal-body">
 
-                <div class="row g-2"
-                     id="editModalContent">
+                <div class="row g-2" id="editModalContent">
 
                     <!--
                         Risk information is populated
@@ -317,8 +303,7 @@
             <!-- MODAL FOOTER -->
             <!-- ================================================= -->
 
-            <div class="modal-footer justify-content-center"
-                 id="editModalFooter">
+            <div class="modal-footer justify-content-center" id="editModalFooter">
 
                 <!--
                     Approve and Reject buttons are populated

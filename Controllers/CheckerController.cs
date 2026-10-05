@@ -256,7 +256,7 @@ namespace RiskManagement.Controllers
         {
             var query = _context.RiskRegistrations.AsQueryable();
 
-            // Identified Risk
+            // Bussiness unit
             if (!string.IsNullOrWhiteSpace(identifiedRisk))
             {
                 query = query.Where(x => x.IdentifiedRisk == identifiedRisk);
