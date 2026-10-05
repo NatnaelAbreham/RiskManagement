@@ -196,34 +196,45 @@
                 </thead>
 
                 <tbody>
-
-                    @foreach (var item in Model.TopRisk)
+                    @if (Model.TopRisk != null && Model.TopRisk.Any())
                     {
-                        <tr>
+    
+                        @foreach (var item in Model.TopRisk)
+                        {
+                            <tr>
 
-                            <td>@item.RiskId</td>
+                                <td>@item.RiskId</td>
 
-                            <td>@item.RiskCategory</td>
+                                <td>@item.RiskCategory</td>
 
-                            <td>@item.RiskOwner</td>
+                                <td>@item.RiskOwner</td>
 
-                            <td>@item.RiskEvent</td>
+                                <td>@item.RiskEvent</td>
 
-                            <td>
-                                <span class="badge bg-danger">
-                                    @item.InherentRiskRating
-                                </span>
-                            </td>
+                                <td>
+                                    <span class="badge bg-danger">
+                                        @item.InherentRiskRating
+                                    </span>
+                                </td>
 
-                            <td>
-                                <span class="badge bg-warning text-dark">
-                                    @item.Status
-                                </span>
-                            </td>
+                                <td>
+                                    <span class="badge bg-warning text-dark">
+                                        @item.Status
+                                    </span>
+                                </td>
 
-                        </tr>
+                            </tr>
+                        }
+
+
+   
                     }
-
+                    else
+                    {
+                        <div class="text-center text-gray-500">
+                            No top risks available.
+                        </div>
+                    }
                 </tbody>
 
             </table>
@@ -250,30 +261,30 @@
 
                         <thead>
 
-                        <tr>
+                            <tr>
 
-                            <th>Risk ID</th>
-                            <th>Date</th>
-                            <th>Category</th>
+                                <th>Risk ID</th>
+                                <th>Date</th>
+                                <th>Category</th>
 
-                        </tr>
+                            </tr>
 
                         </thead>
 
                         <tbody>
 
-                        @foreach (var item in Model.RecentRisks)
-                        {
-                            <tr>
+                            @foreach (var item in Model.RecentRisks)
+                            {
+                                <tr>
 
-                                <td>@item.RiskId</td>
+                                    <td>@item.RiskId</td>
 
-                                <td>@item.RiskDate.ToString("dd-MMM-yyyy")</td>
+                                    <td>@item.RiskDate.ToString("dd-MMM-yyyy")</td>
 
-                                <td>@item.RiskCategory</td>
+                                    <td>@item.RiskCategory</td>
 
-                            </tr>
-                        }
+                                </tr>
+                            }
 
                         </tbody>
 
