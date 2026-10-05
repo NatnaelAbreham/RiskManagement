@@ -1,22 +1,39 @@
+```cshtml
 @{
     ViewBag.Title = "Risk Reports";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
 
 @section Scripts {
+    <script src="~/js/riskcontent.js"></script>
     <script src="~/js/report.js"></script>
 }
+
 <div class="container-fluid">
 
-    <h3 class="fw-bold mb-4">
-        Risk Reports
-    </h3>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">
+                <i class="bi bi-bar-chart-line text-success me-2"></i>
+                Risk Reports
+            </h3>
 
-    <!-- Filter Card -->
+            <small class="text-muted">
+                Filter, analyze and export registered risk records
+            </small>
+        </div>
+    </div>
+
+
+    <!-- ========================================================= -->
+    <!-- FILTER CARD -->
+    <!-- ========================================================= -->
+
     <div class="card shadow-sm mb-4">
 
-        <div class="card-header">
-            <h5 class="mb-0">
+        <div class="card-header bg-transparent">
+            <h5 class="mb-0 fw-bold">
+                <i class="bi bi-funnel me-2 text-success"></i>
                 Filter Reports
             </h5>
         </div>
@@ -25,84 +42,272 @@
 
             <div class="row g-3">
 
-                <div class="col-md-3">
-
-                    <label class="form-label">
-                        Bussiness unit
+                <!-- Business Unit -->
+                <div class="col-xl-3 col-md-4">
+                    <label class="form-label fw-semibold">
+                        Business Unit
                     </label>
 
-                    <select id="identifiedRisk" class="form-select">
-
-                        <option value="">
-                            All
-                        </option>
-
+                    <select id="identifiedRisk"
+                            class="form-select">
+                        <option value="">All</option>
                     </select>
-
                 </div>
 
-                <div class="col-md-2">
 
-                    <label class="form-label">
+                <!-- Source of Risk -->
+                <div class="col-xl-3 col-md-4">
+                    <label class="form-label fw-semibold">
+                        Source of Risk
+                    </label>
+
+                    <select id="sourceOfRisk"
+                            class="form-select">
+                        <option value="">All</option>
+                    </select>
+                </div>
+
+
+                <!-- Risk Category -->
+                <div class="col-xl-3 col-md-4">
+                    <label class="form-label fw-semibold">
+                        Risk Category
+                    </label>
+
+                    <select id="riskCategory"
+                            class="form-select">
+                        <option value="">All</option>
+                    </select>
+                </div>
+
+
+                <!-- Risk Sub Category -->
+                <div class="col-xl-3 col-md-4">
+                    <label class="form-label fw-semibold">
+                        Risk Sub Category
+                    </label>
+
+                    <select id="riskSubCategory"
+                            class="form-select">
+                        <option value="">All</option>
+                    </select>
+                </div>
+
+
+                <!-- Risk Event -->
+                <div class="col-xl-3 col-md-4">
+                    <label class="form-label fw-semibold">
+                        Risk Event
+                    </label>
+
+                    <select id="riskEvent"
+                            class="form-select">
+                        <option value="">All</option>
+                    </select>
+                </div>
+
+
+                <!-- Effect -->
+                <div class="col-xl-3 col-md-4">
+                    <label class="form-label fw-semibold">
+                        Effect
+                    </label>
+
+                    <select id="effect"
+                            class="form-select">
+                        <option value="">All</option>
+                    </select>
+                </div>
+
+
+                <!-- Probability -->
+                <div class="col-xl-3 col-md-4">
+                    <label class="form-label fw-semibold">
+                        Probability
+                    </label>
+
+                    <select id="probability"
+                            class="form-select">
+                        <option value="">All</option>
+                    </select>
+                </div>
+
+
+                <!-- Impact Level -->
+                <div class="col-xl-3 col-md-4">
+                    <label class="form-label fw-semibold">
+                        Impact Level
+                    </label>
+
+                    <select id="impactLevel"
+                            class="form-select">
+                        <option value="">All</option>
+                    </select>
+                </div>
+
+
+                <!-- Inherent Risk Rating -->
+                <div class="col-xl-3 col-md-4">
+                    <label class="form-label fw-semibold">
+                        Inherent Risk Rating
+                    </label>
+
+                    <select id="inherentRiskRating"
+                            class="form-select">
+                        <option value="">All</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                        <option value="Extreme">Extreme</option>
+                    </select>
+                </div>
+
+
+                <!-- Residual Risk Level -->
+                <div class="col-xl-3 col-md-4">
+                    <label class="form-label fw-semibold">
+                        Residual Risk Level
+                    </label>
+
+                    <select id="residualRiskLevel"
+                            class="form-select">
+                        <option value="">All</option>
+                    </select>
+                </div>
+
+
+                <!-- Mitigation Rating -->
+                <div class="col-xl-3 col-md-4">
+                    <label class="form-label fw-semibold">
+                        Mitigation Rating
+                    </label>
+
+                    <select id="mitigationRating"
+                            class="form-select">
+                        <option value="">All</option>
+                    </select>
+                </div>
+
+
+                <!-- Risk Owner -->
+                <div class="col-xl-3 col-md-4">
+                    <label class="form-label fw-semibold">
+                        Risk Owner
+                    </label>
+
+                    <select id="riskOwner"
+                            class="form-select">
+                        <option value="">All</option>
+                    </select>
+                </div>
+
+
+                <!-- Status -->
+                <div class="col-xl-3 col-md-4">
+                    <label class="form-label fw-semibold">
                         Status
                     </label>
 
-                    <select id="status" class="form-select">
+                    <select id="status"
+                            class="form-select">
 
                         <option value="">All</option>
-                        <option>pending</option>
-                        <option>approved</option>
-                        <option>rejected</option>
+                        <option value="Open">Open</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Rejected">Rejected</option>
 
                     </select>
-
                 </div>
 
-                <div class="col-md-2">
 
-                    <label class="form-label">
-                        Risk Rating
+                <!-- Registered By -->
+                <div class="col-xl-3 col-md-4">
+                    <label class="form-label fw-semibold">
+                        Registered By
                     </label>
 
-                    <select id="rating" class="form-select">
-
+                    <select id="registeredBy"
+                            class="form-select">
                         <option value="">All</option>
-                        <option>High</option>
-                        <option>Medium</option>
-                        <option>Low</option>
-
                     </select>
-
                 </div>
 
-                <div class="col-md-2">
 
-                    <label class="form-label">
-                        From
+                <!-- Branch ID -->
+                <div class="col-xl-3 col-md-4">
+                    <label class="form-label fw-semibold">
+                        Branch ID
                     </label>
 
-                    <input type="date" id="fromDate" class="form-control" required />
-
+                    <select id="branchId"
+                            class="form-select">
+                        <option value="">All</option>
+                    </select>
                 </div>
 
-                <div class="col-md-2">
 
-                    <label class="form-label">
-                        To
+                <!-- Branch Name -->
+                <div class="col-xl-3 col-md-4">
+                    <label class="form-label fw-semibold">
+                        Branch Name
                     </label>
 
-                    <input type="date" id="toDate" class="form-control" required />
-
+                    <select id="branchName"
+                            class="form-select">
+                        <option value="">All</option>
+                    </select>
                 </div>
 
-                <div class="col-md-2 d-flex align-items-end gap-2">
-                    <button id="btnFilter" class="btn btn-success flex-fill">
-                        Filter
-                    </button>
 
-                    <button id="btnReset" class="btn btn-outline-secondary">
-                        Reset
-                    </button>
+                <!-- Risk Date From -->
+                <div class="col-xl-3 col-md-4">
+                    <label class="form-label fw-semibold">
+                        Risk Date From
+                    </label>
+
+                    <input type="date"
+                           id="fromDate"
+                           class="form-control" />
+                </div>
+
+
+                <!-- Risk Date To -->
+                <div class="col-xl-3 col-md-4">
+                    <label class="form-label fw-semibold">
+                        Risk Date To
+                    </label>
+
+                    <input type="date"
+                           id="toDate"
+                           class="form-control" />
+                </div>
+
+
+                <!-- Buttons -->
+                <div class="col-12 mt-4">
+
+                    <div class="d-flex justify-content-end gap-2">
+
+                        <button id="btnFilter"
+                                class="btn btn-success px-4">
+
+                            <i class="bi bi-funnel me-1"></i>
+                            Filter
+
+                        </button>
+
+
+                        <button id="btnReset"
+                                class="btn btn-outline-secondary px-4">
+
+                            <i class="bi bi-arrow-counterclockwise me-1"></i>
+                            Reset
+
+                        </button>
+
+                    </div>
+
                 </div>
 
             </div>
@@ -111,88 +316,106 @@
 
     </div>
 
-    <!-- Export Buttons -->
+
+    <!-- ========================================================= -->
+    <!-- EXPORT BUTTONS -->
+    <!-- ========================================================= -->
 
     <div class="d-flex justify-content-end mb-3">
-        <div class="btn-group" role="group" aria-label="Export options">
-            <button id="btnCopy" class="btn btn-primary">
+
+        <div class="btn-group"
+             role="group"
+             aria-label="Export options">
+
+            <button id="btnCopy"
+                    class="btn btn-primary">
+
                 <i class="bi bi-clipboard me-1"></i>
                 Copy
+
             </button>
-            <button id="btnExcel" type="button" class="btn btn-success">
+
+
+            <button id="btnExcel"
+                    type="button"
+                    class="btn btn-success">
+
                 <i class="bi bi-file-earmark-excel me-1"></i>
                 Excel
+
             </button>
 
-            <button id="btnPdf" type="button" class="btn btn-danger">
+
+            <button id="btnPdf"
+                    type="button"
+                    class="btn btn-danger">
+
                 <i class="bi bi-file-earmark-pdf me-1"></i>
                 PDF
+
             </button>
 
-            <button id="btnPrint" type="button" class="btn btn-secondary">
+
+            <button id="btnPrint"
+                    type="button"
+                    class="btn btn-secondary">
+
                 <i class="bi bi-printer me-1"></i>
                 Print
+
             </button>
 
         </div>
+
     </div>
 
-    <!-- Report Table -->
+
+    <!-- ========================================================= -->
+    <!-- REPORT TABLE -->
+    <!-- ========================================================= -->
 
     <div class="card shadow-sm">
 
         <div class="card-body">
 
-            <table id="dataTable" class="table table-bordered table-hover align-middle">
+            <div class="table-responsive">
 
-                <thead class="table-primary">
+                <table id="dataTable"
+                       class="table table-bordered table-hover align-middle">
 
-                    <tr>
+                    <thead class="table-primary">
 
-                        <th>Risk ID</th>
-                        <th>Date</th>
-                        <th>Bussiness unit</th>
-                        <th>Category</th>
-                        <th>Rating</th>
-                        <th>Score</th>
-                        <th>Status</th>
-                        <th>Owner</th>
+                        <tr>
 
-                    </tr>
+                            <th>Risk ID</th>
+                            <th>Risk Date</th>
+                            <th>Business Unit</th>
+                            <th>Source</th>
+                            <th>Category</th>
+                            <th>Sub Category</th>
+                            <th>Risk Event</th>
+                            <th>Probability</th>
+                            <th>Impact</th>
+                            <th>Inherent Rating</th>
+                            <th>Residual Level</th>
+                            <th>Mitigation</th>
+                            <th>Status</th>
+                            <th>Risk Owner</th>
+                            <th>Branch</th>
 
-                </thead>
+                        </tr>
 
-                <tbody>
+                    </thead>
 
-                </tbody>
+                    <tbody></tbody>
 
-            </table>
+                </table>
+
+            </div>
 
         </div>
 
     </div>
-    @* <div class="table-responsive">
-        <table class="table table-hover table-bordered text-center align-middle" id="dataTable">
-             <thead class="table-primary">
 
-                    <tr>
-
-                        <th>Risk ID</th>
-                        <th>Date</th>
-                        <th>Bussiness unit</th>
-                        <th>Category</th>
-                        <th>Rating</th>
-                        <th>Score</th>
-                        <th>Status</th>
-                        <th>Owner</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                </tbody>
-        </table>
-    </div> *@
 </div>
+
