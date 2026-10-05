@@ -1,149 +1,334 @@
+
+@model List<RiskManagement.Models.RiskRegistration>
+
 @{
-    ViewBag.Title = @User.Identity.Name;
+    ViewBag.Title = User.Identity?.Name ?? "Risk Approval";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
+
 @section Styles {
     <link href="~/css/view.css" rel="stylesheet" />
 }
+
 @section Scripts {
     <script src="~/js/approverisk.js"></script>
 }
-@model List<RiskManagement.Models.RiskRegistration>
 
 
 <div class="card shadow-lg p-4">
+
+    <!-- ===================================================== -->
+    <!-- PAGE HEADER -->
+    <!-- ===================================================== -->
+
     <div class="card-header bg-transparent border-0 py-3">
+
         <div class="d-flex justify-content-between align-items-center">
+
             <h4 class="fw-bold mb-0">
+
                 <i class="bi bi-shield-check text-success me-2"></i>
-                Risk Records
+
+                Risk Approval Records
+
             </h4>
+
         </div>
+
     </div>
+
+
+    <!-- ===================================================== -->
+    <!-- RISK TABLE -->
+    <!-- ===================================================== -->
+
     <div class="table-responsive">
 
         @if (Model != null && Model.Any())
         {
-            <table class="table table-hover table-bordered text-center align-middle" id="dataTable">
-                <thead class="table-secondary">
-                    <tr>
-                        <th>Risk ID</th>
+            <table class="table table-hover table-bordered text-center align-middle"
+                   id="dataTable">
 
-                        <!-- Section 1: Risk Information -->
+                <thead class="table-secondary">
+
+                    <tr>
+
+                        <!-- Risk Information -->
+                        <th>Risk ID</th>
                         <th>Risk Date</th>
                         <th>Identified Risk</th>
                         <th>Risk Category</th>
 
-                        <!-- Section 3: Mitigation & Controls -->
-                        <th>Existing Risk Mitigation</th>
+                        <!-- Risk Assessment -->
+                        <th>Probability</th>
+                        <th>Impact Level</th>
+                        <th>Inherent Risk Rating</th>
+                        <th>Residual Risk Level</th>
+
+                        <!-- Mitigation -->
                         <th>Mitigation Rating</th>
 
-                        <!-- Section 4: Ownership & Planning -->
+                        <!-- Ownership -->
                         <th>Risk Owner</th>
 
-                        <!-- Optional -->
+                        <!-- Status -->
                         <th>Status</th>
-                        <th>Edit</th>
+
+                        <!-- Action -->
+                        <th>Review</th>
+
                     </tr>
+
                 </thead>
+
+
                 <tbody>
-                    @if (Model != null && Model.Any())
-                    {
 
-                        foreach (var user in Model)
+                    @foreach (var user in Model)
+                    {
+                        /*
+                         * Rejected risks should not appear
+                         * on the approval page.
+                         */
+
+                        @if (string.Equals(
+                            user.Status,
+                            "rejected",
+                            StringComparison.OrdinalIgnoreCase))
                         {
-                            @if (user.Status == "rejected")
-                            {
-                                continue;
-                            }
-                            <tr>
-
-                                <td>@user.RiskId</td>
-
-                                <!-- Section 1: Risk Information -->
-                                <td>@user.RiskDate.ToString("yyyy-MM-dd")</td>
-                                <td>@user.IdentifiedRisk</td>
-                                <td>@user.RiskCategory</td>
-
-                                <!-- Section 3: Mitigation & Controls -->
-                                <td>@user.ExistingRiskMitigation</td>
-                                <td>@user.MitigationRating</td>
-
-                                <!-- Section 4: Ownership & Planning -->
-                                <td>@user.RiskOwner</td>
-                                <td>
-                                    @if (user.Status == "approved")
-                                    {
-                                        <span class="badge bg-success rounded-pill px-3 py-2">
-                                            Approved
-                                        </span>
-                                    }
-                                    else if (user.Status == "rejected")
-                                    {
-                                        <span class="badge bg-danger rounded-pill px-3 py-2">
-                                            Rejected
-                                        </span>
-                                    }
-                                    else
-                                    {
-                                        @* <i class="bi bi-dash text-muted"></i> *@
-                                        <span class="badge bg-warning text-dark rounded-pill px-3 py-2">
-                                            Pending
-                                        </span>
-                                    }
-                                </td>
-
-                                <td>                              
-                                        <button class="btn btn-outline-success approveBtn"
-                                                data-user='@Html.Raw(System.Text.Json.JsonSerializer.Serialize(user))'>
-                                            <i class="bi bi-eye-fill"></i>
-                                        </button>                                                                                
-                                </td>
-                            </tr>
-
-                                
+                            continue;
                         }
-                    }
-                    else
-                    {
+
+
                         <tr>
-                            <td colspan="9" class="text-muted">No data available</td>
+
+                            <!-- ================================================= -->
+                            <!-- RISK INFORMATION -->
+                            <!-- ================================================= -->
+
+                            <td>
+                                <span class="fw-semibold">
+                                    @user.RiskId
+                                </span>
+                            </td>
+
+
+                            <td>
+                                @user.RiskDate.ToString("yyyy-MM-dd")
+                            </td>
+
+
+                            <td>
+                                @user.IdentifiedRisk
+                            </td>
+
+
+                            <td>
+                                @user.RiskCategory
+                            </td>
+
+
+                            <!-- ================================================= -->
+                            <!-- RISK ASSESSMENT -->
+                            <!-- ================================================= -->
+
+                            <td>
+                                @user.Probability
+                            </td>
+
+
+                            <td>
+                                @user.ImpactLevel
+                            </td>
+
+
+                            <td>
+                                @user.InherentRiskRating
+                            </td>
+
+
+                            <td>
+                                @user.ResidualRiskLevel
+                            </td>
+
+
+                            <!-- ================================================= -->
+                            <!-- MITIGATION -->
+                            <!-- ================================================= -->
+
+                            <td>
+                                @user.MitigationRating
+                            </td>
+
+
+                            <!-- ================================================= -->
+                            <!-- OWNERSHIP -->
+                            <!-- ================================================= -->
+
+                            <td>
+                                @user.RiskOwner
+                            </td>
+
+
+                            <!-- ================================================= -->
+                            <!-- STATUS -->
+                            <!-- ================================================= -->
+
+                            <td>
+
+                                @if (string.Equals(
+                                    user.Status,
+                                    "approved",
+                                    StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <span class="badge bg-success rounded-pill px-3 py-2">
+                                        Approved
+                                    </span>
+                                }
+                                else if (string.Equals(
+                                    user.Status,
+                                    "rejected",
+                                    StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <span class="badge bg-danger rounded-pill px-3 py-2">
+                                        Rejected
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning text-dark rounded-pill px-3 py-2">
+                                        Pending
+                                    </span>
+                                }
+
+                            </td>
+
+
+                            <!-- ================================================= -->
+                            <!-- REVIEW BUTTON -->
+                            <!-- ================================================= -->
+
+                            <td>
+
+                                <button type="button"
+                                        class="btn btn-outline-success approveBtn"
+                                        title="Review Risk"
+                                        data-user='@Html.Raw(
+                                            System.Text.Json.JsonSerializer.Serialize(user)
+                                        )'>
+
+                                    <i class="bi bi-eye-fill"></i>
+
+                                </button>
+
+                            </td>
+
                         </tr>
                     }
-                </tbody>
-            </table>
 
+                </tbody>
+
+            </table>
         }
         else
         {
-            <h6 colspan="9" class="text-muted">No data available!</h6>
+            <!-- ================================================= -->
+            <!-- NO DATA -->
+            <!-- ================================================= -->
+
+            <div class="text-center py-5">
+
+                <i class="bi bi-inbox fs-1 text-muted"></i>
+
+                <h6 class="text-muted mt-3">
+                    No risk records available for approval.
+                </h6>
+
+            </div>
         }
+
     </div>
+
 </div>
 
 
-<!-- Modal Body -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+
+<!-- ========================================================= -->
+<!-- RISK REVIEW / APPROVAL MODAL -->
+<!-- ========================================================= -->
+
+<div class="modal fade"
+     id="editModal"
+     tabindex="-1"
+     aria-labelledby="editModalLabel"
+     aria-hidden="true">
+
     <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-top-safe">
+
         <div class="modal-content">
 
-            <!-- Header -->
+
+            <!-- ================================================= -->
+            <!-- MODAL HEADER -->
+            <!-- ================================================= -->
+
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">risk Information</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+
+                <h5 class="modal-title fw-bold"
+                    id="editModalLabel">
+
+                    <i class="bi bi-shield-check text-success me-2"></i>
+
+                    Risk Information
+
+                </h5>
+
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close">
+                </button>
+
             </div>
 
-            <!-- Body -->
+
+            <!-- ================================================= -->
+            <!-- MODAL BODY -->
+            <!-- ================================================= -->
+
             <div class="modal-body">
-                <div class="row" id="editModalContent"></div>
+
+                <div class="row g-2"
+                     id="editModalContent">
+
+                    <!--
+                        Risk information is populated
+                        dynamically by approverisk.js
+                    -->
+
+                </div>
+
             </div>
 
-            <!-- Dynamic Footer -->
-           <div class="modal-footer justify-content-center" id="editModalFooter">
-                <!-- Buttons will be added by JavaScript -->
+
+            <!-- ================================================= -->
+            <!-- MODAL FOOTER -->
+            <!-- ================================================= -->
+
+            <div class="modal-footer justify-content-center"
+                 id="editModalFooter">
+
+                <!--
+                    Approve and Reject buttons are populated
+                    dynamically by approverisk.js
+                -->
+
             </div>
 
         </div>
+
     </div>
+
 </div>
-      
+
