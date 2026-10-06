@@ -4,6 +4,9 @@
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
 
+@section Styles {
+    <link href="~/css/table.css" rel="stylesheet" />
+}
 @section Scripts {
     <script src="~/js/report.js"></script>
 }
@@ -379,10 +382,10 @@
 
         <div class="table-responsive">
 
-            <table id="dataTable"
+            <table id="riskReportTable"
                    class="table table-bordered table-hover align-middle w-100">
 
-                <thead class="table-primary">
+                <thead>
 
                     <tr>
 
