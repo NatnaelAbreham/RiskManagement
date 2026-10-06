@@ -9,49 +9,61 @@ namespace RiskManagement.Services
             _config = config;
         }
 
-        public async Task<string> SaveFileAsync(IFormFile file, string folder, bool useDateFolders = false)
+        public async Task<string> SaveFileAsync(
+          IFormFile file,
+          string folder,
+          bool useDateFolders = false)
         {
             if (file == null || file.Length == 0)
                 throw new Exception("Invalid file");
 
-            //  file type validation (images only)
             var allowedExtensions = new[]
-{
-    ".pdf",
-    ".doc",
-    ".docx",
-    ".xls",
-    ".xlsx",
-    ".jpg",
-    ".jpeg",
-    ".png"
-};
-            var extension = Path.GetExtension(file.FileName).ToLower();
+            {
+        ".pdf",
+        ".doc",
+        ".docx",
+        ".xls",
+        ".xlsx",
+        ".jpg",
+        ".jpeg",
+        ".png"
+    };
+
+            var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
 
             if (!allowedExtensions.Contains(extension))
-                throw new Exception("Only image files are allowed");
+                throw new Exception("Unsupported file type");
 
-            //  size limit (5MB)
             if (file.Length > 5 * 1024 * 1024)
                 throw new Exception("File too large (max 5MB)");
 
             var root = _config["FileStorageSettings:RootPath"];
 
+            if (string.IsNullOrWhiteSpace(root))
+                throw new Exception("File storage root path is not configured.");
+
             string path = Path.Combine(root, folder);
+
+            string relativePath = folder;
 
             if (useDateFolders)
             {
-                path = Path.Combine(
-                    path,
-                    DateTime.Now.ToString("yyyy"),
-                    DateTime.Now.ToString("MMMM")
+                var year = DateTime.Now.ToString("yyyy");
+                var month = DateTime.Now.ToString("MMMM");
+
+                path = Path.Combine(path, year, month);
+
+                relativePath = Path.Combine(
+                    relativePath,
+                    year,
+                    month
                 );
             }
 
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);
+            Directory.CreateDirectory(path);
 
             var fileName = $"{Guid.NewGuid()}{extension}";
+
             var fullPath = Path.Combine(path, fileName);
 
             using (var stream = new FileStream(fullPath, FileMode.Create))
@@ -59,9 +71,15 @@ namespace RiskManagement.Services
                 await file.CopyToAsync(stream);
             }
 
-            // return clean relative path
-            return $"{folder}/{fileName}";
+            // Store the complete relative web path
+            return $"{relativePath.Replace("\\", "/")}/{fileName}";
         }
+
+
+
+
+
+
     }
 
 }
