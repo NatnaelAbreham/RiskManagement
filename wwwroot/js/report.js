@@ -562,26 +562,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
                                     render: function (data) {
 
+                                        console.log("FILE PATH FROM API:", data);
+
                                         if (!data) {
-
                                             return "-";
-
                                         }
 
-
                                         return `
-                                        <a href="${escapeHtml(data)}"
-                                           target="_blank"
-                                           class="btn btn-sm btn-outline-primary">
+    <a href="/${escapeHtml(data)}"
+       target="_blank"
+       class="btn btn-sm btn-outline-primary">
 
-                                            <i class="bi bi-paperclip"></i>
-                                            View
+        <i class="bi bi-paperclip"></i>
+        View
 
-                                        </a>
-                                    `;
-
+    </a>
+`;
                                     }
-
                                 }
 
                             ],
