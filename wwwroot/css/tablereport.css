@@ -1,0 +1,233 @@
+/* =========================================================
+   RISK REPORT TABLE - LIGHT / DARK MODE
+========================================================= */
+
+#riskReportTable {
+    width: 100%;
+    margin-bottom: 0;
+
+    color: var(--text-primary);
+    background-color: var(--bg-surface);
+
+    border-color: var(--border);
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+#riskReportTable thead,
+#riskReportTable.dataTable thead {
+    background-color: var(--bg-surface-2) !important;
+}
+
+#riskReportTable thead th,
+#riskReportTable.dataTable thead th {
+    background-color: var(--bg-surface-2) !important;
+    color: var(--text-primary) !important;
+
+    border-color: var(--border) !important;
+
+    font-weight: 700;
+    font-size: 0.9rem;
+
+    padding: 14px 12px;
+
+    white-space: nowrap;
+
+    vertical-align: middle;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+/* Header hover */
+
+#riskReportTable thead th:hover,
+#riskReportTable.dataTable thead th:hover {
+    background-color: var(--bg-hover) !important;
+}
+
+
+/* =========================================================
+   TABLE BODY
+========================================================= */
+
+#riskReportTable tbody {
+    background-color: var(--bg-surface) !important;
+
+    color: var(--text-primary) !important;
+}
+
+
+/* =========================================================
+   EVEN ROW
+========================================================= */
+
+#riskReportTable tbody tr:nth-child(even) td {
+    background-color: var(--bg-surface-2) !important;
+
+    color: var(--text-primary) !important;
+}
+
+
+/* =========================================================
+   ODD ROW
+========================================================= */
+
+#riskReportTable tbody tr:nth-child(odd) td {
+    background-color: var(--bg-surface) !important;
+
+    color: var(--text-primary) !important;
+}
+
+
+/* =========================================================
+   TABLE CELLS
+========================================================= */
+
+#riskReportTable tbody td {
+    color: var(--text-primary) !important;
+
+    border-color: var(--border) !important;
+
+    padding: 12px;
+
+    vertical-align: middle;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+/* =========================================================
+   ROW HOVER
+========================================================= */
+
+#riskReportTable.table-hover tbody tr:hover td {
+    background-color: var(--bg-hover) !important;
+
+    color: var(--text-primary) !important;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   TABLE BORDER
+========================================================= */
+
+#riskReportTable.table-bordered > :not(caption) > * > * {
+    border-color: var(--border) !important;
+}
+
+
+/* =========================================================
+   TABLE ROW TRANSITION
+========================================================= */
+
+#riskReportTable tbody tr {
+    transition:
+        background-color 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+/* =========================================================
+   RESPONSIVE CONTAINER
+========================================================= */
+
+.table-responsive {
+    border-radius: 14px;
+    overflow-x: auto;
+}
+
+
+/* =========================================================
+   DATATABLE SPECIFIC OVERRIDES
+========================================================= */
+
+/* Header */
+
+table.dataTable#riskReportTable thead th,
+table.dataTable#riskReportTable thead td {
+    background-color: var(--bg-surface-2) !important;
+
+    color: var(--text-primary) !important;
+
+    border-color: var(--border) !important;
+}
+
+
+/* Body */
+
+table.dataTable#riskReportTable tbody tr td {
+    color: var(--text-primary) !important;
+
+    border-color: var(--border) !important;
+}
+
+
+/* Even */
+
+table.dataTable#riskReportTable tbody tr:nth-child(even) td {
+    background-color: var(--bg-surface-2) !important;
+}
+
+
+/* Odd */
+
+table.dataTable#riskReportTable tbody tr:nth-child(odd) td {
+    background-color: var(--bg-surface) !important;
+}
+
+
+/* Hover */
+
+table.dataTable#riskReportTable tbody tr:hover td {
+    background-color: var(--bg-hover) !important;
+
+    color: var(--text-primary) !important;
+}
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+.dark #riskReportTable,
+.dark table.dataTable#riskReportTable {
+    background-color: var(--bg-surface) !important;
+
+    color: var(--text-primary) !important;
+}
+
+
+.dark #riskReportTable thead th,
+.dark table.dataTable#riskReportTable thead th {
+    background-color: var(--bg-surface-2) !important;
+
+    color: var(--text-primary) !important;
+}
+
+
+.dark #riskReportTable tbody tr:nth-child(even) td,
+.dark table.dataTable#riskReportTable tbody tr:nth-child(even) td {
+    background-color: var(--bg-surface-2) !important;
+}
+
+
+.dark #riskReportTable tbody tr:nth-child(odd) td,
+.dark table.dataTable#riskReportTable tbody tr:nth-child(odd) td {
+    background-color: var(--bg-surface) !important;
+}
+
+
+.dark #riskReportTable tbody tr:hover td,
+.dark table.dataTable#riskReportTable tbody tr:hover td {
+    background-color: var(--bg-hover) !important;
+}
