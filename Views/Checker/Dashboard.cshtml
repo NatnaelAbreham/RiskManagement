@@ -42,10 +42,19 @@
             </div>
         </div>
 
+         <div class="col-xl-2 col-md-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <small class="text-muted">Total Incidents</small>
+                    <h2 class="fw-bold mt-2">@Model.TotalIncident</h2>
+                </div>
+            </div>
+        </div>
+
         <div class="col-xl-2 col-md-4">
             <div class="card shadow-sm border-0 h-100">
                 <div class="card-body">
-                    <small class="text-muted">Open Risks</small>
+                    <small class="text-muted">Open Incidents</small>
                     <h2 class="text-warning fw-bold mt-2">@Model.OpenRisk</h2>
                 </div>
             </div>
@@ -54,13 +63,13 @@
         <div class="col-xl-2 col-md-4">
             <div class="card shadow-sm border-0 h-100">
                 <div class="card-body">
-                    <small class="text-muted">Closed Risks</small>
+                    <small class="text-muted">Closed Incidents</small>
                     <h2 class="text-success fw-bold mt-2">@Model.ClosedRisk</h2>
                 </div>
             </div>
         </div>
 
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-2 col-md-4">
             <div class="card shadow-sm border-0 h-100">
                 <div class="card-body">
                     <small class="text-muted">High Risk</small>
@@ -69,7 +78,7 @@
             </div>
         </div>
 
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-2 col-md-4">
             <div class="card shadow-sm border-0 h-100">
                 <div class="card-body">
                     <small class="text-muted">Due This Week</small>

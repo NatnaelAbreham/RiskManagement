@@ -50,14 +50,17 @@ namespace RiskManagement.Controllers
 
             model.TotalRisk = _context.RiskRegistrations.Count();
 
-            model.OpenRisk = _context.RiskRegistrations
-                .Count(x => x.Status == "Open");
+            //total incident
+            model.TotalIncident = _context.IncidentRecords.Count();
 
-            model.ClosedRisk = _context.RiskRegistrations
+            model.OpenRisk = _context.IncidentRecords
+                .Count(x => x.Status == "In Progress");
+
+            model.ClosedRisk = _context.IncidentRecords
                 .Count(x => x.Status == "Closed");
 
             model.HighRisk = _context.RiskRegistrations
-                .Count(x => x.InherentRiskRating == "High");
+                .Count(x => x.InherentRiskRating == "High" || x.InherentRiskRating == "Very High");
 
             model.DueSoon = _context.RiskRegistrations
                 .Count(x => x.MitigationPlannedDate <= DateTime.Today.AddDays(7));

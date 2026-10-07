@@ -918,12 +918,12 @@ function initializeEditRiskCalculation(
 
     function updateRecommendationVisibility(residual) {
 
-        if (
-            residual === "Medium" ||
-            residual === "High" ||
-            residual === "Very High"
-        ) {
-
+     
+  if (
+    residual === "Moderate" ||
+    residual === "High" ||
+    residual === "Very High"
+) {
             recommendationSection.classList.remove(
                 "d-none"
             );
@@ -1020,7 +1020,7 @@ function initializeEditRiskCalculation(
                 );
                 break;
 
-            case "Medium":
+            case "Moderate":
                 residualBadge.classList.add(
                     "risk-medium"
                 );

@@ -3,6 +3,7 @@ namespace RiskManagement.Models
     public class CheckerDashboard
     {
         public int TotalRisk { get; set; }
+        public int TotalIncident { get; set; }
         public int OpenRisk { get; set; }
         public int ClosedRisk { get; set; }
         public int HighRisk { get; set; }
