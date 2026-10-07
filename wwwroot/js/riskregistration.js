@@ -292,7 +292,7 @@ function updateResidualRisk() {
       residualBadge.classList.add("risk-low");
       break;
 
-    case "Medium":
+    case "Moderate":
       residualBadge.classList.add("risk-medium");
       break;
 
@@ -310,10 +310,10 @@ function updateResidualRisk() {
   document.getElementById("ResidualRiskLevel").value = residual;
 
   if (
-    residual === "Medium" ||
+    residual === "Moderate" ||
     residual === "High" ||
     residual === "Very High"
-  ) {
+) {
 
     recommendationSection.classList.remove("d-none");
 
