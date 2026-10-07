@@ -70,10 +70,19 @@ namespace RiskManagement.Controllers
                 .Take(10)
                 .ToList();
 
-            /*    model.TopRisk = _context.RiskRegistrations
-                   .OrderByDescending(x => x.RiskScore)
-                   .Take(10)
-                   .ToList(); */
+            model.TopRisk = _context.RiskRegistrations
+    .AsEnumerable()
+    .OrderByDescending(x => x.InherentRiskRating switch
+    {
+        "Very High" => 5,
+        "High" => 4,
+        "Moderate" => 3,
+        "Low" => 2,
+        "Very Low" => 1,
+        _ => 0
+    })
+    .Take(10)
+    .ToList();
 
             return View(model);
         }
@@ -159,33 +168,33 @@ namespace RiskManagement.Controllers
 
             return Json(data);
         }
-        /*  [HttpGet("GetUpcomingDeadlines")]
-         public JsonResult GetUpcomingDeadlines()
-         {
-             var today = DateTime.Today;
-             var next30Days = today.AddDays(30);
-
-             var data = _context.RiskRegistrations
-        .Where(r => r.MitigationPlannedDate >= today &&
-                    r.MitigationPlannedDate <= next30Days)
-        .GroupBy(r => r.MitigationPlannedDate.Date)
-        .Select(g => new
+        [HttpGet("GetUpcomingDeadlines")]
+        public JsonResult GetUpcomingDeadlines()
         {
-            Date = g.Key,
-            Count = g.Count()
-        })
-        .OrderBy(x => x.Date)
-        .ToList()           // SQL ends here
-        .Select(x => new
-        {
-            Date = x.Date.ToString("dd MMM"),
-            Count = x.Count
-        })
-        .ToList();
+            var today = DateTime.Today;
+            var next30Days = today.AddDays(30);
 
-             return Json(data);
-         }
-  */
+            var data = _context.RiskRegistrations
+                .Where(r => r.MitigationPlannedDate.HasValue &&
+                            r.MitigationPlannedDate.Value >= today &&
+                            r.MitigationPlannedDate.Value <= next30Days)
+                .GroupBy(r => r.MitigationPlannedDate.Value.Date)
+                .Select(g => new
+                {
+                    Date = g.Key,
+                    Count = g.Count()
+                })
+                .OrderBy(x => x.Date)
+                .ToList()
+                .Select(x => new
+                {
+                    Date = x.Date.ToString("dd MMM"),
+                    Count = x.Count
+                })
+                .ToList();
+
+            return Json(data);
+        }
         [HttpPost("approve")]
         public IActionResult Approve([FromBody] ApproveRequest model)
         {
@@ -354,7 +363,20 @@ namespace RiskManagement.Controllers
                     .Select(x => x.BranchName)
                     .Distinct()
                     .OrderBy(x => x)
-                    .ToListAsync()
+                    .ToListAsync(),
+                inherentRiskRatings = await risks
+    .Where(x => x.InherentRiskRating != null)
+    .Select(x => x.InherentRiskRating)
+    .Distinct()
+    .OrderBy(x => x)
+    .ToListAsync(),
+
+                statuses = await risks
+    .Where(x => x.Status != null)
+    .Select(x => x.Status)
+    .Distinct()
+    .OrderBy(x => x)
+    .ToListAsync()
             };
 
 
