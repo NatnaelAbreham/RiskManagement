@@ -14,9 +14,13 @@ namespace RiskManagement.Controllers
     public class CheckerController : Controller
     {
 
-        public CheckerController(AppDBContext context) => _context = context;
         private readonly AppDBContext _context;
-
+        private readonly IWebHostEnvironment _environment;
+        public CheckerController(AppDBContext context, IWebHostEnvironment environment)
+        {
+            _context = context;
+            _environment = environment;
+        }
 
         [HttpGet("ViewAll")]
         public IActionResult ViewAll()
