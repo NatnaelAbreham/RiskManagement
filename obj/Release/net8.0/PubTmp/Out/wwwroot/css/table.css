@@ -1,0 +1,128 @@
+/* =========================================================
+   RISK TABLE - LIGHT / DARK MODE
+========================================================= */
+
+#dataTable {
+    width: 100%;
+    margin-bottom: 0;
+
+    color: var(--text-primary);
+    background-color: var(--bg-surface);
+
+    border-color: var(--border);
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+#dataTable thead {
+    background: var(--bg-surface-2) !important;
+
+    color: var(--text-primary) !important;
+}
+
+#dataTable thead th {
+    background: var(--bg-surface-2) !important;
+
+    color: var(--text-primary) !important;
+
+    border-color: var(--border) !important;
+
+    font-weight: 600;
+
+    padding: 13px 12px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   TABLE BODY
+========================================================= */
+
+#dataTable tbody {
+    background-color: var(--bg-surface) !important;
+
+    color: var(--text-primary) !important;
+}
+
+#dataTable tbody tr {
+    background-color: var(--bg-surface) !important;
+
+    color: var(--text-primary) !important;
+
+    border-color: var(--border) !important;
+
+    transition: var(--transition);
+}
+
+#dataTable tbody td {
+    background-color: transparent !important;
+
+    color: var(--text-primary) !important;
+
+    border-color: var(--border) !important;
+
+    padding: 12px;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+#dataTable.table-hover tbody tr:hover {
+    background-color: var(--bg-hover) !important;
+
+    color: var(--text-primary) !important;
+}
+
+
+/* =========================================================
+   TABLE BORDER
+========================================================= */
+
+#dataTable.table-bordered > :not(caption) > * > * {
+    border-color: var(--border) !important;
+}
+
+
+/* =========================================================
+   TABLE RESPONSIVE AREA
+========================================================= */
+
+.table-responsive {
+    border-radius: 14px;
+}
+
+
+/* =========================================================
+   LIGHT MODE
+========================================================= */
+
+:root:not(.dark) #dataTable {
+    background-color: var(--bg-surface);
+}
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+.dark #dataTable {
+    background-color: var(--bg-surface);
+}
+
+.dark #dataTable thead th {
+    background-color: var(--bg-surface-2) !important;
+
+    color: var(--text-primary) !important;
+}
+
+.dark #dataTable tbody td {
+    background-color: var(--bg-surface) !important;
+
+    color: var(--text-primary) !important;
+}
