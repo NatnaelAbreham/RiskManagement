@@ -632,6 +632,7 @@ namespace RiskManagement.Controllers
 
 
 
+
         [HttpGet("ExportRiskRegister")]
         public async Task<IActionResult> ExportRiskRegister(
             string? identifiedRisk,
@@ -885,6 +886,21 @@ namespace RiskManagement.Controllers
                 ws.PageSetup.CenterHorizontally = true;
             }
 
+            // Hide every worksheet except Credit.
+            var creditSheet = workbook.Worksheet("Credit");
+
+            foreach (var sheet in workbook.Worksheets)
+            {
+                if (!sheet.Name.Equals(
+                        "Credit",
+                        StringComparison.OrdinalIgnoreCase))
+                {
+                    sheet.Hide();
+                }
+            }
+
+            // Activate Credit when the workbook opens.
+            creditSheet.SetTabActive();
             using var stream = new MemoryStream();
             workbook.SaveAs(stream);
             stream.Position = 0;
@@ -946,28 +962,32 @@ namespace RiskManagement.Controllers
             };
         }
 
-        private static void ApplyRiskCellColor(
-            IXLCell cell, string? rating)
+
+        private static void ApplyRiskCellColor(IXLCell cell, string? rating)
         {
-            var normalized = (rating ?? "").Trim().ToLowerInvariant();
+            var normalized = (rating ?? "")
+                .Trim()
+                .Replace("-", " ")
+                .Replace("_", " ")
+                .ToLowerInvariant();
 
             var color = normalized switch
             {
-                "very low" => "#C6E0B4",
-                "low" => "#A9D18E",
-                "moderate" or "medium" => "#FFE699",
-                "high" => "#F4B183",
-                "very high" or "extreme" => "#F4CCCC",
+                "very low" => "#136ACE",
+                "low" => "#0A7C22",
+                "medium" => "#E0930D",
+                "moderate" => "#E0930D",
+                "high" => "#EF4444",
+                "very high" => "#991B1B",
+                "extreme" => "#991B1B",
                 _ => null
             };
 
             if (color != null)
             {
                 cell.Style.Fill.BackgroundColor = XLColor.FromHtml(color);
-                cell.Style.Font.FontColor = XLColor.Black;
+                cell.Style.Font.FontColor = XLColor.White;
             }
         }
-
-
     }
 }
