@@ -912,25 +912,28 @@ namespace RiskManagement.Controllers
                 normalized.Contains("veryhigh"))
                 return 5;
 
-            if (normalized.Contains("likely") ||
-                normalized == "high")
+            if (normalized.Contains("unlikely"))
+                return 2;
+
+            if (normalized.Contains("likely"))
                 return 4;
 
             if (normalized.Contains("possible") ||
                 normalized.Contains("medium"))
                 return 3;
 
-            if (normalized.Contains("unlikely") ||
-                normalized == "low")
-                return 2;
-
             if (normalized.Contains("rare") ||
                 normalized.Contains("verylow"))
                 return 1;
 
+            if (normalized == "low")
+                return 2;
+
+            if (normalized == "high")
+                return 4;
+
             return null;
         }
-
         private static string GetRatingFromScore(int score)
         {
             return score switch
