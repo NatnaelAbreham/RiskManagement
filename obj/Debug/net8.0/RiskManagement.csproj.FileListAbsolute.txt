@@ -142,3 +142,11 @@ C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\obj\Debug\ne
 C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\obj\Debug\net8.0\RiskManagement.pdb
 C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\obj\Debug\net8.0\RiskManagement.genruntimeconfig.cache
 C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\obj\Debug\net8.0\ref\RiskManagement.dll
+C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\bin\Debug\net8.0\ClosedXML.dll
+C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\bin\Debug\net8.0\ClosedXML.Parser.dll
+C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\bin\Debug\net8.0\DocumentFormat.OpenXml.dll
+C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\bin\Debug\net8.0\DocumentFormat.OpenXml.Framework.dll
+C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\bin\Debug\net8.0\ExcelNumberFormat.dll
+C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\bin\Debug\net8.0\RBush.dll
+C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\bin\Debug\net8.0\SixLabors.Fonts.dll
+C:\Users\Natnael.Abreham\source\repos\RiskManagement\RiskManagement\bin\Debug\net8.0\System.IO.Packaging.dll

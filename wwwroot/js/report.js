@@ -789,25 +789,46 @@ document.addEventListener("DOMContentLoaded", function () {
     // EXCEL
     // =========================================================
 
-    const btnExcel =
-        document.getElementById("btnExcel");
+
+    const btnExcel = document.getElementById("btnExcel");
 
     if (btnExcel) {
-
         btnExcel.addEventListener("click", function () {
+            const params = new URLSearchParams();
 
-            if (
-                $.fn.DataTable.isDataTable(
-                    "#riskReportTable"
-                )
-            ) {
+            [
+                "identifiedRisk",
+                "sourceOfRisk",
+                "riskCategory",
+                "riskSubCategory",
+                "riskEvent",
+                "effect",
+                "probability",
+                "impactLevel",
+                "inherentRiskRating",
+                "residualRiskLevel",
+                "mitigationRating",
+                "riskOwner",
+                "status",
+                "registeredBy",
+                "branchId",
+                "branchName"
+            ].forEach(function (id) {
+                addFilter(params, id);
+            });
 
-                $(".buttons-excel").click();
+            const fromDate =
+                document.getElementById("fromDate")?.value;
 
-            }
+            const toDate =
+                document.getElementById("toDate")?.value;
 
+            if (fromDate) params.append("fromDate", fromDate);
+            if (toDate) params.append("toDate", toDate);
+
+            window.location.href =
+                `/Checker/ExportRiskRegister?${params.toString()}`;
         });
-
     }
 
 
